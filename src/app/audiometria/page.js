@@ -90,12 +90,12 @@ const Casillero = styled.div`
   }
 `;
 
-const a = ` &:hover {
-  color: white;
-  img {
-    visibility: visible;
-  }
-}`;
+// const a = ` &:hover {
+//   color: white;
+//   img {
+//     visibility: visible;
+//   }
+// }`;
 
 const STUDIES_NAMES = {
   D_AEREA: 'dAerea',
