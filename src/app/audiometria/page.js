@@ -8,7 +8,7 @@
 import React, { useReducer, useState } from 'react';
 import styled from '@emotion/styled';
 import {
-  Col, Row, Container,
+  Col, Row, Container, Form,
 } from 'react-bootstrap';
 import Image from 'next/image';
 
@@ -45,6 +45,19 @@ const Frecuencia = styled.div`
     margin-bottom: 0;
   }
   
+`;
+
+const TextInputDiv = styled.div`
+  margin: 0;
+  background-color: transparent;
+  padding: 0!important;
+  border-radius: 0%;
+  color: white;
+  margin: 0;
+  padding: 0;
+  text-align: right;
+  min-width: 43.7px;
+  margin-bottom: 0!important;
 `;
 
 const SeleccionEstudio = styled.button`
@@ -90,13 +103,6 @@ const Casillero = styled.div`
   }
 `;
 
-// const a = ` &:hover {
-//   color: white;
-//   img {
-//     visibility: visible;
-//   }
-// }`;
-
 const STUDIES_NAMES = {
   D_AEREA: 'dAerea',
   D_OSEA: 'dOsea',
@@ -128,9 +134,10 @@ export default function Audiometria() {
   //   return frequencies[col - 1];
   // };
 
-  const addValueToResults = (row, col, estudio) => {
+  const addValueToResults = (row, col, estudio, textInput = false) => {
+    const newRow = textInput ? (parseInt(row, 10) + 10) / 5 : row;
     const newStudy = STUDIES[estudio];
-    newStudy[col] = newStudy[col] === row ? '' : row;
+    newStudy[col] = newStudy[col] === newRow ? '' : newRow;
     setStudies({ ...STUDIES, [estudio]: newStudy });
     forceUpdate();
   };
@@ -237,6 +244,21 @@ export default function Audiometria() {
             <Row>
               {AudiometriaComp()}
             </Row>
+            <Form>
+              <Row style={{ paddingLeft: '12px' }}>
+                {[1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1].map((size, index) => (
+                  <TextInputDiv className={`aud-${size}`}>
+                    <Form.Control
+                      size="sm"
+                      type="number"
+                      name="txtNumber"
+                      value={STUDIES[evaluando][index + 1] !== '' ? STUDIES[evaluando][index + 1] * 5 - 10 : ''}
+                      onChange={(event) => addValueToResults(event.target.value, index + 1, evaluando, true)}
+                    />
+                  </TextInputDiv>
+                ))}
+              </Row>
+            </Form>
           </Audiograma>
         </Container>
       </Template>
