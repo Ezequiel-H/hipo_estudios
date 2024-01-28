@@ -118,46 +118,23 @@ a {
 }
 
 .aud-1 {
-  flex: 0 0 5%;
+  flex: 0 0 calc(1 / 14 * 100%);
 }
 .aud-2 {
-  flex: 0 0 10%;
+  flex: 0 0 calc(2 / 14 * 100%);
 }
-.aud-3 {
-  flex: 0 0 21%;
+
+.form-1 {
+  flex: 0 0 calc(1 / 14 * 100%) !important;
 }
-.aud-4 {
-  flex: 0 0 28%;
+.form-2 {
+  flex: 0 0 calc(2 / 14 * 100%);
 }
-.aud-5 {
-  flex: 0 0 35%;
-}
-.aud-6 {
-  flex: 0 0 42.857142857142854%;
-}
-.aud-7 {
-  flex: 0 0 50%;
-}
-.aud-8 {
-  flex: 0 0 57.142857142857146%;
-}
-.aud-9 {
-  flex: 0 0 64.28571428571429%;
-}
-.aud-10 {
-  flex: 0 0 71.42857142857143%;
-}
-.aud-11 {
-  flex: 0 0 78.57142857142857%;
-}
-.aud-12 {
-  flex: 0 0 85.71428571428571%;
-}
-.aud-13 {
-  flex: 0 0 92.85714285714286%;
-}
-.aud-14 {
-  flex: 0 0 100%;
+
+.row {
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .border-bottom-active {

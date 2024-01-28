@@ -8,24 +8,22 @@
 import React, { useReducer, useState } from 'react';
 import styled from '@emotion/styled';
 import {
-  Col, Row, Container, Form,
+  Col, Row, Container, Form, Button,
 } from 'react-bootstrap';
 import Image from 'next/image';
 
 const Template = styled.div`
   background-color: white;
   background-size: cover;
-  height: 100vh;
   width: 100vw;
+  display: flex;
+  justify-content: center;
 `;
 
 const Audiograma = styled.div`
-  max-width: 850px;
-  width: auto;
-  margin-left:auto;
-  margin-right:auto;
-  padding-top: 30px;
-
+  position: relative;
+  width: 581px;
+  height: 609px;
 `;
 
 const Frecuencia = styled.div`
@@ -34,7 +32,6 @@ const Frecuencia = styled.div`
   padding: 0!important;
   border-radius: 0%;
   color: black;
-  margin: 0;
   padding: 0;
   text-align: right;
   min-width: 43.7px;
@@ -48,16 +45,14 @@ const Frecuencia = styled.div`
 `;
 
 const TextInputDiv = styled.div`
-  margin: 0;
-  background-color: transparent;
+  margin: 0 !important;
   padding: 0!important;
+  background-color: transparent;
   border-radius: 0%;
   color: white;
-  margin: 0;
-  padding: 0;
+  display: flex;
+  justify-content: flex-end;
   text-align: right;
-  min-width: 43.7px;
-  margin-bottom: 0!important;
 `;
 
 const SeleccionEstudio = styled.button`
@@ -72,21 +67,19 @@ const SeleccionEstudio = styled.button`
 `;
 
 const Casillero = styled.div`
-  border-right: 0.5px solid black;
-  border-left: 0.5px solid black;
   margin: 0;
   background-color: transparent;
   padding: 0!important;
   border-radius: 0%;
+  height:21px;
 
   p {
     color: black;
     margin: 0;
     padding: 0;
-
     position: relative;
-    bottom: -12px; /* Mover 5px hacia arriba */
-    right: 58px; /* Mover 5px hacia la izquierda */
+    bottom: -12px; 
+    right: 58px; 
     text-align: right;
   }
 
@@ -94,12 +87,12 @@ const Casillero = styled.div`
     background-color: transparent;
     padding:0;
     border: 0;
-    font-size:15px;
+    font-size:10px;
     position: relative;
-    bottom: -11px; /* Mover 5px hacia arriba */
-    right: 9px; /* Mover 5px hacia la izquierda */
+    bottom: -5px; 
+    right: 9px; 
     transition: all .5s ease;
-    transform: scale(1.7);
+    transform: scale(1.5);
   }
 `;
 
@@ -115,6 +108,13 @@ const STUDIES_IMAGES = {
   [STUDIES_NAMES.D_OSEA]: '/img/estudios/markers/osea_derecha.png',
   [STUDIES_NAMES.I_AEREA]: '/img/estudios/markers/aerea_izquierda.png',
   [STUDIES_NAMES.I_OSEA]: '/img/estudios/markers/osea_izquierda.png',
+};
+
+const STUDIES_FULL_NAMES = {
+  [STUDIES_NAMES.D_AEREA]: 'Aérea derecha',
+  [STUDIES_NAMES.D_OSEA]: 'Ósea derecha',
+  [STUDIES_NAMES.I_AEREA]: 'Aérea izquierda',
+  [STUDIES_NAMES.I_OSEA]: 'Ósea izquierda',
 };
 
 export default function Audiometria() {
@@ -134,11 +134,42 @@ export default function Audiometria() {
   //   return frequencies[col - 1];
   // };
 
+  const [lineasElementos, setLineas] = useState([]);
+
+  const agregarCurva = (estudioActual = evaluando) => {
+    const puntos = STUDIES[estudioActual].map((punto, index) => {
+      const elemento = document.getElementById(`b-${punto}-${index}`);
+      return punto !== ''
+        ? { x: elemento.getBoundingClientRect().x - 48, y: elemento.offsetTop + 8 }
+        : { x: undefined, y: undefined };
+    }).filter((value) => value.x !== undefined);
+
+    const newLineas = [];
+    for (let i = 0; i < puntos.length - 1; i++) {
+      const puntoActual = puntos[i];
+      const puntoSiguiente = puntos[i + 1];
+      newLineas.push(
+        <line
+          key={i}
+          x1={puntoActual.x}
+          y1={puntoActual.y}
+          x2={puntoSiguiente.x}
+          y2={puntoSiguiente.y}
+          stroke={estudioActual === STUDIES_NAMES.D_AEREA || estudioActual === STUDIES_NAMES.D_OSEA ? 'red' : 'blue'}
+          strokeDasharray="10,8"
+          strokeWidth="4"
+        />,
+      );
+    }
+    setLineas(newLineas);
+  };
+
   const addValueToResults = (row, col, estudio, textInput = false) => {
     const newRow = textInput ? (parseInt(row, 10) + 10) / 5 : row;
     const newStudy = STUDIES[estudio];
     newStudy[col] = newStudy[col] === newRow ? '' : newRow;
     setStudies({ ...STUDIES, [estudio]: newStudy });
+    agregarCurva();
     forceUpdate();
   };
 
@@ -150,19 +181,24 @@ export default function Audiometria() {
       for (let col = 0; col < 12; col++) {
         cols.push(
           <Casillero
-            id={`${row}-${col}`}
-            key={`${row}-${col}`}
-            className={`aud-${col === 1 || col === 2 ? '2' : '1'} ${row % 2 === 0 ? 'border-bottom-active' : null}`}
+            id={`c-${row}-${col}`}
+            key={`c-${row}-${col}`}
+            className={`aud-${col === 1 || col === 2 ? '2' : '1'}`}
+            style={{
+              borderBottom: row === 2 ? '5px solid rgba(0, 0, 0, 1)' : row % 2 === 0 ? '2px solid rgba(0, 0, 0, 1)' : null,
+              borderLeft: col === 0 ? '2px solid rgba(0, 0, 0, 1)' : null,
+              borderRight: [3, 5, 7, 9].includes(col) ? '2px dashed rgba(0, 0, 0, 1)' : '2px solid rgba(0, 0, 0, 1)',
+            }}
           >
             {col === 0
               ? (row % 2 === 0 ? (<p>{row * 5 - 10}</p>) : null)
               : (
-                <button onClick={() => addValueToResults(row, col, evaluando)}>
+                <button style={{ zIndex: 50 }} onClick={() => addValueToResults(row, col, evaluando)} id={`b-${row}-${col}`}>
                   <Image
                     src={STUDIES_IMAGES[evaluando]}
                     alt="Circulo rojo audiometria"
-                    width={18}
-                    height={18}
+                    width={16}
+                    height={16}
                     className={STUDIES[evaluando][col] === row ? 'opacity-100' : 'opacity-0'}
                   />
                 </button>
@@ -178,35 +214,18 @@ export default function Audiometria() {
   return (
     <main>
       <Template>
-        <Container>
-          <Row>
-            <Col sm={2} lg={2}>
-              <SeleccionEstudio onClick={() => setEvaluando('iAerea')}>
-                <Image src="/img/estudios/markers/aerea_izquierda.png" alt="Via aérea izquierda" width={55} height={55} className={evaluando === 'iAerea' ? 'opacity-100' : 'opacity-25'} />
-                Aérea izquierda
-              </SeleccionEstudio>
-            </Col>
-            <Col sm={2} lg={2}>
-              <SeleccionEstudio onClick={() => setEvaluando('iOsea')}>
-                <Image src="/img/estudios/markers/osea_izquierda.png" alt="Via ósea izquierda" width={55} height={55} className={evaluando === 'iOsea' ? 'opacity-100' : 'opacity-25'} />
-                Ósea izquierda
-              </SeleccionEstudio>
-            </Col>
-            <Col sm={2} lg={2}>
-              <SeleccionEstudio onClick={() => setEvaluando('dAerea')}>
-                <Image src="/img/estudios/markers/aerea_derecha.png" alt="Via aérea derecha" width={55} height={55} className={evaluando === 'dAerea' ? 'opacity-100' : 'opacity-25'} />
-                Aérea derecha
-              </SeleccionEstudio>
-            </Col>
-            <Col sm={2} lg={2}>
-              <SeleccionEstudio onClick={() => setEvaluando('dOsea')}>
-                <Image src="/img/estudios/markers/osea_derecha.png" alt="Via ósea derecha" width={55} height={55} className={evaluando === 'dOsea' ? 'opacity-100' : 'opacity-25'} />
-                Ósea derecha
-              </SeleccionEstudio>
-            </Col>
-          </Row>
-          <Audiograma>
-            <Row>
+        <Container style={{
+          position: 'relative', margin: 0, paddingTop: '30px', paddingLeft: '60px', maxWidth: 'none', display: 'flex', height: '100vh',
+        }}
+        >
+          <Row style={{
+            zIndex: 50,
+            display: 'flex',
+            justifyContent: 'start',
+            position: 'relative',
+          }}
+          >
+            <Row style={{ width: '581px' }}>
               <Frecuencia className="aud-1 freq-up">
                 <p>125</p>
               </Frecuencia>
@@ -241,25 +260,50 @@ export default function Audiometria() {
                 <p>8.000</p>
               </Frecuencia>
             </Row>
-            <Row>
+            <Audiograma>
               {AudiometriaComp()}
-            </Row>
-            <Form>
-              <Row style={{ paddingLeft: '12px' }}>
+              <svg style={{
+                position: 'absolute', width: '100%', height: '100%', top: 0, left: 0, zIndex: 10,
+              }}
+              >
+                {lineasElementos}
+              </svg>
+            </Audiograma>
+            <Form style={{ width: '581px', padding: 0, margin: 20 }}>
+              <Row style={{ width: '100%' }}>
                 {[1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1].map((size, index) => (
-                  <TextInputDiv className={`aud-${size}`}>
+                  <TextInputDiv
+                    className={`form-${size}`}
+                    style={{
+                      padding: 0,
+                    }}
+                  >
                     <Form.Control
+                      style={{ maxWidth: '35px' }}
                       size="sm"
                       type="number"
                       name="txtNumber"
                       value={STUDIES[evaluando][index + 1] !== '' ? STUDIES[evaluando][index + 1] * 5 - 10 : ''}
                       onChange={(event) => addValueToResults(event.target.value, index + 1, evaluando, true)}
+                      step="5"
                     />
                   </TextInputDiv>
                 ))}
               </Row>
             </Form>
-          </Audiograma>
+          </Row>
+          <Col sm={2} lg={2}>
+            {Object.values(STUDIES_NAMES).map((name) => (
+              <SeleccionEstudio onClick={() => {
+                setEvaluando(name);
+                agregarCurva(name);
+              }}
+              >
+                <Image src={STUDIES_IMAGES[name]} alt={STUDIES_FULL_NAMES[name]} width={55} height={55} className={evaluando === name ? 'opacity-100' : 'opacity-25'} />
+                {STUDIES_FULL_NAMES[name]}
+              </SeleccionEstudio>
+            ))}
+          </Col>
         </Container>
       </Template>
     </main>
