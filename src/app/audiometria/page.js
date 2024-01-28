@@ -167,7 +167,7 @@ export default function Audiometria() {
   const addValueToResults = (row, col, estudio, textInput = false) => {
     const newRow = textInput ? (parseInt(row, 10) + 10) / 5 : row;
     const newStudy = STUDIES[estudio];
-    newStudy[col] = newStudy[col] === newRow ? '' : newRow;
+    newStudy[col] = newStudy[col] === newRow ? '' : newRow || '';
     setStudies({ ...STUDIES, [estudio]: newStudy });
     agregarCurva();
     forceUpdate();
