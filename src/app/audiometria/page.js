@@ -110,6 +110,13 @@ const STUDIES_IMAGES = {
   [STUDIES_NAMES.I_OSEA]: '/img/estudios/markers/osea_izquierda.png',
 };
 
+const PARALLEL_STUDIES_IMAGES = {
+  [STUDIES_NAMES.D_AEREA]: '/img/estudios/markers/aerea_derecha.png',
+  [STUDIES_NAMES.D_OSEA]: '/img/estudios/markers/osea_derecha_doble.png',
+  [STUDIES_NAMES.I_AEREA]: '/img/estudios/markers/aerea_izquierda.png',
+  [STUDIES_NAMES.I_OSEA]: '/img/estudios/markers/osea_izquierda_doble.png',
+};
+
 const STUDIES_FULL_NAMES = {
   [STUDIES_NAMES.D_AEREA]: 'Aérea derecha',
   [STUDIES_NAMES.D_OSEA]: 'Ósea derecha',
@@ -136,9 +143,16 @@ export default function Audiometria() {
 
   const [lineasElementos, setLineas] = useState([]);
 
+  function removeFirstA(str) {
+    if (str?.toString()?.charAt(0) === 'a') {
+      return str.substring(1);
+    }
+    return str;
+  }
+
   const agregarCurva = (estudioActual = evaluando) => {
     const puntos = STUDIES[estudioActual].map((punto, index) => {
-      const elemento = document.getElementById(`b-${punto}-${index}`);
+      const elemento = document.getElementById(`b-${removeFirstA(punto)}-${index}`);
       return punto !== ''
         ? { x: elemento.getBoundingClientRect().x - 48, y: elemento.offsetTop + 8 }
         : { x: undefined, y: undefined };
@@ -167,7 +181,7 @@ export default function Audiometria() {
   const addValueToResults = (row, col, estudio, textInput = false) => {
     const newRow = textInput ? (parseInt(row, 10) + 10) / 5 : row;
     const newStudy = STUDIES[estudio];
-    newStudy[col] = newStudy[col] === newRow ? '' : newRow || '';
+    newStudy[col] = newStudy[col] === newRow ? `a${newRow}` : newStudy[col] === `a${newRow}` ? '' : newRow || '';
     setStudies({ ...STUDIES, [estudio]: newStudy });
     agregarCurva();
     forceUpdate();
@@ -195,11 +209,11 @@ export default function Audiometria() {
               : (
                 <button style={{ zIndex: 50 }} onClick={() => addValueToResults(row, col, evaluando)} id={`b-${row}-${col}`}>
                   <Image
-                    src={STUDIES_IMAGES[evaluando]}
+                    src={STUDIES[evaluando][col] === `a${row}` ? PARALLEL_STUDIES_IMAGES[evaluando] : STUDIES_IMAGES[evaluando]}
                     alt="Circulo rojo audiometria"
                     width={16}
                     height={16}
-                    className={STUDIES[evaluando][col] === row ? 'opacity-100' : 'opacity-0'}
+                    className={STUDIES[evaluando][col] === row || STUDIES[evaluando][col] === `a${row}` ? 'opacity-100' : 'opacity-0'}
                   />
                 </button>
               )}
@@ -283,7 +297,7 @@ export default function Audiometria() {
                       size="sm"
                       type="number"
                       name="txtNumber"
-                      value={STUDIES[evaluando][index + 1] !== '' ? STUDIES[evaluando][index + 1] * 5 - 10 : ''}
+                      value={STUDIES[evaluando][index + 1] !== '' ? removeFirstA(STUDIES[evaluando][index + 1]) * 5 - 10 : ''}
                       onChange={(event) => addValueToResults(event.target.value, index + 1, evaluando, true)}
                       step="5"
                     />
