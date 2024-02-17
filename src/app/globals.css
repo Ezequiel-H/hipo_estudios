@@ -38,6 +38,14 @@
   --callout-border-rgb: 172, 175, 176;
   --card-rgb: 180, 185, 188;
   --card-border-rgb: 131, 134, 135;
+
+  --primaryFont: 'The Youngest Serif Display';
+  --secondaryFont: 'DM Sans Regular';
+
+  --primaryColor: #523D72;
+  --secondaryColor: #E0FE9C;
+  --tertiaryColor: #B2DCFA;
+  --slowBackground: #F8F3F2;
 }
 
 input::-webkit-outer-spin-button,
@@ -156,3 +164,145 @@ a {
 .freq-up p {
   top: -10px !important;
 }
+
+
+/* =============== TEXT ================= */
+
+/* FONTS */
+
+@font-face {
+  font-family: "The Youngest";   /*Can be any text*/
+  src: local("TheYoungestScript"),
+    url("./../../public/fonts/TheYoungestScript.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "The Youngest Serif Book";   /*Can be any text*/
+  src: local("TheYoungestSerifBook"),
+    url("./../../public/fonts/TheYoungestSerifBook.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "The Youngest Serif Display";   /*Can be any text*/
+  src: local("TheYoungestSerifDisplay"),
+    url("./../../public/fonts/TheYoungestSerifDisplay.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "The Youngest Serif D"; 
+  src: local("TYSerif-D"),
+    url("./../../public/fonts/TYSerif-D.ttf") format("truetype");
+}
+
+/* DM SANS */
+
+@font-face {
+  font-family: "DM Sans Bold"; 
+  src: local("DMSans-Bold"),
+    url("./../../public/fonts/DMSans-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "DM Sans ExtraLight"; 
+  src: local("DMSans-ExtraLight"),
+    url("./../../public/fonts/DMSans-ExtraLight.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "DM Sans Italic"; 
+  src: local("DMSans-Italic"),
+    url("./../../public/fonts/DMSans-Italic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "DM Sans Light"; 
+  src: local("DMSans-Light"),
+    url("./../../public/fonts/DMSans-Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "DM Sans Medium"; 
+  src: local("DMSans-Medium"),
+    url("./../../public/fonts/DMSans-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "DM Sans Regular"; 
+  src: local("DMSans-Regular"),
+    url("./../../public/fonts/DMSans-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "DM Sans SemiBold"; 
+  src: local("DMSans-SemiBold"),
+    url("./../../public/fonts/DMSans-SemiBold.ttf") format("truetype");
+}
+
+/* TITLES */
+
+.title {
+  font-family: var(--primaryFont);
+  font-size: 30px;
+  color: var(--primaryColor);
+  font-weight: 500;
+}
+
+p {
+  font-family: var(--secondaryFont);
+  color: var(--primaryColor)!important;
+}
+
+
+
+/* DIV AJUST */
+
+.centered-div-vertical {
+  position: absolute;
+  top: 50%;
+  /* left: 50%; */
+  transform: translateY(-50%); 
+}
+
+
+/* ================= BUTTONS ===================== */
+
+.btn {
+  padding: 7px 20px;
+  border-radius: 35px;
+  transition: all .3s ease;
+}
+
+.btn-primary {
+  background-color: var(--primaryColor);
+  border: 1px solid transparent;
+}
+
+.btn-primary:hover {
+  background-color: transparent;
+  border: 1px solid var(--primaryColor);
+  color: var(--primaryColor);
+}
+
+.btn-secondary {
+  background-color: var(--secondaryColor);
+  border: 1px solid var(--primaryColor);
+  color: var(--primaryColor);
+}
+
+.btn-secondary:hover {
+  background-color: transparent;
+  border: 1px solid var(--primaryColor);
+  color: var(--primaryColor);
+}
+
+.btn-nofill {
+  background-color: transparent;
+  border: 1px solid var(--primaryColor);
+}
+
+.btn-nofill:hover {
+  background-color: var(--primaryColor);
+  border: 1px solid var(--primaryColor);
+  color: white;;
+}
+
