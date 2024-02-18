@@ -306,3 +306,27 @@ p {
   color: white;;
 }
 
+
+
+ /*  ==================   COLOR   ====================   */
+
+ .color-primary {
+  color: var(--primaryColor)!important;
+ }
+
+ .color-secondary-hover:hover {
+  color: var(--secondaryColor)!important;
+ }
+
+
+ /* BOOTSTRAP ADJS */
+
+.dropdown-menu {
+  background-color: transparent;
+  border: none;
+}
+
+.navbar {
+  background-color: var(--secondaryColor);
+  font-family: var(--secondaryFont);
+}

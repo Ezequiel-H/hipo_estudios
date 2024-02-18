@@ -11,16 +11,17 @@ import Banner2 from './components/home/Banner2';
 import ParaCadaPersona from './components/home/ParaCadaPersona';
 import Estudios from './components/home/Estudios';
 import Testimonials from './components/home/Testimonials';
+import Layout from './components/general/Layout';
 
 const Home = () => {
   return (
-    <>
+    <Layout>
       <Slider />
       <Banner2 />
       <ParaCadaPersona />
       <Estudios />
       <Testimonials />
-    </>
+    </Layout>
   );
 }
  
