@@ -242,10 +242,12 @@ a {
 
 .title {
   font-family: var(--primaryFont);
-  font-size: 30px;
+  font-size: 40px;
   color: var(--primaryColor);
   font-weight: 500;
 }
+
+
 
 p {
   font-family: var(--secondaryFont);
@@ -329,4 +331,30 @@ p {
 .navbar {
   background-color: var(--secondaryColor);
   font-family: var(--secondaryFont);
+}
+
+.dropdown-toggle::after {
+  display: none!important;
+}
+
+
+
+
+
+/* ============ FORM =========== */
+
+.form-field {
+  background-color: transparent;
+  padding: 8px 20px;
+  border-radius: 30px;
+  border: 1px solid var(--primaryColor);
+  color: var(--primaryColor);
+  max-width: 95%;
+  margin: 10px auto;
+  background-color: var(--slowBackground);
+}
+
+.form-btn {
+  max-width: 95%;
+  margin: 10px auto;
 }
