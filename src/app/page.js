@@ -13,7 +13,7 @@ import Estudios from './components/home/Estudios';
 import Testimonials from './components/home/Testimonials';
 import Layout from './components/general/Layout';
 
-const Home = () => {
+function Home() {
   return (
     <Layout>
       <Slider />
@@ -24,5 +24,5 @@ const Home = () => {
     </Layout>
   );
 }
- 
+
 export default Home;

@@ -3,14 +3,14 @@
 import React from 'react';
 import Layout from '@/app/components/general/Layout';
 import Identify from '@/app/components/patient/Identify';
-import Audiogram from '@/app/components/studies/audiogram/Audiogram';
+import LogoAudiogram from '@/app/components/studies/audiogram/LogoAudiogram';
 
 function AudiometriaNueva() {
   return (
     <Layout>
-      <h1 className="title text-center section1">Nueva audiometría</h1>
+      <h1 className="title text-center section1">Nueva logoaudiometría</h1>
       <Identify />
-      <Audiogram />
+      <LogoAudiogram />
     </Layout>
   );
 }

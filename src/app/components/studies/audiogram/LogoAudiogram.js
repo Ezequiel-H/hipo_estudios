@@ -16,12 +16,12 @@ import Image from 'next/image';
 const Template = styled.div`
   background-color: white;
   background-size: cover;
-  width: 90vw;
+  width: 100vw;
   display: flex;
-  justify-content: center;
+  // justify-content: center;
 `;
 
-const Audiograma = styled.div`
+const LogoAudiograma = styled.div`
   position: relative;
   width: 581px;
   height: 609px;
@@ -98,6 +98,30 @@ const Casillero = styled.div`
   }
 `;
 
+const LogoCol = styled(Col)`
+  color: black;
+  text-align:center;
+  margin-top:10px;
+  
+  div {
+    background-color: var(--tertiaryColor);
+    border-radius: 40px;
+    padding: 10px;
+    margin: 0 5px;
+    font-weight: bold;
+  }
+
+  button {
+    background-color: transparent;
+    margin: 0;
+    border: none;
+    img {
+      width: 25px;
+      height: 25px;
+    }
+  }
+`;
+
 const STUDIES_NAMES = {
   D_AEREA: 'dAerea',
   I_AEREA: 'iAerea',
@@ -133,7 +157,7 @@ const STUDIES_SIDE = {
   [STUDIES_NAMES.I_OSEA]: 'izquierda',
 };
 
-function Audiogram(readOnly = false) {
+function LogoAudiogram() {
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
   const [evaluando, setEvaluando] = useState('dAerea');
   const [STUDIES, setStudies] = useState({
@@ -162,9 +186,8 @@ function Audiogram(readOnly = false) {
   const agregarCurva = (estudioActual = evaluando) => {
     const puntos = STUDIES[estudioActual].map((punto, index) => {
       const elemento = document.getElementById(`b-${removeFirstA(punto)}-${index}`);
-      const lineas = document.getElementById('lineas');
       return punto !== ''
-        ? { x: elemento.getBoundingClientRect().x - lineas.getBoundingClientRect().x + 12, y: elemento.offsetTop + 8 }
+        ? { x: elemento.getBoundingClientRect().x - 48, y: elemento.offsetTop + 8 }
         : { x: undefined, y: undefined };
     }).filter((value) => value.x !== undefined);
 
@@ -238,76 +261,74 @@ function Audiogram(readOnly = false) {
   return (
     <main style={{ backgroundColor: 'white!important' }}>
       <Container>
-        <p className="sub-title this-section mb-0">Audiograma</p>
+        <p className="sub-title this-section mb-0">Logoaudiograma</p>
         <Template>
-          <Container style={{
-            position: 'relative', margin: 0, paddingTop: '30px', paddingLeft: '60px', maxWidth: 'none', display: 'flex', height: '100vh',
+          {/* <Container style={{
+            position: 'relative',
+            margin: 0,
+            paddingTop: '30px',
+            paddingLeft: '60px',
+            // maxWidth: 'none',
+            display: 'flex',
+            height: '100vh',
+            maxWidth: '950px',
           }}
-          >
-            <Row style={{
+          > */}
+          <Row
+            style={{
               zIndex: 50,
               display: 'flex',
               justifyContent: 'start',
               position: 'relative',
-              maxWidth: '581px',
-              maxHeight: '50px',
             }}
-            >
-              <Row style={{ width: '581px', marginBottom: '15px' }}>
-                {[
-                  {
-                    name: '125', aud: '1', freq: 'up', izq: '12',
-                  },
-                  {
-                    name: '250', aud: '2', freq: 'up', izq: '12',
-                  },
-                  {
-                    name: '500', aud: '2', freq: 'up', izq: '12',
-                  },
-                  {
-                    name: '750', aud: '1', freq: 'down', izq: '12',
-                  },
-                  {
-                    name: '1.000', aud: '1', freq: 'up', izq: '12',
-                  },
-                  {
-                    name: '1.500', aud: '1', freq: 'down', izq: '12',
-                  },
-                  {
-                    name: '2.000', aud: '1', freq: 'up', izq: '12',
-                  },
-                  {
-                    name: '3.000', aud: '1', freq: 'down', izq: '12',
-                  },
-                  {
-                    name: '4.000', aud: '1', freq: 'up', izq: '0',
-                  },
-                  {
-                    name: '6.000', aud: '1', freq: 'down', izq: '0',
-                  },
-                  {
-                    name: '8.000', aud: '1', freq: 'up', izq: '0',
-                  },
-                ].map(({
-                  name, aud, freq, izq,
-                }) => (
-                  <Frecuencia className={`aud-${aud} freq-${freq}`}>
-                    <p style={{ marginRight: `-${izq}px` }}>{name}</p>
-                  </Frecuencia>
-                ))}
+            key={1}
+          >
+            <Col xs={12} md={12} lg={7} xl={7} style={{ maxWidth: '581px!important' }}>
+              <Row style={{ width: '581px' }} key={1}>
+                <Frecuencia key="1" className="aud-1 freq-up">
+                  <p>125</p>
+                </Frecuencia>
+                <Frecuencia key="2" className="aud-2 freq-up">
+                  <p>250</p>
+                </Frecuencia>
+                <Frecuencia key="3" className="aud-2 freq-up">
+                  <p>500</p>
+                </Frecuencia>
+                <Frecuencia key="4" className="aud-1 freq-down">
+                  <p>750</p>
+                </Frecuencia>
+                <Frecuencia key="5" className="aud-1 freq-up">
+                  <p>1.000</p>
+                </Frecuencia>
+                <Frecuencia key="6" className="aud-1 freq-down">
+                  <p>1.500</p>
+                </Frecuencia>
+                <Frecuencia key="7" className="aud-1 freq-up">
+                  <p>2.000</p>
+                </Frecuencia>
+                <Frecuencia key="8" className="aud-1 freq-down">
+                  <p>3.000</p>
+                </Frecuencia>
+                <Frecuencia key="9" className="aud-1 freq-up">
+                  <p>4.000</p>
+                </Frecuencia>
+                <Frecuencia key="10" className="aud-1 freq-down">
+                  <p>6.000</p>
+                </Frecuencia>
+                <Frecuencia key="11" className="aud-1 freq-up">
+                  <p>8.000</p>
+                </Frecuencia>
               </Row>
-              <Audiograma>
+              <LogoAudiograma key={2}>
                 {AudiometriaComp()}
-                <svg
-                  style={{
-                    position: 'absolute', width: '100%', height: '100%', top: 0, left: 0, zIndex: 10,
-                  }}
-                  id="lineas"
+                <svg style={{
+                  position: 'absolute', width: '100%', height: '100%', top: 0, left: 0, zIndex: 10,
+                }}
                 >
                   {lineasElementos}
                 </svg>
-              </Audiograma>
-              <Form style={{ width: '581px', padding: 0, margin: 20 }}>
+              </LogoAudiograma>
+              <Form style={{ width: '581px', padding: 0, margin: 20 }} key={3}>
                 <Row style={{ width: '100%' }}>
                   {[1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1].map((size, index) => (
                     <TextInputDiv
@@ -315,13 +336,14 @@ function Audiogram(readOnly = false) {
                       style={{
                         padding: 0,
                       }}
+                      key={`${index}FormControl`}
                     >
                       <Form.Control
                         style={{ maxWidth: '35px' }}
                         size="sm"
                         type="number"
                         name="txtNumber"
-                        value={STUDIES[evaluando][index + 1] !== '' ? removeFirstA(STUDIES[evaluando][index + 1]) * 5 - 10 : ''}
+                        value={(STUDIES[evaluando][index + 1] !== '' ? removeFirstA(STUDIES[evaluando][index + 1]) * 5 - 10 : '').toString()}
                         onChange={(event) => addValueToResults(event.target.value, index + 1, evaluando, true)}
                         step="5"
                       />
@@ -329,7 +351,7 @@ function Audiogram(readOnly = false) {
                   ))}
                 </Row>
               </Form>
-            </Row>
+            </Col>
             <Col xs={12} md={12} lg={4} xl={4} key={4} className="col-estudio-info">
               <Row style={{ maxWidth: '375px!important' }}>
                 <Col xs={6} lg={6} xl={6}>
@@ -342,29 +364,65 @@ function Audiogram(readOnly = false) {
                     Vía ósea
                   </p>
                 </Col>
-                {readOnly && Object.values(STUDIES_NAMES).map((name, index) => (
-                  <Col>
-                    <SeleccionEstudio
-                      onClick={() => {
-                        setEvaluando(name);
-                        agregarCurva(name);
-                      }}
-                      key={`${index}SeleccionEstudios`}
-                      className={evaluando === name ? 'opacity-100' : 'opacity-25'}
-                    >
+                <Col xs={12} md={12} lg={12} xl={12} className="mb-4">
+                  <Row>
+                    {Object.values(STUDIES_NAMES).map((name, index) => (
+                      <Col>
+                        <SeleccionEstudio
+                          onClick={() => {
+                            setEvaluando(name);
+                            agregarCurva(name);
+                          }}
+                          key={`${index}SeleccionEstudios`}
+                          className={evaluando === name ? 'opacity-100' : 'opacity-25'}
+                        >
+                          <Image
+                            src={STUDIES_IMAGES[name]}
+                            alt={STUDIES_FULL_NAMES[name]}
+                            width={55}
+                            height={55}
+                          // className={evaluando === name ? 'opacity-100' : 'opacity-25'}
+                            style={{ margin: '10px auto' }}
+                          />
+                          {STUDIES_SIDE[name]}
+                        </SeleccionEstudio>
+                      </Col>
+                    ))}
+                  </Row>
+                </Col>
+                <LogoCol xs={12} md={6}>
+                  Intensidad
+                  <div>25 dB</div>
+                </LogoCol>
+                <LogoCol xs={12} md={6}>
+                  Palabra
+                  <div>Sastre</div>
+                </LogoCol>
+                <LogoCol xs={12} md={6}>
+                  Respuesta
+                  <div style={{ backgroundColor: 'white' }}>
+                    <button>
                       <Image
-                        src={STUDIES_IMAGES[name]}
-                        alt={STUDIES_FULL_NAMES[name]}
-                        width={55}
-                        height={55}
-                        className={evaluando === name ? 'opacity-100' : 'opacity-25'}
-                        style={{ margin: '10px auto' }}
+                        src="/img/web/Close.png"
+                        alt="Correcta"
+                        width={45}
+                        height={45}
                       />
-                      {STUDIES_SIDE[name]}
-                    </SeleccionEstudio>
-                  </Col>
-                ))}
-
+                    </button>
+                    <button>
+                      <Image
+                        src="/img/web/Check.png"
+                        alt="Correcta"
+                        width={45}
+                        height={45}
+                      />
+                    </button>
+                  </div>
+                </LogoCol>
+                <LogoCol xs={12} md={6}>
+                  Conteo
+                  <div>15%</div>
+                </LogoCol>
               </Row>
               <div className="mt-4">
                 <p className="mb-0" style={{ fontSize: '22px' }}>Paciente</p>
@@ -393,14 +451,11 @@ function Audiogram(readOnly = false) {
                 <Button className="btn btn-secondary">Guardar estudio</Button>
               </div>
             </Col>
-            ;
-
-          </Container>
+          </Row>
         </Template>
       </Container>
-
     </main>
   );
 }
 
-export default Audiogram;
+export default LogoAudiogram;

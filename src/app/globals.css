@@ -39,19 +39,27 @@
   --card-rgb: 180, 185, 188;
   --card-border-rgb: 131, 134, 135;
 
-  --primaryFont: 'The Youngest Serif Display';
-  --secondaryFont: 'DM Sans Regular';
+  --primaryFont: "Poppins", sans-serif;
+  --secondaryFont: "Poppins", sans-serif;
 
-  --primaryColor: #523D72;
-  --secondaryColor: #E0FE9C;
-  --tertiaryColor: #B2DCFA;
-  --slowBackground: #F8F3F2;
+  --primaryColor: #543786;
+  --secondaryColor: #feb737;
+  --tertiaryColor: #7bb8c0;
+  --quartyColor: #a7b5fe;
+  --slowBackground: #f8f3f2;
+  --slowYellow: #ffebad;
 }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+@media print {
+  @page {
+    size: portrait;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -97,6 +105,7 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  background-color: white;
 }
 
 body {
@@ -165,76 +174,86 @@ a {
   top: -10px !important;
 }
 
-
 /* =============== TEXT ================= */
 
 /* FONTS */
 
 @font-face {
-  font-family: "The Youngest";   /*Can be any text*/
-  src: local("TheYoungestScript"),
+  font-family: "The Youngest"; /*Can be any text*/
+  src:
+    local("TheYoungestScript"),
     url("./../../public/fonts/TheYoungestScript.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: "The Youngest Serif Book";   /*Can be any text*/
-  src: local("TheYoungestSerifBook"),
+  font-family: "The Youngest Serif Book"; /*Can be any text*/
+  src:
+    local("TheYoungestSerifBook"),
     url("./../../public/fonts/TheYoungestSerifBook.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: "The Youngest Serif Display";   /*Can be any text*/
-  src: local("TheYoungestSerifDisplay"),
+  font-family: "The Youngest Serif Display"; /*Can be any text*/
+  src:
+    local("TheYoungestSerifDisplay"),
     url("./../../public/fonts/TheYoungestSerifDisplay.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: "The Youngest Serif D"; 
-  src: local("TYSerif-D"),
+  font-family: "The Youngest Serif D";
+  src:
+    local("TYSerif-D"),
     url("./../../public/fonts/TYSerif-D.ttf") format("truetype");
 }
 
 /* DM SANS */
 
 @font-face {
-  font-family: "DM Sans Bold"; 
-  src: local("DMSans-Bold"),
+  font-family: "DM Sans Bold";
+  src:
+    local("DMSans-Bold"),
     url("./../../public/fonts/DMSans-Bold.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: "DM Sans ExtraLight"; 
-  src: local("DMSans-ExtraLight"),
+  font-family: "DM Sans ExtraLight";
+  src:
+    local("DMSans-ExtraLight"),
     url("./../../public/fonts/DMSans-ExtraLight.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: "DM Sans Italic"; 
-  src: local("DMSans-Italic"),
+  font-family: "DM Sans Italic";
+  src:
+    local("DMSans-Italic"),
     url("./../../public/fonts/DMSans-Italic.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: "DM Sans Light"; 
-  src: local("DMSans-Light"),
+  font-family: "DM Sans Light";
+  src:
+    local("DMSans-Light"),
     url("./../../public/fonts/DMSans-Light.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: "DM Sans Medium"; 
-  src: local("DMSans-Medium"),
+  font-family: "DM Sans Medium";
+  src:
+    local("DMSans-Medium"),
     url("./../../public/fonts/DMSans-Medium.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: "DM Sans Regular"; 
-  src: local("DMSans-Regular"),
+  font-family: "DM Sans Regular";
+  src:
+    local("DMSans-Regular"),
     url("./../../public/fonts/DMSans-Regular.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: "DM Sans SemiBold"; 
-  src: local("DMSans-SemiBold"),
+  font-family: "DM Sans SemiBold";
+  src:
+    local("DMSans-SemiBold"),
     url("./../../public/fonts/DMSans-SemiBold.ttf") format("truetype");
 }
 
@@ -245,16 +264,20 @@ a {
   font-size: 40px;
   color: var(--primaryColor);
   font-weight: 500;
+  margin-bottom: 0px;
 }
 
-
+.sub-title {
+  font-family: var(--primaryFont);
+  font-size: 26px;
+  color: var(--primaryColor);
+  font-weight: 400;
+}
 
 p {
   font-family: var(--secondaryFont);
-  color: var(--primaryColor)!important;
+  color: var(--primaryColor) !important;
 }
-
-
 
 /* DIV AJUST */
 
@@ -262,16 +285,15 @@ p {
   position: absolute;
   top: 50%;
   /* left: 50%; */
-  transform: translateY(-50%); 
+  transform: translateY(-50%);
 }
-
 
 /* ================= BUTTONS ===================== */
 
 .btn {
   padding: 7px 20px;
   border-radius: 35px;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
 }
 
 .btn-primary {
@@ -287,14 +309,15 @@ p {
 
 .btn-secondary {
   background-color: var(--secondaryColor);
-  border: 1px solid var(--primaryColor);
-  color: var(--primaryColor);
+  color: black;
+  border: 1px solid transparent;
+  /* color: var(--primaryColor); */
 }
 
 .btn-secondary:hover {
   background-color: transparent;
-  border: 1px solid var(--primaryColor);
-  color: var(--primaryColor);
+  border: 1px solid var(--black);
+  color: var(--black);
 }
 
 .btn-nofill {
@@ -305,23 +328,28 @@ p {
 .btn-nofill:hover {
   background-color: var(--primaryColor);
   border: 1px solid var(--primaryColor);
-  color: white;;
+  color: white;
 }
 
+/*  ==================   COLOR   ====================   */
 
+.color-primary {
+  color: var(--primaryColor) !important;
+}
 
- /*  ==================   COLOR   ====================   */
+.color-secondary-hover:hover {
+  color: var(--secondaryColor) !important;
+}
 
- .color-primary {
-  color: var(--primaryColor)!important;
- }
+.color-black {
+  color: black;
+}
 
- .color-secondary-hover:hover {
-  color: var(--secondaryColor)!important;
- }
+.color-primary {
+  color: var(--primaryColor);
+}
 
-
- /* BOOTSTRAP ADJS */
+/* BOOTSTRAP ADJS */
 
 .dropdown-menu {
   background-color: transparent;
@@ -329,17 +357,13 @@ p {
 }
 
 .navbar {
-  background-color: var(--secondaryColor);
+  background-color: var(--primaryColor);
   font-family: var(--secondaryFont);
 }
 
 .dropdown-toggle::after {
-  display: none!important;
+  display: none !important;
 }
-
-
-
-
 
 /* ============ FORM =========== */
 
@@ -350,11 +374,28 @@ p {
   border: 1px solid var(--primaryColor);
   color: var(--primaryColor);
   max-width: 95%;
-  margin: 10px auto;
-  background-color: var(--slowBackground);
+  margin: 10px 10px 10px 0;
+  background-color: var(--quartyColor);
 }
 
 .form-btn {
   max-width: 95%;
   margin: 10px auto;
+}
+
+/* ============ SECTION =========== */
+
+.section1 {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  background-color: white;
+  color: var(--primaryColor);
+}
+
+.this-section {
+  padding: 40px 0;
+}
+
+.col-estudio-info {
+  padding-left: 15px !important;
 }

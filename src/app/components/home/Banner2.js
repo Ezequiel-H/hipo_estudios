@@ -37,51 +37,51 @@ const BlueBox = styled.div`
     }
 `;
 
-const Banner2 = () => {
-    return (
-        <Area>
-            <Container className='pb-5'>
-                <h3 className='title text-center pt-5 mb-5' style={{fontSize: '40px'}}>
-                    ¿Por qué digitalizar?
-                </h3>
-                <Row>
-                    <Col lg={4} md={4} xs={12}>
-                        <BlueBox>
-                            <img
-                                src="/img/web/ear-01-tattoo.jpg"
-                                alt="ear with tattoo"
-                            />
-                            <p>
-                                Guardá de por vida los estudios de tus pacientes.
-                            </p>
-                        </BlueBox>
-                    </Col>
-                    <Col lg={4} md={4} xs={12}>
-                    <BlueBox>
-                            <img
-                                src="/img/web/ear-02.jpg"
-                                alt="A new ear"
-                            />
-                            <p>
-                                Llevá el progreso año a año de tus pacientes.
-                            </p>
-                        </BlueBox>
-                    </Col>
-                    <Col lg={4} md={4} xs={12}>
-                        <BlueBox>
-                            <img
-                                src="/img/web/ear-03-man-glasses.jpg"
-                                alt="ear with glasses"
-                            />
-                            <p>
-                                Muy fácil y con un par de clics ya tenés todo.
-                            </p>
-                        </BlueBox>
-                    </Col>                   
-                </Row>
-            </Container>
-        </Area>
-    );
+function Banner2() {
+  return (
+    <Area>
+      <Container className="pb-5">
+        <h3 className="title text-center pt-5 mb-5" style={{ fontSize: '40px' }}>
+          ¿Por qué digitalizar?
+        </h3>
+        <Row>
+          <Col lg={4} md={4} xs={12}>
+            <BlueBox>
+              <img
+                src="/img/web/ear-01-tattoo.jpg"
+                alt="ear with tattoo"
+              />
+              <p>
+                Guardá de por vida los estudios de tus pacientes.
+              </p>
+            </BlueBox>
+          </Col>
+          <Col lg={4} md={4} xs={12}>
+            <BlueBox>
+              <img
+                src="/img/web/ear-02.jpg"
+                alt="A new ear"
+              />
+              <p>
+                Llevá el progreso año a año de tus pacientes.
+              </p>
+            </BlueBox>
+          </Col>
+          <Col lg={4} md={4} xs={12}>
+            <BlueBox>
+              <img
+                src="/img/web/ear-03-man-glasses.jpg"
+                alt="ear with glasses"
+              />
+              <p>
+                Muy fácil y con un par de clics ya tenés todo.
+              </p>
+            </BlueBox>
+          </Col>
+        </Row>
+      </Container>
+    </Area>
+  );
 }
- 
+
 export default Banner2;
