@@ -103,9 +103,10 @@ input::-webkit-inner-spin-button {
 
 html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
+  max-width: unset;
+  overflow-x: visible;
   background-color: white;
+  min-width: fit-content;
 }
 
 body {

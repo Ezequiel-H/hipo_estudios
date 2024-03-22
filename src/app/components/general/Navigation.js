@@ -19,7 +19,8 @@ const LinkNavigation = styled(Link)`
     margin-left: 10px;
     margin-top: auto;
     margin-bottom: auto;
-    margin: auto 8px;
+    text-align:right;
+    padding: 8px 0;
 
 `;
 

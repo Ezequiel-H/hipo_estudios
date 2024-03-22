@@ -98,6 +98,13 @@ const Casillero = styled.div`
   }
 `;
 
+const Intensity = styled.button`
+  color: black;
+  font-weight: bold;
+  padding: 0 10px!important;
+  font-size: 20px;
+`;
+
 const LogoCol = styled(Col)`
   color: black;
   text-align:center;
@@ -106,18 +113,18 @@ const LogoCol = styled(Col)`
   div {
     background-color: var(--tertiaryColor);
     border-radius: 40px;
-    padding: 10px;
+    padding: 15px 10px;
     margin: 0 5px;
     font-weight: bold;
   }
 
   button {
     background-color: transparent;
-    margin: 0;
+    margin: 0 5px;
     border: none;
     img {
-      width: 25px;
-      height: 25px;
+      width: 35px;
+      height: 35px;
     }
   }
 `;
@@ -392,7 +399,11 @@ function LogoAudiogram() {
                 </Col>
                 <LogoCol xs={12} md={6}>
                   Intensidad
-                  <div>25 dB</div>
+                  <div>
+                    <Intensity>-</Intensity>
+                    25 dB
+                    <Intensity>+</Intensity>
+                  </div>
                 </LogoCol>
                 <LogoCol xs={12} md={6}>
                   Palabra
@@ -405,16 +416,16 @@ function LogoAudiogram() {
                       <Image
                         src="/img/web/Close.png"
                         alt="Correcta"
-                        width={45}
-                        height={45}
+                        width={55}
+                        height={55}
                       />
                     </button>
                     <button>
                       <Image
                         src="/img/web/Check.png"
                         alt="Correcta"
-                        width={45}
-                        height={45}
+                        width={55}
+                        height={55}
                       />
                     </button>
                   </div>
