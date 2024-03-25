@@ -8,9 +8,7 @@
 
 import React, { useReducer, useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import {
-  Col, Row, Container, Form, Button,
-} from 'react-bootstrap';
+import { Row, Container } from 'react-bootstrap';
 import Image from 'next/image';
 
 const Template = styled.div`
@@ -144,20 +142,6 @@ function AudiogramCompletoEjemplo(readOnly = false) {
     [STUDIES_NAMES.I_OSEA]: ['', '', '', '', '', '', '', '', '', '', ''],
   });
 
-  // const [STUDIES, setStudies] = useState({
-  //   [STUDIES_NAMES.D_AEREA]: ['15', '25', '25', '25', '25', '25', '60', '55', '30', '10', '80'],
-  //   [STUDIES_NAMES.I_AEREA]: ['45', '50', '45', '50', '55', '55', '40', '25', '30', '10', '0'],
-  //   [STUDIES_NAMES.D_OSEA]: ['45', '50', '45', '60', '55', '35', '35', '35', '55', '45', '10'],
-  //   [STUDIES_NAMES.I_OSEA]: ['60', '55', '55', '55', '55', '55', '50', '30', '35', '20', '0'],
-  // });
-
-  // const getResultFromRow = (row) => row * 5 - 10;
-
-  // const getFrequencyFromCol = (col) => {
-  //   const frequencies = [125, 250, 500, 750, 1000, 1500, 2000, 3000, 4000, 6000, 8000];
-  //   return frequencies[col - 1];
-  // };
-
   const [lineasElementos, setLineas] = useState([]);
 
   function removeFirstA(str) {
@@ -167,42 +151,36 @@ function AudiogramCompletoEjemplo(readOnly = false) {
     return str;
   }
 
-  const agregarCurva = (estudioActual = evaluando) => {
-    const puntos = STUDIES[estudioActual].map((punto, index) => {
-      const elemento = document.getElementById(`b-${removeFirstA(punto)}-${index}`);
-      const lineas = document.getElementById('lineas');
-      return punto !== ''
-        ? { x: elemento.getBoundingClientRect().x - lineas.getBoundingClientRect().x + 12, y: elemento.offsetTop + 8 }
-        : { x: undefined, y: undefined };
-    }).filter((value) => value.x !== undefined);
-
+  const agregarCurva = () => {
     const newLineas = [];
-    for (let i = 0; i < puntos.length - 1; i++) {
-      const puntoActual = puntos[i];
-      const puntoSiguiente = puntos[i + 1];
-      newLineas.push(
-        <line
-          key={i}
-          x1={puntoActual.x}
-          y1={puntoActual.y}
-          x2={puntoSiguiente.x}
-          y2={puntoSiguiente.y}
-          stroke={estudioActual === STUDIES_NAMES.D_AEREA || estudioActual === STUDIES_NAMES.D_OSEA ? 'red' : 'blue'}
-          strokeDasharray="10,8"
-          strokeWidth="4"
-        />,
-      );
-    }
-    setLineas(newLineas);
-  };
+    Object.entries(STUDIES).forEach(([nombre, valores]) => {
+      const puntos = valores.map((punto, index) => {
+        const elemento = document.getElementById(`b-${removeFirstA(punto)}-${index}`);
+        const lineas = document.getElementById('lineas');
+        return (elemento && punto !== '')
+          ? { x: elemento.getBoundingClientRect().x - lineas.getBoundingClientRect().x + 12, y: elemento.offsetTop + 8 }
+          : { x: undefined, y: undefined };
+      }).filter((value) => value.x !== undefined);
 
-  const addValueToResults = (row, col, estudio, textInput = false) => {
-    const newRow = textInput ? (parseInt(row, 10) + 10) / 5 : row;
-    const newStudy = STUDIES[estudio];
-    newStudy[col] = newStudy[col] === newRow ? `a${newRow}` : newStudy[col] === `a${newRow}` ? '' : newRow || '';
-    setStudies({ ...STUDIES, [estudio]: newStudy });
-    agregarCurva();
-    forceUpdate();
+      for (let i = 0; i < puntos.length - 1; i++) {
+        const puntoActual = puntos[i];
+        const puntoSiguiente = puntos[i + 1];
+        newLineas.push(
+          <line
+            key={i}
+            x1={puntoActual.x}
+            y1={puntoActual.y}
+            x2={puntoSiguiente.x}
+            y2={puntoSiguiente.y}
+            stroke={nombre === STUDIES_NAMES.D_AEREA || nombre === STUDIES_NAMES.D_OSEA ? 'red' : 'blue'}
+            strokeDasharray={nombre === STUDIES_NAMES.I_OSEA || nombre === STUDIES_NAMES.D_OSEA ? '10,8' : 'none'}
+            strokeWidth={nombre === STUDIES_NAMES.I_OSEA || nombre === STUDIES_NAMES.D_OSEA ? '4' : '2'}
+          />,
+        );
+      }
+    });
+
+    setLineas(newLineas.concat(lineasElementos));
   };
 
   function AudiometriaComp() {
@@ -225,7 +203,7 @@ function AudiogramCompletoEjemplo(readOnly = false) {
             {col === 0
               ? (row % 2 === 0 ? (<p>{row * 5 - 10}</p>) : null)
               : (
-                <button style={{ zIndex: 50 }} onClick={() => addValueToResults(row, col, evaluando)} id={`b-${row}-${col}`}>
+                <button style={{ zIndex: 50 }} onClick={() => console.log('object')} id={`b-${row}-${col}`}>
                   <Image
                     src={STUDIES[evaluando][col] === `a${row}` ? PARALLEL_STUDIES_IMAGES[evaluando] : STUDIES_IMAGES[evaluando]}
                     alt="Circulo rojo audiometria"
@@ -242,6 +220,25 @@ function AudiogramCompletoEjemplo(readOnly = false) {
     }
     return rows;
   }
+
+  useEffect(() => {
+    setStudies({
+      [STUDIES_NAMES.D_AEREA]: [1, 2, 1, 5, 5, 5, 5, 5, 3, 2, 5, 4],
+      [STUDIES_NAMES.I_AEREA]: [2, 1, 2, 5, 5, 5, 4, 3, 3, 2, 1, 4],
+      [STUDIES_NAMES.D_OSEA]: [2, 1, 2, 5, 5, 3, 3, 3, 5, 4, 2, 4],
+      [STUDIES_NAMES.I_OSEA]: [1, 2, 1, 5, 5, 5, 5, 3, 3, 2, 1, 4],
+    });
+  }, []);
+
+  useEffect(() => {
+    if (Object.values(STUDIES).some((array) => array.some((value) => value !== ''))) {
+      agregarCurva(STUDIES_NAMES.D_AEREA);
+      agregarCurva(STUDIES_NAMES.I_AEREA);
+      agregarCurva(STUDIES_NAMES.D_OSEA);
+      agregarCurva(STUDIES_NAMES.I_OSEA);
+    }
+    forceUpdate();
+  }, [STUDIES]);
 
   return (
     <main style={{ backgroundColor: 'white!important' }}>
@@ -318,7 +315,7 @@ function AudiogramCompletoEjemplo(readOnly = false) {
             </Row>
           </Container>
           <Container>
-          <div key={4} className="col-estudio-info">
+            <div key={4} className="col-estudio-info">
               <div className="mt-4">
                 <p className="m-0" style={{ fontSize: '22px' }}>Observaciones</p>
                 <p>

@@ -8,6 +8,8 @@
 import React, { useRef } from 'react';
 import styled from '@emotion/styled';
 import generatePDF from 'react-to-pdf';
+import jsPDF from 'jspdf';
+import { Container } from 'react-bootstrap';
 import Audiogram from '@/app/components/studies/audiogram/Audiogram';
 
 const SeleccionEstudio = styled.button`
@@ -58,7 +60,9 @@ const getTargetElement = () => document.getElementById('content-id');
 function Component() {
   return (
     <div>
-      <button onClick={() => window.print()}>Generate PDF</button>
+      <Container>
+        <button onClick={() => window.print()}>Generate PDF</button>
+      </Container>
       <div id="content-id" style={{ color: 'red' }}>
         <Audiogram readOnly />
       </div>

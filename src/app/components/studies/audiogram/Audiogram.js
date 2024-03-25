@@ -163,7 +163,7 @@ function Audiogram(readOnly = false) {
     const puntos = STUDIES[estudioActual].map((punto, index) => {
       const elemento = document.getElementById(`b-${removeFirstA(punto)}-${index}`);
       const lineas = document.getElementById('lineas');
-      return punto !== ''
+      return (elemento && punto !== '')
         ? { x: elemento.getBoundingClientRect().x - lineas.getBoundingClientRect().x + 12, y: elemento.offsetTop + 8 }
         : { x: undefined, y: undefined };
     }).filter((value) => value.x !== undefined);
@@ -180,7 +180,7 @@ function Audiogram(readOnly = false) {
           x2={puntoSiguiente.x}
           y2={puntoSiguiente.y}
           stroke={estudioActual === STUDIES_NAMES.D_AEREA || estudioActual === STUDIES_NAMES.D_OSEA ? 'red' : 'blue'}
-          strokeDasharray="10,8"
+          strokeDasharray={estudioActual === STUDIES_NAMES.I_OSEA || estudioActual === STUDIES_NAMES.D_OSEA ? '10,8' : 'none'}
           strokeWidth="4"
         />,
       );
@@ -191,7 +191,7 @@ function Audiogram(readOnly = false) {
   const addValueToResults = (row, col, estudio, textInput = false) => {
     const newRow = textInput ? (parseInt(row, 10) + 10) / 5 : row;
     const newStudy = STUDIES[estudio];
-    newStudy[col] = newStudy[col] === newRow ? `a${newRow}` : newStudy[col] === `a${newRow}` ? '' : newRow || '';
+    newStudy[col] = newStudy[col] === `${newRow}` ? `a${newRow}` : newStudy[col] === `a${newRow}` ? '' : `${newRow}` || '';
     setStudies({ ...STUDIES, [estudio]: newStudy });
     agregarCurva();
     forceUpdate();
@@ -223,7 +223,7 @@ function Audiogram(readOnly = false) {
                     alt="Circulo rojo audiometria"
                     width={16}
                     height={16}
-                    className={STUDIES[evaluando][col] === row || STUDIES[evaluando][col] === `a${row}` ? 'opacity-100' : 'opacity-0'}
+                    className={STUDIES[evaluando][col] === `${row}` || STUDIES[evaluando][col] === `a${row}` ? 'opacity-100' : 'opacity-0'}
                   />
                 </button>
               )}

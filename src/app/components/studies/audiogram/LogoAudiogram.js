@@ -230,14 +230,15 @@ function LogoAudiogram() {
   function AudiometriaComp() {
     const rows = [];
 
-    for (let row = 0; row < 29; row++) {
+    for (let row = 0; row < 10; row++) {
       const cols = [];
-      for (let col = 0; col < 12; col++) {
+      for (let col = 0; col < 10; col++) {
         cols.push(
           <Casillero
             id={`c-${row}-${col}`}
             key={`c-${row}-${col}`}
-            className={`aud-${col === 1 || col === 2 ? '2' : '1'}`}
+            className="l-aud"
+            // className={`l-aud-${col === 1 || col === 2 ? '2' : '1'}`}
             style={{
               borderBottom: row === 2 ? '5px solid rgba(0, 0, 0, 1)' : row % 2 === 0 ? '2px solid rgba(0, 0, 0, 1)' : null,
               borderLeft: col === 0 ? '2px solid rgba(0, 0, 0, 1)' : null,
@@ -291,6 +292,16 @@ function LogoAudiogram() {
             key={1}
           >
             <Col xs={12} md={12} lg={7} xl={7} style={{ maxWidth: '581px!important' }}>
+
+              <LogoAudiograma key={2}>
+                {AudiometriaComp()}
+                <svg style={{
+                  position: 'absolute', width: '100%', height: '100%', top: 0, left: 0, zIndex: 10,
+                }}
+                >
+                  {lineasElementos}
+                </svg>
+              </LogoAudiograma>
               <Row style={{ width: '581px' }} key={1}>
                 <Frecuencia key="1" className="aud-1 freq-up">
                   <p>125</p>
@@ -326,20 +337,11 @@ function LogoAudiogram() {
                   <p>8.000</p>
                 </Frecuencia>
               </Row>
-              <LogoAudiograma key={2}>
-                {AudiometriaComp()}
-                <svg style={{
-                  position: 'absolute', width: '100%', height: '100%', top: 0, left: 0, zIndex: 10,
-                }}
-                >
-                  {lineasElementos}
-                </svg>
-              </LogoAudiograma>
               <Form style={{ width: '581px', padding: 0, margin: 20 }} key={3}>
                 <Row style={{ width: '100%' }}>
                   {[1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1].map((size, index) => (
                     <TextInputDiv
-                      className={`form-${size}`}
+                      className="form-1"
                       style={{
                         padding: 0,
                       }}
