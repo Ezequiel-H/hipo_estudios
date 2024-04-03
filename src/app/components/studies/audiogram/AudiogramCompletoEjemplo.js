@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable max-len */
 /* eslint-disable react/button-has-type */
@@ -203,7 +204,7 @@ function AudiogramCompletoEjemplo(readOnly = false) {
             {col === 0
               ? (row % 2 === 0 ? (<p>{row * 5 - 10}</p>) : null)
               : (
-                <button style={{ zIndex: 50 }} onClick={() => console.log('object')} id={`b-${row}-${col}`}>
+                <button style={{ zIndex: 50 }} onClick={() => {}} id={`b-${row}-${col}`}>
                   <Image
                     src={STUDIES[evaluando][col] === `a${row}` ? PARALLEL_STUDIES_IMAGES[evaluando] : STUDIES_IMAGES[evaluando]}
                     alt="Circulo rojo audiometria"

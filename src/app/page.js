@@ -1,11 +1,8 @@
 'use client';
 
 import React from 'react';
+// eslint-disable-next-line no-unused-vars
 import styled from '@emotion/styled';
-import {
-  Col, Row, Container, Form, Button,
-} from 'react-bootstrap';
-import Image from 'next/image';
 import Slider from './components/home/Slider';
 import Banner2 from './components/home/Banner2';
 import ParaCadaPersona from './components/home/ParaCadaPersona';

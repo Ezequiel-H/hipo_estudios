@@ -8,7 +8,7 @@ function VerAudiometria() {
   return (
     <Layout>
       {/* <h1 className="title text-center">Audiometria de Lucas Adlerstein</h1> */}
-      <div className="pt-4 text-center" style={{backgroundColor: 'white'}}>
+      <div className="pt-4 text-center" style={{ backgroundColor: 'white' }}>
         <p className="mb-0" style={{ fontSize: '22px' }}>Paciente</p>
         <p className="mb-0">
           <strong>Gomez, Jorge </strong>

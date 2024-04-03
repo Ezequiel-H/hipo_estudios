@@ -1,4 +1,6 @@
-<Col xs={12} md={12} lg={4} xl={4} key={4} className="col-estudio-info">
+/* eslint-disable max-len */
+/* eslint-disable no-lone-blocks */
+{ /* <Col xs={12} md={12} lg={4} xl={4} key={4} className="col-estudio-info">
   <Row style={{ maxWidth: '375px!important' }}>
     <Col xs={6} lg={6} xl={6}>
       <p className={`color-primary text-center ${(evaluando === 'dAerea' || evaluando === 'iAerea') ? 'opacity-100' : 'opacity-25'}`}>
@@ -60,4 +62,4 @@
   <div className="mt-4">
     <Button className="btn btn-secondary">Guardar estudio</Button>
   </div>
-</Col>;
+</Col>; */ }

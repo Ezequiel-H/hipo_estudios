@@ -1,10 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import {
-  Col, Row, Container, Form, Button,
+  Col, Row, Container,
 } from 'react-bootstrap';
-import Image from 'next/image';
-import Link from 'next/link';
 
 const Area = styled.div`
     background-color: var(--secondaryColor);

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-deprecated */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable new-cap */
@@ -5,10 +6,9 @@
 
 'use client';
 
-import React, { useRef } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
-import generatePDF from 'react-to-pdf';
-import jsPDF from 'jspdf';
+
 import { Container } from 'react-bootstrap';
 import Audiogram from '@/app/components/studies/audiogram/Audiogram';
 

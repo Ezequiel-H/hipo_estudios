@@ -1,13 +1,9 @@
 import React from 'react';
-import { Col, Row, Button } from 'react-bootstrap';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+
 import Head from 'next/head';
 
+// eslint-disable-next-line no-unused-vars
 import styled from '@emotion/styled';
-import Link from 'next/link';
 
 function Navigation() {
   return (
