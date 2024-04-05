@@ -143,13 +143,6 @@ function Audiogram(readOnly = false) {
     [STUDIES_NAMES.I_OSEA]: ['', '', '', '', '', '', '', '', '', '', ''],
   });
 
-  // const getResultFromRow = (row) => row * 5 - 10;
-
-  // const getFrequencyFromCol = (col) => {
-  //   const frequencies = [125, 250, 500, 750, 1000, 1500, 2000, 3000, 4000, 6000, 8000];
-  //   return frequencies[col - 1];
-  // };
-
   const [lineasElementos, setLineas] = useState([]);
 
   function removeFirstA(str) {
@@ -160,6 +153,7 @@ function Audiogram(readOnly = false) {
   }
 
   const agregarCurva = (estudioActual = evaluando) => {
+    const newLineas = [];
     const puntos = STUDIES[estudioActual].map((punto, index) => {
       const elemento = document.getElementById(`b-${removeFirstA(punto)}-${index}`);
       const lineas = document.getElementById('lineas');
@@ -168,7 +162,6 @@ function Audiogram(readOnly = false) {
         : { x: undefined, y: undefined };
     }).filter((value) => value.x !== undefined);
 
-    const newLineas = [];
     for (let i = 0; i < puntos.length - 1; i++) {
       const puntoActual = puntos[i];
       const puntoSiguiente = puntos[i + 1];
@@ -404,3 +397,10 @@ function Audiogram(readOnly = false) {
 }
 
 export default Audiogram;
+
+// const getResultFromRow = (row) => row * 5 - 10;
+
+// const getFrequencyFromCol = (col) => {
+//   const frequencies = [125, 250, 500, 750, 1000, 1500, 2000, 3000, 4000, 6000, 8000];
+//   return frequencies[col - 1];
+// };

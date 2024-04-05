@@ -175,17 +175,31 @@ function AudiogramCompletoEjemplo(readOnly = false) {
             y2={puntoSiguiente.y}
             stroke={nombre === STUDIES_NAMES.D_AEREA || nombre === STUDIES_NAMES.D_OSEA ? 'red' : 'blue'}
             strokeDasharray={nombre === STUDIES_NAMES.I_OSEA || nombre === STUDIES_NAMES.D_OSEA ? '10,8' : 'none'}
-            strokeWidth={nombre === STUDIES_NAMES.I_OSEA || nombre === STUDIES_NAMES.D_OSEA ? '4' : '2'}
+            strokeWidth={nombre === STUDIES_NAMES.I_OSEA || nombre === STUDIES_NAMES.D_OSEA ? '3' : '2'}
+            strokeOpacity={nombre === STUDIES_NAMES.I_OSEA || nombre === STUDIES_NAMES.D_OSEA ? '0.4' : '1'}
           />,
         );
       }
     });
-
     setLineas(newLineas.concat(lineasElementos));
   };
 
   function AudiometriaComp() {
     const rows = [];
+
+    const isOn = (row, col) => {
+      const studies = Object.values(STUDIES_NAMES);
+      // eslint-disable-next-line eqeqeq
+      return studies.some((study) => STUDIES[study][col] == `${row}` || STUDIES[study][col] == `a${row}`);
+    };
+
+    const selectImage = (row, col) => {
+      const studies = Object.values(STUDIES_NAMES);
+      // eslint-disable-next-line eqeqeq
+      const studyWithImage = studies.find((study) => (STUDIES[study][col] == `a${row}` || STUDIES[study][col] == `${row}`));
+      // eslint-disable-next-line eqeqeq
+      return !studyWithImage ? STUDIES_IMAGES[studies[0]] : STUDIES[studyWithImage][col] == `a${row}` ? PARALLEL_STUDIES_IMAGES[studyWithImage] : STUDIES_IMAGES[studyWithImage];
+    };
 
     for (let row = 0; row < 29; row++) {
       const cols = [];
@@ -206,11 +220,12 @@ function AudiogramCompletoEjemplo(readOnly = false) {
               : (
                 <button style={{ zIndex: 50 }} onClick={() => {}} id={`b-${row}-${col}`}>
                   <Image
-                    src={STUDIES[evaluando][col] === `a${row}` ? PARALLEL_STUDIES_IMAGES[evaluando] : STUDIES_IMAGES[evaluando]}
+                    src={selectImage(row, col)}
                     alt="Circulo rojo audiometria"
                     width={16}
                     height={16}
-                    className={STUDIES[evaluando][col] === row || STUDIES[evaluando][col] === `a${row}` ? 'opacity-100' : 'opacity-0'}
+                    // eslint-disable-next-line eqeqeq
+                    className={isOn(row, col) ? 'opacity-100' : 'opacity-0'}
                   />
                 </button>
               )}
@@ -224,10 +239,12 @@ function AudiogramCompletoEjemplo(readOnly = false) {
 
   useEffect(() => {
     setStudies({
-      [STUDIES_NAMES.D_AEREA]: [1, 2, 1, 5, 5, 5, 5, 5, 3, 2, 5, 4],
-      [STUDIES_NAMES.I_AEREA]: [2, 1, 2, 5, 5, 5, 4, 3, 3, 2, 1, 4],
-      [STUDIES_NAMES.D_OSEA]: [2, 1, 2, 5, 5, 3, 3, 3, 5, 4, 2, 4],
-      [STUDIES_NAMES.I_OSEA]: [1, 2, 1, 5, 5, 5, 5, 3, 3, 2, 1, 4],
+      [STUDIES_NAMES.D_AEREA]: [0, 10, 10, 10, 11, 11, 11, 12, 12, 13, 16, 19],
+      [STUDIES_NAMES.I_AEREA]: [0, 12, 12, 13, 13, 13, 14, 15, 14, 14, 15, 16],
+      // eslint-disable-next-line comma-spacing, key-spacing
+      [STUDIES_NAMES.D_OSEA]:  [0, 3 , 3 , 3 , 4 , 4 , 4 , 5 , 5 , 6 , 9 , 9],
+      // eslint-disable-next-line comma-spacing, key-spacing
+      [STUDIES_NAMES.I_OSEA]:  [0, 5 , 5 , 6 , 6 , 6 , 7 , 8 , 7 , 7 , 8 , 7],
     });
   }, []);
 
