@@ -6,7 +6,7 @@
 
 'use client';
 
-import React, { useReducer, useState } from 'react';
+import React, { useReducer, useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import {
   Col, Row, Container, Form, Button,
@@ -16,7 +16,7 @@ import Image from 'next/image';
 const Template = styled.div`
   background-color: white;
   background-size: cover;
-  width: 90vw;
+  width: 100%;
   display: flex;
   justify-content: center;
 `;
@@ -133,6 +133,79 @@ const STUDIES_SIDE = {
   [STUDIES_NAMES.I_OSEA]: 'izquierda',
 };
 
+const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile) => (
+  <Col md={12} lg={4} xl={4} key={4} className="col-estudio-info" style={{ width: 'fit-content' }}>
+    <Row className={isMobile ? 'select-tools-audiogram-mobile' : 'select-tools-audiogram'}>
+      <Col xs={6} lg={6} xl={6}>
+        <p className={`color-primary text-center ${(evaluando === 'dAerea' || evaluando === 'iAerea') ? 'opacity-100' : 'opacity-25'}`}>
+          Vía aérea
+        </p>
+      </Col>
+      <Col xs={6} lg={6} xl={6}>
+        <p className={`color-primary text-center ${(evaluando === 'dOsea' || evaluando === 'iOsea') ? 'opacity-100' : 'opacity-25'}`}>
+          Vía ósea
+        </p>
+      </Col>
+      {Object.values(STUDIES_NAMES).map((name, index) => (
+        <Col key={index}>
+          <SeleccionEstudio
+            onClick={() => {
+              setEvaluando(name);
+              agregarCurva(name);
+            }}
+            key={`${index}SeleccionEstudios`}
+            className={evaluando === name ? 'opacity-100' : 'opacity-25'}
+          >
+            <Image
+              src={STUDIES_IMAGES[name]}
+              alt={STUDIES_FULL_NAMES[name]}
+              width={55}
+              height={55}
+              className={evaluando === name ? 'opacity-100' : 'opacity-25'}
+              style={{ margin: '10px auto' }}
+            />
+            {STUDIES_SIDE[name]}
+          </SeleccionEstudio>
+        </Col>
+      ))}
+    </Row>
+    <div className="mt-4">
+      <p className="mb-0" style={{ fontSize: '22px' }}>Paciente</p>
+      <p className="mb-0">
+        Apellido:
+        <strong> Gomez</strong>
+      </p>
+      <p className="mb-0">
+        Nombre:
+        <strong> Jorge</strong>
+      </p>
+      <p className="mb-0">
+        Fecha de nacimiento:
+        <strong> 25/02/1976</strong>
+      </p>
+    </div>
+    <div className="mt-4">
+      <p className="m-0" style={{ fontSize: '22px' }}>Observaciones</p>
+      <p>
+        ____________________
+        <br />
+        ____________________
+      </p>
+    </div>
+    <div className="mt-4">
+      <Button
+        onClick={() => {
+          const datosJSON = JSON.stringify(STUDIES);
+          localStorage.setItem('datosUsuario', datosJSON);
+        }}
+        className="btn btn-secondary"
+      >
+        Guardar estudio
+      </Button>
+    </div>
+  </Col>
+);
+
 function Audiogram() {
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
   const [evaluando, setEvaluando] = useState('dAerea');
@@ -142,8 +215,15 @@ function Audiogram() {
     [STUDIES_NAMES.D_OSEA]: ['', '', '', '', '', '', '', '', '', '', ''],
     [STUDIES_NAMES.I_OSEA]: ['', '', '', '', '', '', '', '', '', '', ''],
   });
+  const [isMobile, setIsMobile] = useState(false);
 
   const [lineasElementos, setLineas] = useState([]);
+
+  useEffect(() => {
+    const { userAgent } = navigator;
+    setIsMobile(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent));
+    // eslint-disable-next-line
+  }, [])
 
   function removeFirstA(str) {
     if (str?.toString()?.charAt(0) === 'a') {
@@ -234,7 +314,7 @@ function Audiogram() {
         <p className="sub-title this-section mb-0">Audiograma</p>
         <Template>
           <Container style={{
-            position: 'relative', margin: 0, paddingTop: '30px', paddingLeft: '60px', maxWidth: 'none', display: 'flex', height: '100vh',
+            position: 'relative', margin: 0, paddingTop: '30px', paddingLeft: '60px', maxWidth: 'none', display: 'flex', height: '800px',
           }}
           >
             <Row style={{
@@ -324,80 +404,18 @@ function Audiogram() {
                 </Row>
               </Form>
             </Row>
-            <Col xs={12} md={12} lg={4} xl={4} key={4} className="col-estudio-info">
-              <Row style={{ maxWidth: '375px!important' }}>
-                <Col xs={6} lg={6} xl={6}>
-                  <p className={`color-primary text-center ${(evaluando === 'dAerea' || evaluando === 'iAerea') ? 'opacity-100' : 'opacity-25'}`}>
-                    Vía aérea
-                  </p>
-                </Col>
-                <Col xs={6} lg={6} xl={6}>
-                  <p className={`color-primary text-center ${(evaluando === 'dOsea' || evaluando === 'iOsea') ? 'opacity-100' : 'opacity-25'}`}>
-                    Vía ósea
-                  </p>
-                </Col>
-                {Object.values(STUDIES_NAMES).map((name, index) => (
-                  <Col key={index}>
-                    <SeleccionEstudio
-                      onClick={() => {
-                        setEvaluando(name);
-                        agregarCurva(name);
-                      }}
-                      key={`${index}SeleccionEstudios`}
-                      className={evaluando === name ? 'opacity-100' : 'opacity-25'}
-                    >
-                      <Image
-                        src={STUDIES_IMAGES[name]}
-                        alt={STUDIES_FULL_NAMES[name]}
-                        width={55}
-                        height={55}
-                        className={evaluando === name ? 'opacity-100' : 'opacity-25'}
-                        style={{ margin: '10px auto' }}
-                      />
-                      {STUDIES_SIDE[name]}
-                    </SeleccionEstudio>
-                  </Col>
-                ))}
-              </Row>
-              <div className="mt-4">
-                <p className="mb-0" style={{ fontSize: '22px' }}>Paciente</p>
-                <p className="mb-0">
-                  Apellido:
-                  <strong> Gomez</strong>
-                </p>
-                <p className="mb-0">
-                  Nombre:
-                  <strong> Jorge</strong>
-                </p>
-                <p className="mb-0">
-                  Fecha de nacimiento:
-                  <strong> 25/02/1976</strong>
-                </p>
-              </div>
-              <div className="mt-4">
-                <p className="m-0" style={{ fontSize: '22px' }}>Observaciones</p>
-                <p>
-                  ____________________
-                  <br />
-                  ____________________
-                </p>
-              </div>
-              <div className="mt-4">
-                <Button
-                  onClick={() => {
-                    const datosJSON = JSON.stringify(STUDIES);
-                    localStorage.setItem('datosUsuario', datosJSON);
-                  }}
-                  className="btn btn-secondary"
-                >
-                  Guardar estudio
-                </Button>
-              </div>
-            </Col>
-            ;
+            {
+              !isMobile && tools(evaluando, setEvaluando, agregarCurva, STUDIES, isMobile)
+            }
 
           </Container>
+
         </Template>
+      </Container>
+      <Container>
+        {
+          isMobile && tools(evaluando, setEvaluando, agregarCurva, STUDIES, isMobile)
+        }
       </Container>
 
     </main>

@@ -374,17 +374,15 @@ function AudiogramCompletoEjemplo(readOnly = false) {
                   {lineasElementos}
                 </svg>
               </Audiograma>
-            </Row>
-          </Container>
-          <Container>
-            <div key={4} className="col-estudio-info">
-              <div className="mt-4">
-                <p className="m-0" style={{ fontSize: '22px' }}>Observaciones</p>
-                <p>
-                  Estudio realizado en cabina sonoamortiguada.
-                </p>
+              <div key={4} className="col-estudio-info">
+                <div className="mt-4">
+                  <p className="m-0" style={{ fontSize: '22px' }}>Observaciones</p>
+                  <p>
+                    Estudio realizado en cabina sonoamortiguada.
+                  </p>
+                </div>
               </div>
-            </div>
+            </Row>
           </Container>
         </Template>
       </Container>

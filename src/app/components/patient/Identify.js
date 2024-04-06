@@ -29,7 +29,7 @@ function Identify() {
           <Col xs={12} sm={12} md={6} lg={4} xl={3}>
             <Form.Control className="form-field" type="text" placeholder="Apellido" name="surname" onChange={(e) => onChangeInput(e)} />
             {
-              (userData.surname.toString().includes('Go')) ? (
+              (userData.surname.toString().toLowerCase().includes('go'.toLowerCase())) ? (
                 <ListGroup>
                   <ListGroup.Item action href="#link1">
                     Gomez, Juan

@@ -406,3 +406,13 @@ p {
 .col-estudio-info {
   padding-left: 15px !important;
 }
+
+/* Audiogram */
+
+.select-tools-audiogram {
+  max-width: 375px !important;
+}
+
+.select-tools-audiogram-mobile {
+  max-width: 375px !important;
+}
