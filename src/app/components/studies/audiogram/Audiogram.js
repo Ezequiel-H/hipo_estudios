@@ -133,7 +133,7 @@ const STUDIES_SIDE = {
   [STUDIES_NAMES.I_OSEA]: 'izquierda',
 };
 
-function Audiogram(readOnly = false) {
+function Audiogram() {
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
   const [evaluando, setEvaluando] = useState('dAerea');
   const [STUDIES, setStudies] = useState({
