@@ -309,7 +309,7 @@ p {
 }
 
 .btn-primary:hover {
-  background-color: transparent;
+  /* background-color: transparent; */
   border: 1px solid var(--primaryColor);
   color: var(--primaryColor);
 }
@@ -322,7 +322,7 @@ p {
 }
 
 .btn-secondary:hover {
-  background-color: transparent;
+  /* background-color: transparent; */
   border: 1px solid var(--black);
   color: var(--black);
 }
