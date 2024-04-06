@@ -113,10 +113,10 @@ const STUDIES_IMAGES = {
 };
 
 const PARALLEL_STUDIES_IMAGES = {
-  [STUDIES_NAMES.D_AEREA]: '/img/estudios/markers/aerea_derecha.png',
-  [STUDIES_NAMES.I_AEREA]: '/img/estudios/markers/aerea_izquierda.png',
-  [STUDIES_NAMES.D_OSEA]: '/img/estudios/markers/osea_derecha_doble.png',
-  [STUDIES_NAMES.I_OSEA]: '/img/estudios/markers/osea_izquierda_doble.png',
+  [STUDIES_NAMES.D_AEREA]: '/img/estudios/markers/sr_aerea_derecha.png',
+  [STUDIES_NAMES.I_AEREA]: '/img/estudios/markers/sr_aerea_izquierda.png',
+  [STUDIES_NAMES.D_OSEA]: '/img/estudios/markers/sr_osea_derecha.png',
+  [STUDIES_NAMES.I_OSEA]: '/img/estudios/markers/sr_osea_izquierda.png',
 };
 
 const STUDIES_FULL_NAMES = {
@@ -159,7 +159,7 @@ function AudiogramCompletoEjemplo(readOnly = false) {
         const elemento = document.getElementById(`b-${removeFirstA(punto)}-${index}`);
         const lineas = document.getElementById('lineas');
         return (elemento && punto !== '')
-          ? { x: elemento.getBoundingClientRect().x - lineas.getBoundingClientRect().x + 12, y: elemento.offsetTop + 8 }
+          ? { x: elemento.getBoundingClientRect().x - lineas.getBoundingClientRect().x + 17, y: elemento.offsetTop + 8 }
           : { x: undefined, y: undefined };
       }).filter((value) => value.x !== undefined);
 
@@ -176,7 +176,7 @@ function AudiogramCompletoEjemplo(readOnly = false) {
             stroke={nombre === STUDIES_NAMES.D_AEREA || nombre === STUDIES_NAMES.D_OSEA ? 'red' : 'blue'}
             strokeDasharray={nombre === STUDIES_NAMES.I_OSEA || nombre === STUDIES_NAMES.D_OSEA ? '10,8' : 'none'}
             strokeWidth={nombre === STUDIES_NAMES.I_OSEA || nombre === STUDIES_NAMES.D_OSEA ? '3' : '2'}
-            strokeOpacity={nombre === STUDIES_NAMES.I_OSEA || nombre === STUDIES_NAMES.D_OSEA ? '0.4' : '1'}
+            strokeOpacity={nombre === STUDIES_NAMES.I_OSEA || nombre === STUDIES_NAMES.D_OSEA ? '0.3' : '0.4'}
           />,
         );
       }
@@ -193,40 +193,77 @@ function AudiogramCompletoEjemplo(readOnly = false) {
       return studies.some((study) => STUDIES[study][col] == `${row}` || STUDIES[study][col] == `a${row}`);
     };
 
-    const selectImage = (row, col) => {
+    const allImagesNeeded = (row, col) => {
       const studies = Object.values(STUDIES_NAMES);
       // eslint-disable-next-line eqeqeq
-      const studyWithImage = studies.find((study) => (STUDIES[study][col] == `a${row}` || STUDIES[study][col] == `${row}`));
+      const studiesImages = studies.filter((study) => (STUDIES[study][col] == `a${row}` || STUDIES[study][col] == `${row}`));
       // eslint-disable-next-line eqeqeq
-      return !studyWithImage ? STUDIES_IMAGES[studies[0]] : STUDIES[studyWithImage][col] == `a${row}` ? PARALLEL_STUDIES_IMAGES[studyWithImage] : STUDIES_IMAGES[studyWithImage];
+      return studiesImages.map((study) => (STUDIES[study][col] == `a${row}` ? PARALLEL_STUDIES_IMAGES[study] : STUDIES_IMAGES[study]));
     };
 
     for (let row = 0; row < 29; row++) {
       const cols = [];
       for (let col = 0; col < 12; col++) {
+        const neededImages = allImagesNeeded(row, col);
         cols.push(
           <Casillero
             id={`c-${row}-${col}`}
             key={`c-${row}-${col}`}
             className={`aud-${col === 1 || col === 2 ? '2' : '1'}`}
             style={{
-              borderBottom: row === 2 ? '5px solid rgba(0, 0, 0, 1)' : row % 2 === 0 ? '2px solid rgba(0, 0, 0, 1)' : null,
-              borderLeft: col === 0 ? '2px solid rgba(0, 0, 0, 1)' : null,
-              borderRight: [3, 5, 7, 9].includes(col) ? '2px dashed rgba(0, 0, 0, 1)' : '2px solid rgba(0, 0, 0, 1)',
+              borderBottom: row === 2 ? '5px solid rgba(0, 0, 0, 0.6)' : row % 2 === 0 ? '2px solid rgba(0, 0, 0, 0.6)' : null,
+              borderLeft: col === 0 ? '2px solid rgba(0, 0, 0, 0.6)' : null,
+              borderRight: [3, 5, 7, 9].includes(col) ? '2px dashed rgba(0, 0, 0, 0.6)' : '2px solid rgba(0, 0, 0, 0.6)',
             }}
           >
             {col === 0
               ? (row % 2 === 0 ? (<p>{row * 5 - 10}</p>) : null)
               : (
-                <button style={{ zIndex: 50 }} onClick={() => {}} id={`b-${row}-${col}`}>
-                  <Image
-                    src={selectImage(row, col)}
-                    alt="Circulo rojo audiometria"
-                    width={16}
-                    height={16}
+                <button style={{ zIndex: 50, marginLeft: `${neededImages.length === 1 ? '0px' : '-5px'}` }} onClick={() => {}} id={`b-${row}-${col}`}>
+                  <div style={{ marginTop: `${neededImages.length > 2 ? '-20px' : '0px'}` }}>
+                    <Image
+                      src={isOn(row, col) ? neededImages[0] : STUDIES_IMAGES[STUDIES_NAMES.D_AEREA]}
+                      alt="Circulo rojo audiometria"
+                      width={16}
+                      height={16}
                     // eslint-disable-next-line eqeqeq
-                    className={isOn(row, col) ? 'opacity-100' : 'opacity-0'}
-                  />
+                      className={isOn(row, col) ? 'opacity-100' : 'opacity-0'}
+                    />
+                    {neededImages.length >= 2 && (
+                    <Image
+                      src={neededImages[1]}
+                      alt="Circulo rojo audiometria"
+                      width={16}
+                      height={16}
+                    // eslint-disable-next-line eqeqeq
+                      className="opacity-100"
+                      style={{ marginLeft: '-2px' }}
+                    />
+                    )}
+                  </div>
+                  {neededImages.length >= 3 && (
+                  <div style={{ marginTop: '-4px' }}>
+                    <Image
+                      src={neededImages[2]}
+                      alt="Circulo rojo audiometria"
+                      width={16}
+                      height={16}
+                    // eslint-disable-next-line eqeqeq
+                      className={isOn(row, col) ? 'opacity-100' : 'opacity-0'}
+                    />
+                    {neededImages.length >= 4 && (
+                    <Image
+                      src={neededImages[3]}
+                      alt="Circulo rojo audiometria"
+                      width={16}
+                      height={16}
+                    // eslint-disable-next-line eqeqeq
+                      className="opacity-100"
+                      style={{ marginLeft: '-2px' }}
+                    />
+                    )}
+                  </div>
+                  )}
                 </button>
               )}
           </Casillero>,
@@ -238,14 +275,21 @@ function AudiogramCompletoEjemplo(readOnly = false) {
   }
 
   useEffect(() => {
-    setStudies({
-      [STUDIES_NAMES.D_AEREA]: [0, 10, 10, 10, 11, 11, 11, 12, 12, 13, 16, 19],
-      [STUDIES_NAMES.I_AEREA]: [0, 12, 12, 13, 13, 13, 14, 15, 14, 14, 15, 16],
-      // eslint-disable-next-line comma-spacing, key-spacing
-      [STUDIES_NAMES.D_OSEA]:  [0, 3 , 3 , 3 , 4 , 4 , 4 , 5 , 5 , 6 , 9 , 9],
-      // eslint-disable-next-line comma-spacing, key-spacing
-      [STUDIES_NAMES.I_OSEA]:  [0, 5 , 5 , 6 , 6 , 6 , 7 , 8 , 7 , 7 , 8 , 7],
-    });
+    const datosJSONRecuperados = localStorage.getItem('datosUsuario');
+    const datosRecuperados = JSON.parse(datosJSONRecuperados);
+    setStudies(datosRecuperados);
+    // setStudies({
+    //   [STUDIES_NAMES.D_AEREA]: [0, 10, 10, 10, 11, 6, 11, 12, 12, 14, 16, 19],
+    //   [STUDIES_NAMES.I_AEREA]: [0, 12, 12, 13, 11, 6, 14, 15, 14, 14, 15, 16],
+    //   [STUDIES_NAMES.D_OSEA]: [0, 3, 3, 3, 4, 6, 4, 5, 5, 6, 9, 9],
+    //   [STUDIES_NAMES.I_OSEA]: [0, 5, 5, 6, 6, 6, 7, 8, 7, 7, 8, 7],
+    // });
+    // setStudies({
+    //   [STUDIES_NAMES.D_AEREA]: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    //   [STUDIES_NAMES.I_AEREA]: [0, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12],
+    //   [STUDIES_NAMES.D_OSEA]: [0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+    //   [STUDIES_NAMES.I_OSEA]: [0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
+    // });
   }, []);
 
   useEffect(() => {

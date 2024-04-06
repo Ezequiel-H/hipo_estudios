@@ -113,10 +113,10 @@ const STUDIES_IMAGES = {
 };
 
 const PARALLEL_STUDIES_IMAGES = {
-  [STUDIES_NAMES.D_AEREA]: '/img/estudios/markers/aerea_derecha.png',
-  [STUDIES_NAMES.I_AEREA]: '/img/estudios/markers/aerea_izquierda.png',
-  [STUDIES_NAMES.D_OSEA]: '/img/estudios/markers/osea_derecha_doble.png',
-  [STUDIES_NAMES.I_OSEA]: '/img/estudios/markers/osea_izquierda_doble.png',
+  [STUDIES_NAMES.D_AEREA]: '/img/estudios/markers/sr_aerea_derecha.png',
+  [STUDIES_NAMES.I_AEREA]: '/img/estudios/markers/sr_aerea_izquierda.png',
+  [STUDIES_NAMES.D_OSEA]: '/img/estudios/markers/sr_osea_derecha.png',
+  [STUDIES_NAMES.I_OSEA]: '/img/estudios/markers/sr_osea_izquierda.png',
 };
 
 const STUDIES_FULL_NAMES = {
@@ -383,7 +383,15 @@ function Audiogram(readOnly = false) {
                 </p>
               </div>
               <div className="mt-4">
-                <Button className="btn btn-secondary">Guardar estudio</Button>
+                <Button
+                  onClick={() => {
+                    const datosJSON = JSON.stringify(STUDIES);
+                    localStorage.setItem('datosUsuario', datosJSON);
+                  }}
+                  className="btn btn-secondary"
+                >
+                  Guardar estudio
+                </Button>
               </div>
             </Col>
             ;
