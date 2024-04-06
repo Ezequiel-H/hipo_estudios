@@ -284,7 +284,7 @@ function Audiogram(readOnly = false) {
                 ].map(({
                   name, aud, freq, izq,
                 }) => (
-                  <Frecuencia className={`aud-${aud} freq-${freq}`}>
+                  <Frecuencia key={name} className={`aud-${aud} freq-${freq}`}>
                     <p style={{ marginRight: `-${izq}px` }}>{name}</p>
                   </Frecuencia>
                 ))}
@@ -304,6 +304,7 @@ function Audiogram(readOnly = false) {
                 <Row style={{ width: '100%' }}>
                   {[1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1].map((size, index) => (
                     <TextInputDiv
+                      key={index}
                       className={`form-${size}`}
                       style={{
                         padding: 0,
@@ -314,7 +315,7 @@ function Audiogram(readOnly = false) {
                         size="sm"
                         type="number"
                         name="txtNumber"
-                        value={STUDIES[evaluando][index + 1] !== '' ? removeFirstA(STUDIES[evaluando][index + 1]) * 5 - 10 : ''}
+                        value={STUDIES[evaluando][index + 1] ? `${removeFirstA(STUDIES[evaluando][index + 1]) * 5 - 10}` : ''}
                         onChange={(event) => addValueToResults(event.target.value, index + 1, evaluando, true)}
                         step="5"
                       />
@@ -335,8 +336,8 @@ function Audiogram(readOnly = false) {
                     Vía ósea
                   </p>
                 </Col>
-                {readOnly && Object.values(STUDIES_NAMES).map((name, index) => (
-                  <Col>
+                {Object.values(STUDIES_NAMES).map((name, index) => (
+                  <Col key={index}>
                     <SeleccionEstudio
                       onClick={() => {
                         setEvaluando(name);
@@ -357,7 +358,6 @@ function Audiogram(readOnly = false) {
                     </SeleccionEstudio>
                   </Col>
                 ))}
-
               </Row>
               <div className="mt-4">
                 <p className="mb-0" style={{ fontSize: '22px' }}>Paciente</p>
