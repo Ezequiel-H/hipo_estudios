@@ -416,3 +416,28 @@ p {
 .select-tools-audiogram-mobile {
   max-width: 375px !important;
 }
+
+
+/* Impedanciometria */
+
+.impedancio-cell {
+  border: 1px solid black;
+  margin: 0;
+  padding: 0!important;
+  border: 1px solid black;
+  max-width: 70px;
+}
+
+.impedancio-cell input {
+  border:none;
+  padding:0;
+  margin:0;
+  background-color: transparent;
+  color: black;
+  text-align:center;
+  width: 100%;
+}
+
+.impedancio-cell input::placeholder{
+  font-weight: bold;
+}
