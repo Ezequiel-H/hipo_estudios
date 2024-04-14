@@ -11,6 +11,7 @@ import React, { useReducer, useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { Row, Container } from 'react-bootstrap';
 import Image from 'next/image';
+import localStorageNames from '@/app/constants/localStorage';
 
 const Template = styled.div`
   background-color: white;
@@ -275,7 +276,7 @@ function AudiogramCompletoEjemplo(readOnly = false) {
   }
 
   useEffect(() => {
-    const datosJSONRecuperados = localStorage.getItem('datosUsuario');
+    const datosJSONRecuperados = localStorage.getItem(localStorageNames.AUDIOGRAM);
     const datosRecuperados = JSON.parse(datosJSONRecuperados);
     setStudies(datosRecuperados);
     // setStudies({

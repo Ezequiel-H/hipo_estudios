@@ -12,6 +12,7 @@ import {
   Col, Row, Container, Form, Button,
 } from 'react-bootstrap';
 import Image from 'next/image';
+import localStorageNames from '@/app/constants/localStorage';
 
 const Template = styled.div`
   background-color: white;
@@ -196,7 +197,7 @@ const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile) => (
       <Button
         onClick={() => {
           const datosJSON = JSON.stringify(STUDIES);
-          localStorage.setItem('datosUsuario', datosJSON);
+          localStorage.setItem(localStorageNames.AUDIOGRAM, datosJSON);
         }}
         className="btn btn-secondary"
       >
