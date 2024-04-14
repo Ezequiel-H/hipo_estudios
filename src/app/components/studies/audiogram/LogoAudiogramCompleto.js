@@ -9,7 +9,7 @@
 import React, { useReducer, useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import {
-  Col, Row, Container, Form, Button,
+  Row, Container,
 } from 'react-bootstrap';
 import Image from 'next/image';
 import localStorageNames from '@/app/constants/localStorage';
@@ -43,29 +43,6 @@ const Frecuencia = styled.div`
     margin-bottom: 0;
   }
   
-`;
-
-const TextInputDiv = styled.div`
-  margin: 0 !important;
-  padding: 0!important;
-  background-color: transparent;
-  border-radius: 0%;
-  color: white;
-  display: flex;
-  justify-content: flex-end;
-  text-align: right;
-`;
-
-const SeleccionEstudio = styled.button`
-  background-color:transparent;
-  border: none;
-  color: black;
-  display: grid;
-  max-width: 3
-  img {
-    margin:auto;
-  }
-  margin: 0 auto;
 `;
 
 const Casillero = styled.div`
@@ -110,91 +87,13 @@ const STUDIES_IMAGES = {
   [STUDIES_NAMES.I_OSEA]: '/img/estudios/markers/osea_izquierda.png',
 };
 
-const STUDIES_FULL_NAMES = {
-  [STUDIES_NAMES.D_AEREA]: 'Aérea derecha',
-  [STUDIES_NAMES.I_AEREA]: 'Aérea izquierda',
-  [STUDIES_NAMES.D_OSEA]: 'Ósea derecha',
-  [STUDIES_NAMES.I_OSEA]: 'Ósea izquierda',
-};
-
-const STUDIES_SIDE = {
-  [STUDIES_NAMES.D_AEREA]: 'derecha',
-  [STUDIES_NAMES.I_AEREA]: 'izquierda',
-  [STUDIES_NAMES.D_OSEA]: 'derecha',
-  [STUDIES_NAMES.I_OSEA]: 'izquierda',
-};
-
-const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile) => (
-  <Col md={12} lg={4} xl={4} key={4} className="col-estudio-info" style={{ width: 'fit-content' }}>
-    <Row className={isMobile ? 'select-tools-audiogram-mobile' : 'select-tools-audiogram'}>
-      {Object.values(STUDIES_NAMES).map((name, index) => (
-        <Col key={index}>
-          <SeleccionEstudio
-            onClick={() => {
-              setEvaluando(name);
-              agregarCurva(name);
-            }}
-            key={`${index}SeleccionEstudios`}
-            className={evaluando === name ? 'opacity-100' : 'opacity-25'}
-          >
-            <Image
-              src={STUDIES_IMAGES[name]}
-              alt={STUDIES_FULL_NAMES[name]}
-              width={55}
-              height={55}
-              className={evaluando === name ? 'opacity-100' : 'opacity-25'}
-              style={{ margin: '10px auto' }}
-            />
-            {STUDIES_SIDE[name]}
-          </SeleccionEstudio>
-        </Col>
-      ))}
-    </Row>
-    <div className="mt-4">
-      <p className="mb-0" style={{ fontSize: '22px' }}>Paciente</p>
-      <p className="mb-0">
-        Apellido:
-        <strong> Gomez</strong>
-      </p>
-      <p className="mb-0">
-        Nombre:
-        <strong> Jorge</strong>
-      </p>
-      <p className="mb-0">
-        Fecha de nacimiento:
-        <strong> 25/02/1976</strong>
-      </p>
-    </div>
-    <div className="mt-4">
-      <p className="m-0" style={{ fontSize: '22px' }}>Observaciones</p>
-      <p>
-        ____________________
-        <br />
-        ____________________
-      </p>
-    </div>
-    <div className="mt-4">
-      <Button
-        onClick={() => {
-          const datosJSON = JSON.stringify(STUDIES);
-          localStorage.setItem(localStorageNames.LOGOAUDIOGRAM, datosJSON);
-        }}
-        className="btn btn-secondary"
-      >
-        Guardar estudio
-      </Button>
-    </div>
-  </Col>
-);
-
 function LogoAudiogramCompleto() {
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
-  const [evaluando, setEvaluando] = useState('dAerea');
   const [STUDIES, setStudies] = useState({
     [STUDIES_NAMES.D_AEREA]: ['', '', '', '', '', '', '', '', '', '', ''],
     [STUDIES_NAMES.I_AEREA]: ['', '', '', '', '', '', '', '', '', '', ''],
   });
-  const [isMobile, setIsMobile] = useState(false);
+  // const [isMobile, setIsMobile] = useState(false);
 
   const [lineasElementos, setLineas] = useState([]);
 
