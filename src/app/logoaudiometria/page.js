@@ -11,6 +11,7 @@ import styled from '@emotion/styled';
 
 import { Container } from 'react-bootstrap';
 import Audiogram from '@/app/components/studies/audiogram/Audiogram';
+import LogoAudiogram from '../components/studies/audiogram/LogoAudiogram';
 
 const SeleccionEstudio = styled.button`
   background-color:transparent;
@@ -59,14 +60,7 @@ const getTargetElement = () => document.getElementById('content-id');
 
 function Component() {
   return (
-    <div>
-      <Container>
-        <button onClick={() => window.print()}>Generate PDF</button>
-      </Container>
-      <div id="content-id" style={{ color: 'red' }}>
-        <Audiogram readOnly />
-      </div>
-    </div>
+    <LogoAudiogram />
   );
 }
 

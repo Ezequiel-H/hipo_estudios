@@ -6,7 +6,7 @@
 
 'use client';
 
-import React, { useReducer, useState } from 'react';
+import React, { useReducer, useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import {
   Col, Row, Container, Form, Button,
@@ -16,15 +16,14 @@ import Image from 'next/image';
 const Template = styled.div`
   background-color: white;
   background-size: cover;
-  width: 100vw;
+  width: 100%;
   display: flex;
-  // justify-content: center;
+  justify-content: center;
 `;
 
-const LogoAudiograma = styled.div`
+const Audiograma = styled.div`
   position: relative;
   width: 581px;
-  height: 609px;
 `;
 
 const Frecuencia = styled.div`
@@ -80,7 +79,7 @@ const Casillero = styled.div`
     margin: 0;
     padding: 0;
     position: relative;
-    bottom: -12px; 
+    bottom: -6px; 
     right: 58px; 
     text-align: right;
   }
@@ -98,42 +97,9 @@ const Casillero = styled.div`
   }
 `;
 
-const Intensity = styled.button`
-  color: black;
-  font-weight: bold;
-  padding: 0 10px!important;
-  font-size: 20px;
-`;
-
-const LogoCol = styled(Col)`
-  color: black;
-  text-align:center;
-  margin-top:10px;
-  
-  div {
-    background-color: var(--tertiaryColor);
-    border-radius: 40px;
-    padding: 15px 10px;
-    margin: 0 5px;
-    font-weight: bold;
-  }
-
-  button {
-    background-color: transparent;
-    margin: 0 5px;
-    border: none;
-    img {
-      width: 35px;
-      height: 35px;
-    }
-  }
-`;
-
 const STUDIES_NAMES = {
   D_AEREA: 'dAerea',
   I_AEREA: 'iAerea',
-  D_OSEA: 'dOsea',
-  I_OSEA: 'iOsea',
 };
 
 const STUDIES_IMAGES = {
@@ -141,13 +107,6 @@ const STUDIES_IMAGES = {
   [STUDIES_NAMES.I_AEREA]: '/img/estudios/markers/aerea_izquierda.png',
   [STUDIES_NAMES.D_OSEA]: '/img/estudios/markers/osea_derecha.png',
   [STUDIES_NAMES.I_OSEA]: '/img/estudios/markers/osea_izquierda.png',
-};
-
-const PARALLEL_STUDIES_IMAGES = {
-  [STUDIES_NAMES.D_AEREA]: '/img/estudios/markers/aerea_derecha.png',
-  [STUDIES_NAMES.I_AEREA]: '/img/estudios/markers/aerea_izquierda.png',
-  [STUDIES_NAMES.D_OSEA]: '/img/estudios/markers/osea_derecha_doble.png',
-  [STUDIES_NAMES.I_OSEA]: '/img/estudios/markers/osea_izquierda_doble.png',
 };
 
 const STUDIES_FULL_NAMES = {
@@ -164,41 +123,96 @@ const STUDIES_SIDE = {
   [STUDIES_NAMES.I_OSEA]: 'izquierda',
 };
 
+const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile) => (
+  <Col md={12} lg={4} xl={4} key={4} className="col-estudio-info" style={{ width: 'fit-content' }}>
+    <Row className={isMobile ? 'select-tools-audiogram-mobile' : 'select-tools-audiogram'}>
+      {Object.values(STUDIES_NAMES).map((name, index) => (
+        <Col key={index}>
+          <SeleccionEstudio
+            onClick={() => {
+              setEvaluando(name);
+              agregarCurva(name);
+            }}
+            key={`${index}SeleccionEstudios`}
+            className={evaluando === name ? 'opacity-100' : 'opacity-25'}
+          >
+            <Image
+              src={STUDIES_IMAGES[name]}
+              alt={STUDIES_FULL_NAMES[name]}
+              width={55}
+              height={55}
+              className={evaluando === name ? 'opacity-100' : 'opacity-25'}
+              style={{ margin: '10px auto' }}
+            />
+            {STUDIES_SIDE[name]}
+          </SeleccionEstudio>
+        </Col>
+      ))}
+    </Row>
+    <div className="mt-4">
+      <p className="mb-0" style={{ fontSize: '22px' }}>Paciente</p>
+      <p className="mb-0">
+        Apellido:
+        <strong> Gomez</strong>
+      </p>
+      <p className="mb-0">
+        Nombre:
+        <strong> Jorge</strong>
+      </p>
+      <p className="mb-0">
+        Fecha de nacimiento:
+        <strong> 25/02/1976</strong>
+      </p>
+    </div>
+    <div className="mt-4">
+      <p className="m-0" style={{ fontSize: '22px' }}>Observaciones</p>
+      <p>
+        ____________________
+        <br />
+        ____________________
+      </p>
+    </div>
+    <div className="mt-4">
+      <Button
+        onClick={() => {
+          const datosJSON = JSON.stringify(STUDIES);
+          localStorage.setItem('datosUsuario', datosJSON);
+        }}
+        className="btn btn-secondary"
+      >
+        Guardar estudio
+      </Button>
+    </div>
+  </Col>
+);
+
 function LogoAudiogram() {
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
   const [evaluando, setEvaluando] = useState('dAerea');
   const [STUDIES, setStudies] = useState({
     [STUDIES_NAMES.D_AEREA]: ['', '', '', '', '', '', '', '', '', '', ''],
     [STUDIES_NAMES.I_AEREA]: ['', '', '', '', '', '', '', '', '', '', ''],
-    [STUDIES_NAMES.D_OSEA]: ['', '', '', '', '', '', '', '', '', '', ''],
-    [STUDIES_NAMES.I_OSEA]: ['', '', '', '', '', '', '', '', '', '', ''],
   });
-
-  // const getResultFromRow = (row) => row * 5 - 10;
-
-  // const getFrequencyFromCol = (col) => {
-  //   const frequencies = [125, 250, 500, 750, 1000, 1500, 2000, 3000, 4000, 6000, 8000];
-  //   return frequencies[col - 1];
-  // };
+  const [isMobile, setIsMobile] = useState(false);
 
   const [lineasElementos, setLineas] = useState([]);
 
-  function removeFirstA(str) {
-    if (str?.toString()?.charAt(0) === 'a') {
-      return str.substring(1);
-    }
-    return str;
-  }
+  useEffect(() => {
+    const { userAgent } = navigator;
+    setIsMobile(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent));
+    // eslint-disable-next-line
+  }, [])
 
   const agregarCurva = (estudioActual = evaluando) => {
+    const newLineas = [];
     const puntos = STUDIES[estudioActual].map((punto, index) => {
-      const elemento = document.getElementById(`b-${removeFirstA(punto)}-${index}`);
-      return punto !== ''
-        ? { x: elemento.getBoundingClientRect().x - 48, y: elemento.offsetTop + 8 }
+      const elemento = document.getElementById(`b-${punto}-${index}`);
+      const lineas = document.getElementById('lineas');
+      return (elemento && punto !== '')
+        ? { x: elemento.getBoundingClientRect().x - lineas.getBoundingClientRect().x + 12, y: elemento.offsetTop + 8 }
         : { x: undefined, y: undefined };
     }).filter((value) => value.x !== undefined);
 
-    const newLineas = [];
     for (let i = 0; i < puntos.length - 1; i++) {
       const puntoActual = puntos[i];
       const puntoSiguiente = puntos[i + 1];
@@ -210,7 +224,8 @@ function LogoAudiogram() {
           x2={puntoSiguiente.x}
           y2={puntoSiguiente.y}
           stroke={estudioActual === STUDIES_NAMES.D_AEREA || estudioActual === STUDIES_NAMES.D_OSEA ? 'red' : 'blue'}
-          strokeDasharray="10,8"
+          strokeDasharray={estudioActual === STUDIES_NAMES.I_OSEA || estudioActual === STUDIES_NAMES.D_OSEA ? '10,8' : 'none'}
+          strokeOpacity="0.6"
           strokeWidth="4"
         />,
       );
@@ -221,7 +236,7 @@ function LogoAudiogram() {
   const addValueToResults = (row, col, estudio, textInput = false) => {
     const newRow = textInput ? (parseInt(row, 10) + 10) / 5 : row;
     const newStudy = STUDIES[estudio];
-    newStudy[col] = newStudy[col] === newRow ? `a${newRow}` : newStudy[col] === `a${newRow}` ? '' : newRow || '';
+    newStudy[col] = newStudy[col] === `${newRow}` ? '' : `${newRow}` || '';
     setStudies({ ...STUDIES, [estudio]: newStudy });
     agregarCurva();
     forceUpdate();
@@ -230,31 +245,31 @@ function LogoAudiogram() {
   function AudiometriaComp() {
     const rows = [];
 
-    for (let row = 0; row < 10; row++) {
+    for (let row = 0; row < 22; row++) {
       const cols = [];
-      for (let col = 0; col < 10; col++) {
+      for (let col = 0; col < 11; col++) {
         cols.push(
           <Casillero
             id={`c-${row}-${col}`}
             key={`c-${row}-${col}`}
-            className="l-aud"
-            // className={`l-aud-${col === 1 || col === 2 ? '2' : '1'}`}
+            className="aud-1"
             style={{
-              borderBottom: row === 2 ? '5px solid rgba(0, 0, 0, 1)' : row % 2 === 0 ? '2px solid rgba(0, 0, 0, 1)' : null,
+              borderBottom: row % 2 !== 0 ? '2px solid rgba(0, 0, 0, 1)' : null,
+              borderTop: row === 0 ? '2px solid rgba(0, 0, 0, 1)' : null,
               borderLeft: col === 0 ? '2px solid rgba(0, 0, 0, 1)' : null,
-              borderRight: [3, 5, 7, 9].includes(col) ? '2px dashed rgba(0, 0, 0, 1)' : '2px solid rgba(0, 0, 0, 1)',
+              borderRight: '2px solid rgba(0, 0, 0, 1)',
             }}
           >
             {col === 0
-              ? (row % 2 === 0 ? (<p>{row * 5 - 10}</p>) : null)
+              ? (row % 2 !== 0 ? (<p>{ 100 - row * 5 + 5 }</p>) : null)
               : (
                 <button style={{ zIndex: 50 }} onClick={() => addValueToResults(row, col, evaluando)} id={`b-${row}-${col}`}>
                   <Image
-                    src={STUDIES[evaluando][col] === `a${row}` ? PARALLEL_STUDIES_IMAGES[evaluando] : STUDIES_IMAGES[evaluando]}
+                    src={STUDIES_IMAGES[evaluando]}
                     alt="Circulo rojo audiometria"
                     width={16}
                     height={16}
-                    className={STUDIES[evaluando][col] === row || STUDIES[evaluando][col] === `a${row}` ? 'opacity-100' : 'opacity-0'}
+                    className={STUDIES[evaluando][col] === `${row}` ? 'opacity-100' : 'opacity-0'}
                   />
                 </button>
               )}
@@ -269,90 +284,92 @@ function LogoAudiogram() {
   return (
     <main style={{ backgroundColor: 'white!important' }}>
       <Container>
-        <p className="sub-title this-section mb-0">Logoaudiograma</p>
+        <p className="sub-title this-section mb-0">LogoAudiograma</p>
         <Template>
-          {/* <Container style={{
-            position: 'relative',
-            margin: 0,
-            paddingTop: '30px',
-            paddingLeft: '60px',
-            // maxWidth: 'none',
-            display: 'flex',
-            height: '100vh',
-            maxWidth: '950px',
+          <Container style={{
+            position: 'relative', margin: 0, paddingTop: '30px', paddingLeft: '60px', maxWidth: 'none', display: 'flex', height: '800px',
           }}
-          > */}
-          <Row
-            style={{
+          >
+            <Row style={{
               zIndex: 50,
               display: 'flex',
               justifyContent: 'start',
               position: 'relative',
+              maxWidth: '581px',
+              maxHeight: '50px',
             }}
-            key={1}
-          >
-            <Col xs={12} md={12} lg={7} xl={7} style={{ maxWidth: '581px!important' }}>
+            >
 
-              <LogoAudiograma key={2}>
+              <Audiograma>
                 {AudiometriaComp()}
-                <svg style={{
-                  position: 'absolute', width: '100%', height: '100%', top: 0, left: 0, zIndex: 10,
-                }}
+                <svg
+                  style={{
+                    position: 'absolute', width: '100%', height: '100%', top: 0, left: 0, zIndex: 10,
+                  }}
+                  id="lineas"
                 >
                   {lineasElementos}
                 </svg>
-              </LogoAudiograma>
-              <Row style={{ width: '581px' }} key={1}>
-                <Frecuencia key="1" className="aud-1 freq-up">
-                  <p>125</p>
-                </Frecuencia>
-                <Frecuencia key="2" className="aud-2 freq-up">
-                  <p>250</p>
-                </Frecuencia>
-                <Frecuencia key="3" className="aud-2 freq-up">
-                  <p>500</p>
-                </Frecuencia>
-                <Frecuencia key="4" className="aud-1 freq-down">
-                  <p>750</p>
-                </Frecuencia>
-                <Frecuencia key="5" className="aud-1 freq-up">
-                  <p>1.000</p>
-                </Frecuencia>
-                <Frecuencia key="6" className="aud-1 freq-down">
-                  <p>1.500</p>
-                </Frecuencia>
-                <Frecuencia key="7" className="aud-1 freq-up">
-                  <p>2.000</p>
-                </Frecuencia>
-                <Frecuencia key="8" className="aud-1 freq-down">
-                  <p>3.000</p>
-                </Frecuencia>
-                <Frecuencia key="9" className="aud-1 freq-up">
-                  <p>4.000</p>
-                </Frecuencia>
-                <Frecuencia key="10" className="aud-1 freq-down">
-                  <p>6.000</p>
-                </Frecuencia>
-                <Frecuencia key="11" className="aud-1 freq-up">
-                  <p>8.000</p>
-                </Frecuencia>
+              </Audiograma>
+              <Row style={{ width: '581px', paddingTop: '16px', marginLeft: '6px' }}>
+                {[
+                  {
+                    name: '10', aud: '1', freq: 'up', izq: '0',
+                  },
+                  {
+                    name: '20', aud: '1', freq: 'up', izq: '0',
+                  },
+                  {
+                    name: '30', aud: '1', freq: 'up', izq: '12',
+                  },
+                  {
+                    name: '40', aud: '1', freq: 'up', izq: '12',
+                  },
+                  {
+                    name: '50', aud: '1', freq: 'up', izq: '12',
+                  },
+                  {
+                    name: '60', aud: '1', freq: 'up', izq: '12',
+                  },
+                  {
+                    name: '70', aud: '1', freq: 'up', izq: '12',
+                  },
+                  {
+                    name: '80', aud: '1', freq: 'up', izq: '12',
+                  },
+                  {
+                    name: '90', aud: '1', freq: 'up', izq: '0',
+                  },
+                  {
+                    name: '100', aud: '1', freq: 'up', izq: '0',
+                  },
+                  {
+                    name: 'db', aud: '1', freq: 'up', izq: '0',
+                  },
+                ].map(({
+                  name, aud, freq, izq,
+                }) => (
+                  <Frecuencia key={name} className={`aud-${aud} freq-${freq}`}>
+                    <p style={{ marginLeft: `-${izq}px` }}>{name}</p>
+                  </Frecuencia>
+                ))}
               </Row>
-              <Form style={{ width: '581px', padding: 0, margin: 20 }} key={3}>
+              <Form style={{ width: '581px', padding: 0, margin: 20 }}>
                 <Row style={{ width: '100%' }}>
-                  {[1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1].map((size, index) => (
+                  {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((size, index) => (
                     <TextInputDiv
-                      className="form-1"
+                      key={index}
+                      className={`form-${size}`}
                       style={{
                         padding: 0,
                       }}
-                      key={`${index}FormControl`}
                     >
                       <Form.Control
                         style={{ maxWidth: '35px' }}
                         size="sm"
                         type="number"
                         name="txtNumber"
-                        value={(STUDIES[evaluando][index + 1] !== '' ? removeFirstA(STUDIES[evaluando][index + 1]) * 5 - 10 : '').toString()}
+                        value={STUDIES[evaluando][index + 1] ? `${105 - STUDIES[evaluando][index + 1] * 5}` : ''}
                         onChange={(event) => addValueToResults(event.target.value, index + 1, evaluando, true)}
                         step="5"
                       />
@@ -360,113 +377,20 @@ function LogoAudiogram() {
                   ))}
                 </Row>
               </Form>
-            </Col>
-            <Col xs={12} md={12} lg={4} xl={4} key={4} className="col-estudio-info">
-              <Row style={{ maxWidth: '375px!important' }}>
-                <Col xs={6} lg={6} xl={6}>
-                  <p className={`color-primary text-center ${(evaluando === 'dAerea' || evaluando === 'iAerea') ? 'opacity-100' : 'opacity-25'}`}>
-                    Vía aérea
-                  </p>
-                </Col>
-                <Col xs={6} lg={6} xl={6}>
-                  <p className={`color-primary text-center ${(evaluando === 'dOsea' || evaluando === 'iOsea') ? 'opacity-100' : 'opacity-25'}`}>
-                    Vía ósea
-                  </p>
-                </Col>
-                <Col xs={12} md={12} lg={12} xl={12} className="mb-4">
-                  <Row>
-                    {Object.values(STUDIES_NAMES).map((name, index) => (
-                      <Col>
-                        <SeleccionEstudio
-                          onClick={() => {
-                            setEvaluando(name);
-                            agregarCurva(name);
-                          }}
-                          key={`${index}SeleccionEstudios`}
-                          className={evaluando === name ? 'opacity-100' : 'opacity-25'}
-                        >
-                          <Image
-                            src={STUDIES_IMAGES[name]}
-                            alt={STUDIES_FULL_NAMES[name]}
-                            width={55}
-                            height={55}
-                          // className={evaluando === name ? 'opacity-100' : 'opacity-25'}
-                            style={{ margin: '10px auto' }}
-                          />
-                          {STUDIES_SIDE[name]}
-                        </SeleccionEstudio>
-                      </Col>
-                    ))}
-                  </Row>
-                </Col>
-                <LogoCol xs={12} md={6}>
-                  Intensidad
-                  <div>
-                    <Intensity>-</Intensity>
-                    25 dB
-                    <Intensity>+</Intensity>
-                  </div>
-                </LogoCol>
-                <LogoCol xs={12} md={6}>
-                  Palabra
-                  <div>Sastre</div>
-                </LogoCol>
-                <LogoCol xs={12} md={6}>
-                  Respuesta
-                  <div style={{ backgroundColor: 'white' }}>
-                    <button>
-                      <Image
-                        src="/img/web/Close.png"
-                        alt="Correcta"
-                        width={55}
-                        height={55}
-                      />
-                    </button>
-                    <button>
-                      <Image
-                        src="/img/web/Check.png"
-                        alt="Correcta"
-                        width={55}
-                        height={55}
-                      />
-                    </button>
-                  </div>
-                </LogoCol>
-                <LogoCol xs={12} md={6}>
-                  Conteo
-                  <div>15%</div>
-                </LogoCol>
-              </Row>
-              <div className="mt-4">
-                <p className="mb-0" style={{ fontSize: '22px' }}>Paciente</p>
-                <p className="mb-0">
-                  Apellido:
-                  <strong> Gomez</strong>
-                </p>
-                <p className="mb-0">
-                  Nombre:
-                  <strong> Jorge</strong>
-                </p>
-                <p className="mb-0">
-                  Fecha de nacimiento:
-                  <strong> 25/02/1976</strong>
-                </p>
-              </div>
-              <div className="mt-4">
-                <p className="m-0" style={{ fontSize: '22px' }}>Observaciones</p>
-                <p>
-                  ____________________
-                  <br />
-                  ____________________
-                </p>
-              </div>
-              <div className="mt-4">
-                <Button className="btn btn-secondary">Guardar estudio</Button>
-              </div>
-            </Col>
-          </Row>
+            </Row>
+            {
+              !isMobile && tools(evaluando, setEvaluando, agregarCurva, STUDIES, isMobile)
+            }
+          </Container>
+
         </Template>
       </Container>
+      <Container>
+        {
+          isMobile && tools(evaluando, setEvaluando, agregarCurva, STUDIES, isMobile)
+        }
+      </Container>
+
     </main>
   );
 }
