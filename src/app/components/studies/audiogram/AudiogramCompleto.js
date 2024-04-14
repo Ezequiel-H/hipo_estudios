@@ -96,7 +96,7 @@ const PARALLEL_STUDIES_IMAGES = {
   [STUDIES_NAMES.I_OSEA]: '/img/estudios/markers/sr_osea_izquierda.png',
 };
 
-function AudiogramCompletoEjemplo() {
+function AudiogramCompleto() {
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
   const [STUDIES, setStudies] = useState({
@@ -354,4 +354,4 @@ function AudiogramCompletoEjemplo() {
   );
 }
 
-export default AudiogramCompletoEjemplo;
+export default AudiogramCompleto;

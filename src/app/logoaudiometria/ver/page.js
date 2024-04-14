@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Layout from '@/app/components/general/Layout';
-import AudiogramCompleto from '@/app/components/studies/audiogram/AudiogramCompleto';
+import LogoAudiogramCompleto from '@/app/components/studies/audiogram/LogoAudiogramCompleto';
 
 function VerAudiometria() {
   return (
@@ -16,7 +16,7 @@ function VerAudiometria() {
           25/02/1976 (55 años)
         </p>
       </div>
-      <AudiogramCompleto />
+      <LogoAudiogramCompleto />
     </Layout>
   );
 }
