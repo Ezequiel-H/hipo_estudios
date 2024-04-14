@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable max-len */
 /* eslint-disable react/button-has-type */
@@ -44,29 +43,6 @@ const Frecuencia = styled.div`
     margin-bottom: 0;
   }
   
-`;
-
-const TextInputDiv = styled.div`
-  margin: 0 !important;
-  padding: 0!important;
-  background-color: transparent;
-  border-radius: 0%;
-  color: white;
-  display: flex;
-  justify-content: flex-end;
-  text-align: right;
-`;
-
-const SeleccionEstudio = styled.button`
-  background-color:transparent;
-  border: none;
-  color: black;
-  display: grid;
-  max-width: 3
-  img {
-    margin:auto;
-  }
-  margin: 0 auto;
 `;
 
 const Casillero = styled.div`
@@ -120,23 +96,9 @@ const PARALLEL_STUDIES_IMAGES = {
   [STUDIES_NAMES.I_OSEA]: '/img/estudios/markers/sr_osea_izquierda.png',
 };
 
-const STUDIES_FULL_NAMES = {
-  [STUDIES_NAMES.D_AEREA]: 'Aérea derecha',
-  [STUDIES_NAMES.I_AEREA]: 'Aérea izquierda',
-  [STUDIES_NAMES.D_OSEA]: 'Ósea derecha',
-  [STUDIES_NAMES.I_OSEA]: 'Ósea izquierda',
-};
-
-const STUDIES_SIDE = {
-  [STUDIES_NAMES.D_AEREA]: 'derecha',
-  [STUDIES_NAMES.I_AEREA]: 'izquierda',
-  [STUDIES_NAMES.D_OSEA]: 'derecha',
-  [STUDIES_NAMES.I_OSEA]: 'izquierda',
-};
-
-function AudiogramCompletoEjemplo(readOnly = false) {
+function AudiogramCompletoEjemplo() {
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
-  const [evaluando, setEvaluando] = useState('dAerea');
+
   const [STUDIES, setStudies] = useState({
     [STUDIES_NAMES.D_AEREA]: ['', '', '', '', '', '', '', '', '', '', ''],
     [STUDIES_NAMES.I_AEREA]: ['', '', '', '', '', '', '', '', '', '', ''],

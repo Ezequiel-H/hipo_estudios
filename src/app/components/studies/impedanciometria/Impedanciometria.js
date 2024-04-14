@@ -29,13 +29,12 @@ function Impedanciometria() {
     }
   }
 
-  // eslint-disable-next-line no-unused-vars
-  function getValue(index, table) {
-    if (table === 'contralateral') {
-      return contralateral[index - 1] - contralateral[index - 2] || '';
-    }
-    return ipsilateral[index - 1] - ipsilateral[index - 2];
-  }
+  // function getValue(index, table) {
+  //   if (table === 'contralateral') {
+  //     return contralateral[index - 1] - contralateral[index - 2] || '';
+  //   }
+  //   return ipsilateral[index - 1] - ipsilateral[index - 2];
+  // }
 
   const tableHead = () => (
     <>
