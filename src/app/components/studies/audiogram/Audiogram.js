@@ -295,8 +295,8 @@ function Audiogram() {
                   <Image
                     src={STUDIES[evaluando][col] === `a${row}` ? PARALLEL_STUDIES_IMAGES[evaluando] : STUDIES_IMAGES[evaluando]}
                     alt="Circulo rojo audiometria"
-                    width={16}
-                    height={16}
+                    width={STUDIES[evaluando][col] === `a${row}` ? 22 : 16}
+                    height={STUDIES[evaluando][col] === `a${row}` ? 22 : 16}
                     className={STUDIES[evaluando][col] === `${row}` || STUDIES[evaluando][col] === `a${row}` ? 'opacity-100' : 'opacity-0'}
                   />
                 </button>
