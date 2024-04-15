@@ -96,7 +96,7 @@ const PARALLEL_STUDIES_IMAGES = {
   [STUDIES_NAMES.I_OSEA]: '/img/estudios/markers/sr_osea_izquierda.png',
 };
 
-function AudiogramCompleto() {
+function AudiogramCompleto({ modo }) {
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
   const [STUDIES, setStudies] = useState({
@@ -184,49 +184,56 @@ function AudiogramCompleto() {
               : (
                 <button style={{ zIndex: 50, marginLeft: `${neededImages.length === 1 ? '0px' : '-5px'}` }} onClick={() => {}} id={`b-${row}-${col}`}>
                   <div style={{ marginTop: `${neededImages.length > 2 ? '-20px' : '0px'}` }}>
+
                     <Image
                       src={isOn(row, col) ? neededImages[0] : STUDIES_IMAGES[STUDIES_NAMES.D_AEREA]}
                       alt="Circulo rojo audiometria"
                       width={16}
                       height={16}
-                    // eslint-disable-next-line eqeqeq
+                          // eslint-disable-next-line eqeqeq
                       className={isOn(row, col) ? 'opacity-100' : 'opacity-0'}
                     />
-                    {neededImages.length >= 2 && (
-                    <Image
-                      src={neededImages[1]}
-                      alt="Circulo rojo audiometria"
-                      width={16}
-                      height={16}
-                    // eslint-disable-next-line eqeqeq
-                      className="opacity-100"
-                      style={{ marginLeft: '-2px' }}
-                    />
-                    )}
+                    {
+                      neededImages.length >= 2 && (
+                        <Image
+                          src={neededImages[1]}
+                          alt="Circulo rojo audiometria"
+                          width={16}
+                          height={16}
+                            // eslint-disable-next-line eqeqeq
+                          className="opacity-100"
+                          style={{ marginLeft: '-2px' }}
+                        />
+                      )
+                    }
                   </div>
-                  {neededImages.length >= 3 && (
-                  <div style={{ marginTop: '-4px' }}>
-                    <Image
-                      src={neededImages[2]}
-                      alt="Circulo rojo audiometria"
-                      width={16}
-                      height={16}
-                    // eslint-disable-next-line eqeqeq
-                      className={isOn(row, col) ? 'opacity-100' : 'opacity-0'}
-                    />
-                    {neededImages.length >= 4 && (
-                    <Image
-                      src={neededImages[3]}
-                      alt="Circulo rojo audiometria"
-                      width={16}
-                      height={16}
-                    // eslint-disable-next-line eqeqeq
-                      className="opacity-100"
-                      style={{ marginLeft: '-2px' }}
-                    />
-                    )}
-                  </div>
-                  )}
+                  {
+                    neededImages.length >= 3 && (
+                      <div style={{ marginTop: '-4px' }}>
+                        <Image
+                          src={neededImages[2]}
+                          alt="Circulo rojo audiometria"
+                          width={16}
+                          height={16}
+                          // eslint-disable-next-line eqeqeq
+                          className={isOn(row, col) ? 'opacity-100' : 'opacity-0'}
+                        />
+                        {
+                          neededImages.length >= 4 && (
+                            <Image
+                              src={neededImages[3]}
+                              alt="Circulo rojo audiometria"
+                              width={16}
+                              height={16}
+                                  // eslint-disable-next-line eqeqeq
+                              className="opacity-100"
+                              style={{ marginLeft: '-2px' }}
+                            />
+                          )
+                        }
+                      </div>
+                    )
+                  }
                 </button>
               )}
           </Casillero>,
@@ -240,7 +247,36 @@ function AudiogramCompleto() {
   useEffect(() => {
     const datosJSONRecuperados = localStorage.getItem(localStorageNames.AUDIOGRAM);
     const datosRecuperados = JSON.parse(datosJSONRecuperados);
-    setStudies(datosRecuperados);
+
+    if (modo === 'izquierdo') {
+      setStudies({
+        ...STUDIES,
+        iAerea: datosRecuperados.iAerea,
+        iOsea: datosRecuperados.iOsea,
+      });
+    } else if (modo === 'derecho') {
+      setStudies({
+        ...STUDIES,
+        dAerea: datosRecuperados.dAerea,
+        dOsea: datosRecuperados.dOsea,
+      });
+    } else if (modo === 'aerea') {
+      setStudies({
+        ...STUDIES,
+        dAerea: datosRecuperados.dAerea,
+        iAerea: datosRecuperados.iAerea,
+      });
+    } else if (modo === 'osea') {
+      setStudies({
+        ...STUDIES,
+        dOsea: datosRecuperados.dOsea,
+        iOsea: datosRecuperados.iOsea,
+      });
+    } else {
+      setStudies(datosRecuperados);
+    }
+    // setStudies(datosRequeridos);
+
     // setStudies({
     //   [STUDIES_NAMES.D_AEREA]: [0, 10, 10, 10, 11, 6, 11, 12, 12, 14, 16, 19],
     //   [STUDIES_NAMES.I_AEREA]: [0, 12, 12, 13, 11, 6, 14, 15, 14, 14, 15, 16],
@@ -257,99 +293,101 @@ function AudiogramCompleto() {
 
   useEffect(() => {
     if (Object.values(STUDIES).some((array) => array.some((value) => value !== ''))) {
-      agregarCurva(STUDIES_NAMES.D_AEREA);
-      agregarCurva(STUDIES_NAMES.I_AEREA);
-      agregarCurva(STUDIES_NAMES.D_OSEA);
-      agregarCurva(STUDIES_NAMES.I_OSEA);
+      if (modo === 'izquierdo') {
+        agregarCurva(STUDIES_NAMES.I_AEREA);
+        agregarCurva(STUDIES_NAMES.I_OSEA);
+      } else if (modo === 'derecho') {
+        agregarCurva(STUDIES_NAMES.D_AEREA);
+        agregarCurva(STUDIES_NAMES.D_OSEA);
+      } else if (modo === 'aerea') {
+        agregarCurva(STUDIES_NAMES.I_AEREA);
+        agregarCurva(STUDIES_NAMES.D_AEREA);
+      } else if (modo === 'osea') {
+        agregarCurva(STUDIES_NAMES.I_OSEA);
+        agregarCurva(STUDIES_NAMES.D_OSEA);
+      } else {
+        agregarCurva(STUDIES_NAMES.I_AEREA);
+        agregarCurva(STUDIES_NAMES.I_OSEA);
+        agregarCurva(STUDIES_NAMES.D_AEREA);
+        agregarCurva(STUDIES_NAMES.D_OSEA);
+      }
     }
     forceUpdate();
-  }, [STUDIES]);
+  }, [STUDIES, modo]);
 
   return (
     <main style={{ backgroundColor: 'white!important' }}>
-      <Container>
-        <p className="sub-title this-section mb-0">Audiometría</p>
-        <Template>
-          <Container style={{
-            position: 'relative', margin: 0, paddingTop: '30px', paddingLeft: '50px', maxWidth: 'none', display: 'flex', height: '100vh',
+      <Template>
+        <Container style={{
+          position: 'relative', margin: 0, paddingTop: '30px', paddingLeft: '50px', maxWidth: 'none', display: 'flex', height: '75vh',
+        }}
+        >
+          <Row style={{
+            zIndex: 50,
+            display: 'flex',
+            justifyContent: 'start',
+            position: 'relative',
+            maxWidth: '581px',
+            maxHeight: '50px',
           }}
           >
-            <Row style={{
-              zIndex: 50,
-              display: 'flex',
-              justifyContent: 'start',
-              position: 'relative',
-              maxWidth: '581px',
-              maxHeight: '50px',
-            }}
-            >
-              <Row style={{ width: '581px', marginBottom: '15px' }}>
-                {[
-                  {
-                    name: '125', aud: '1', freq: 'up', izq: '12',
-                  },
-                  {
-                    name: '250', aud: '2', freq: 'up', izq: '12',
-                  },
-                  {
-                    name: '500', aud: '2', freq: 'up', izq: '12',
-                  },
-                  {
-                    name: '750', aud: '1', freq: 'down', izq: '12',
-                  },
-                  {
-                    name: '1.000', aud: '1', freq: 'up', izq: '12',
-                  },
-                  {
-                    name: '1.500', aud: '1', freq: 'down', izq: '12',
-                  },
-                  {
-                    name: '2.000', aud: '1', freq: 'up', izq: '12',
-                  },
-                  {
-                    name: '3.000', aud: '1', freq: 'down', izq: '12',
-                  },
-                  {
-                    name: '4.000', aud: '1', freq: 'up', izq: '0',
-                  },
-                  {
-                    name: '6.000', aud: '1', freq: 'down', izq: '0',
-                  },
-                  {
-                    name: '8.000', aud: '1', freq: 'up', izq: '0',
-                  },
-                ].map(({
-                  name, aud, freq, izq,
-                }) => (
-                  <Frecuencia className={`aud-${aud} freq-${freq}`}>
-                    <p style={{ marginRight: `-${izq}px` }}>{name}</p>
-                  </Frecuencia>
-                ))}
-              </Row>
-              <Audiograma>
-                {AudiometriaComp()}
-                <svg
-                  style={{
-                    position: 'absolute', width: '100%', height: '100%', top: 0, left: 0, zIndex: 10,
-                  }}
-                  id="lineas"
-                >
-                  {lineasElementos}
-                </svg>
-              </Audiograma>
-              <div key={4} className="col-estudio-info">
-                <div className="mt-4">
-                  <p className="m-0" style={{ fontSize: '22px' }}>Observaciones</p>
-                  <p>
-                    Estudio realizado en cabina sonoamortiguada.
-                  </p>
-                </div>
-              </div>
+            <Row style={{ width: '581px', marginBottom: '15px' }}>
+              {[
+                {
+                  name: '125', aud: '1', freq: 'up', izq: '12',
+                },
+                {
+                  name: '250', aud: '2', freq: 'up', izq: '12',
+                },
+                {
+                  name: '500', aud: '2', freq: 'up', izq: '12',
+                },
+                {
+                  name: '750', aud: '1', freq: 'down', izq: '12',
+                },
+                {
+                  name: '1.000', aud: '1', freq: 'up', izq: '12',
+                },
+                {
+                  name: '1.500', aud: '1', freq: 'down', izq: '12',
+                },
+                {
+                  name: '2.000', aud: '1', freq: 'up', izq: '12',
+                },
+                {
+                  name: '3.000', aud: '1', freq: 'down', izq: '12',
+                },
+                {
+                  name: '4.000', aud: '1', freq: 'up', izq: '0',
+                },
+                {
+                  name: '6.000', aud: '1', freq: 'down', izq: '0',
+                },
+                {
+                  name: '8.000', aud: '1', freq: 'up', izq: '0',
+                },
+              ].map(({
+                name, aud, freq, izq,
+              }) => (
+                <Frecuencia className={`aud-${aud} freq-${freq}`}>
+                  <p style={{ marginRight: `-${izq}px` }}>{name}</p>
+                </Frecuencia>
+              ))}
             </Row>
-          </Container>
-        </Template>
-      </Container>
-
+            <Audiograma>
+              {AudiometriaComp()}
+              <svg
+                style={{
+                  position: 'absolute', width: '100%', height: '100%', top: 0, left: 0, zIndex: 10,
+                }}
+                id="lineas"
+              >
+                {lineasElementos}
+              </svg>
+            </Audiograma>
+          </Row>
+        </Container>
+      </Template>
     </main>
   );
 }
