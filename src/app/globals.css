@@ -301,6 +301,7 @@ p {
   padding: 7px 20px;
   border-radius: 35px;
   transition: all 0.3s ease;
+  border: 1px solid transparent;
 }
 
 .btn-primary {
@@ -310,8 +311,9 @@ p {
 
 .btn-primary:hover {
   /* background-color: transparent; */
-  border: 1px solid var(--primaryColor);
-  color: var(--primaryColor);
+  border: 1px solid transparent;
+  color: black;
+  background-color: var(--secondaryColor);
 }
 
 .btn-secondary {
@@ -322,9 +324,9 @@ p {
 }
 
 .btn-secondary:hover {
-  /* background-color: transparent; */
-  border: 1px solid var(--black);
-  color: var(--black);
+  background-color: transparent;
+  border: 1px solid black;
+  color: var(black);
 }
 
 .btn-nofill {
@@ -381,7 +383,7 @@ p {
   border: 1px solid var(--primaryColor);
   color: var(--primaryColor);
   max-width: 95%;
-  margin: 10px 10px 10px 0;
+  margin: 10px 0px;
   background-color: var(--quartyColor);
 }
 

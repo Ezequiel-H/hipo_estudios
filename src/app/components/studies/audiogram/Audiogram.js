@@ -13,6 +13,7 @@ import {
 } from 'react-bootstrap';
 import Image from 'next/image';
 import localStorageNames from '@/app/constants/localStorage';
+import Finished from '../Finished';
 
 const Template = styled.div`
   background-color: white;
@@ -134,7 +135,7 @@ const STUDIES_SIDE = {
   [STUDIES_NAMES.I_OSEA]: 'izquierda',
 };
 
-const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile) => (
+const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, persona, proceso, setProceso) => (
   <Col md={12} lg={4} xl={4} key={4} className="col-estudio-info" style={{ width: 'fit-content' }}>
     <Row className={isMobile ? 'select-tools-audiogram-mobile' : 'select-tools-audiogram'}>
       <Col xs={6} lg={6} xl={6}>
@@ -173,16 +174,16 @@ const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile) => (
     <div className="mt-4">
       <p className="mb-0" style={{ fontSize: '22px' }}>Paciente</p>
       <p className="mb-0">
-        Apellido:
-        <strong> Gomez</strong>
+        Apellido: 
+        <strong> {persona.apellido || 'Gomez'}</strong>
       </p>
       <p className="mb-0">
-        Nombre:
-        <strong> Jorge</strong>
+        Nombre: 
+        <strong> {persona.nombre}</strong>
       </p>
       <p className="mb-0">
-        Fecha de nacimiento:
-        <strong> 25/02/1976</strong>
+        Fecha de nacimiento: 
+        <strong> {persona.nacimiento}</strong>
       </p>
     </div>
     <div className="mt-4">
@@ -194,22 +195,80 @@ const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile) => (
       </p>
     </div>
     <div className="mt-4">
-      <Button
-        onClick={() => {
-          const datosJSON = JSON.stringify(STUDIES);
-          localStorage.setItem(localStorageNames.AUDIOGRAM, datosJSON);
-        }}
-        className="btn btn-secondary"
-      >
-        Guardar estudio
-      </Button>
+      {
+        proceso === 1 ? (
+          <Button
+            onClick={() => {
+              const datosJSON = JSON.stringify(STUDIES);
+              localStorage.setItem(localStorageNames.AUDIOGRAM, datosJSON);
+              setProceso(2);
+            }}
+            className="btn btn-secondary"
+          >
+            Guardar estudio
+          </Button>
+        ) : (proceso === 2) ? (
+          <>
+            <p>¿Terminaste con este paciente?</p>
+            <Button
+              onClick={() => {
+                const datosJSON = JSON.stringify(STUDIES);
+                localStorage.setItem(localStorageNames.AUDIOGRAM, datosJSON);  
+                setProceso(3);
+              }}
+              className="btn btn-secondary"
+            >
+              Si, terminé
+            </Button>
+            <Button
+              onClick={() => {
+                const datosJSON = JSON.stringify(STUDIES);
+                localStorage.setItem(localStorageNames.AUDIOGRAM, datosJSON);
+                setProceso(4);
+              }}
+              className="btn btn-primary"
+              style={{marginLeft: '10px!important;'}}
+            >
+              Realizar otro estudio
+            </Button>
+          </>
+        ) : proceso === 3 ? (
+          <>
+            <Finished modal={true} />
+          </>
+        ) : proceso === 4 ? (
+          <>
+            <p className='color-black mt-4'>Realizar otro estudio</p>
+            <div style={{display: 'flex'}}>
+              <Form.Select
+                aria-label="Seleccionar estudio a realizar"
+                style={{marginRight: '10px'}}
+              >
+                <option>Seleccionar estudio</option>
+                <option value="logoaudiometria">Logoaudiometría</option>
+                <option value="impedanciometria">Impedanciometría</option>
+                <option value="timpanometria">Timpanometría</option>
+                <option value="potenciales-evocados">Potenciales evocados</option>
+                <option value="otoemision">Otoemisión</option>
+              </Form.Select>
+              <Button
+                className="btn btn-primary"
+              >
+                Realizar
+              </Button>
+            </div>
+          </>
+        ) : null
+      }
     </div>
   </Col>
 );
 
 function Audiogram() {
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
+  const [persona, setPersona] = useState({apellido: 'Gomez'});
   const [evaluando, setEvaluando] = useState('dAerea');
+  const [proceso, setProceso] = useState(1);
   const [STUDIES, setStudies] = useState({
     [STUDIES_NAMES.D_AEREA]: ['', '', '', '', '', '', '', '', '', '', ''],
     [STUDIES_NAMES.I_AEREA]: ['', '', '', '', '', '', '', '', '', '', ''],
@@ -223,6 +282,15 @@ function Audiogram() {
   useEffect(() => {
     const { userAgent } = navigator;
     setIsMobile(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent));
+    
+    const currentUrl = window.location.href;
+    const urlParams = new URLSearchParams(currentUrl);
+    setPersona({
+      ...persona,
+      apellido: urlParams.get('apellido'),
+      nombre: urlParams.get('nombre'),
+      nacimiento: urlParams.get('nacimiento')
+    })
     // eslint-disable-next-line
   }, [])
 
@@ -342,25 +410,25 @@ function Audiogram() {
                     name: '750', aud: '1', freq: 'down', izq: '12',
                   },
                   {
-                    name: '1.000', aud: '1', freq: 'up', izq: '12',
+                    name: '1k', aud: '1', freq: 'up', izq: '0',
                   },
                   {
-                    name: '1.500', aud: '1', freq: 'down', izq: '12',
+                    name: '1.5k', aud: '1', freq: 'down', izq: '0',
                   },
                   {
-                    name: '2.000', aud: '1', freq: 'up', izq: '12',
+                    name: '2k', aud: '1', freq: 'up', izq: '0',
                   },
                   {
-                    name: '3.000', aud: '1', freq: 'down', izq: '12',
+                    name: '3k', aud: '1', freq: 'down', izq: '0',
                   },
                   {
-                    name: '4.000', aud: '1', freq: 'up', izq: '0',
+                    name: '4k', aud: '1', freq: 'up', izq: '0',
                   },
                   {
-                    name: '6.000', aud: '1', freq: 'down', izq: '0',
+                    name: '6k', aud: '1', freq: 'down', izq: '-10',
                   },
                   {
-                    name: '8.000', aud: '1', freq: 'up', izq: '0',
+                    name: '8k', aud: '1', freq: 'up', izq: '0',
                   },
                 ].map(({
                   name, aud, freq, izq,
@@ -406,7 +474,7 @@ function Audiogram() {
               </Form>
             </Row>
             {
-              !isMobile && tools(evaluando, setEvaluando, agregarCurva, STUDIES, isMobile)
+              !isMobile && tools(evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, persona, proceso, setProceso)
             }
 
           </Container>
@@ -415,7 +483,7 @@ function Audiogram() {
       </Container>
       <Container>
         {
-          isMobile && tools(evaluando, setEvaluando, agregarCurva, STUDIES, isMobile)
+          isMobile && tools(evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, persona, proceso, setProceso)
         }
       </Container>
 
