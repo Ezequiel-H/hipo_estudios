@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Button, Form, Row, Col, Container, ListGroup, Modal
+  Button, Form, Row, Col, Container, ListGroup, Modal,
 } from 'react-bootstrap';
 import styled from '@emotion/styled';
 
@@ -14,14 +14,13 @@ function Identify() {
   const [userData, setUserData] = useState({
     apellido: '',
     nombre: '',
-    nacimiento: ''
+    nacimiento: '',
   });
-  const [observation, setObservation] = useState('');
+  // const [observation, setObservation] = useState('');
   const [showModal, setShowModal] = useState(false);
 
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
-
 
   function onChangeInput(e) {
     e.preventDefault();
@@ -31,14 +30,13 @@ function Identify() {
     });
   }
 
-    return (
-      <>
-        <Container>
-          <p className="sub-title this-section mb-0 pb-0">Seleccionar paciente</p>
-          <Row>
-            <Col style={{maxWidth: '85vw', width: 'fit-content'}}>
-              <Form.Control className="form-field" type="text" placeholder="Buscar por apellido, nombre o DNI" name="apellido" onChange={(e) => onChangeInput(e)} />
-              {
+  return (
+    <Container>
+      <p className="sub-title this-section mb-0 pb-0">Seleccionar paciente</p>
+      <Row>
+        <Col style={{ maxWidth: '85vw', width: 'fit-content' }}>
+          <Form.Control className="form-field" type="text" placeholder="Buscar por apellido, nombre o DNI" name="apellido" onChange={(e) => onChangeInput(e)} />
+          {
                 (userData.apellido.toString().toLowerCase().includes('go'.toLowerCase())) ? (
                   <ListGroup>
                     <ListGroup.Item action href="?apellido=Gomez&nombre=Juan&nacimiento=10-10-2000">
@@ -53,14 +51,17 @@ function Identify() {
                   </ListGroup>
                 ) : null
               }
-            </Col>
-            <Col>
-              <Button className="btn btn-secondary form-btn"
-                onClick={handleShow}
-              >Registrar paciente nuevo</Button>
-            </Col>
-          </Row>
-          {
+        </Col>
+        <Col>
+          <Button
+            className="btn btn-secondary form-btn"
+            onClick={handleShow}
+          >
+            Registrar paciente nuevo
+          </Button>
+        </Col>
+      </Row>
+      {
             (showModal) ? (
               <div>
                 <Modal show={showModal} onHide={handleClose}>
@@ -98,16 +99,14 @@ function Identify() {
                           <Button className="btn btn-secondary form-btn">Registrar paciente</Button>
                         </Col>
                       </Row>
-                  </PatientForm>
+                    </PatientForm>
                   </Modal.Body>
                 </Modal>
               </div>
             ) : null
           }
-        </Container>
-      </>
-    )
-      
+    </Container>
+  );
 }
 
 export default Identify;

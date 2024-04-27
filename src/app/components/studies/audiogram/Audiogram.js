@@ -174,16 +174,25 @@ const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, persona
     <div className="mt-4">
       <p className="mb-0" style={{ fontSize: '22px' }}>Paciente</p>
       <p className="mb-0">
-        Apellido: 
-        <strong> {persona.apellido || 'Gomez'}</strong>
+        Apellido:
+        <strong>
+          {' '}
+          {persona.apellido || 'Gomez'}
+        </strong>
       </p>
       <p className="mb-0">
-        Nombre: 
-        <strong> {persona.nombre}</strong>
+        Nombre:
+        <strong>
+          {' '}
+          {persona.nombre}
+        </strong>
       </p>
       <p className="mb-0">
-        Fecha de nacimiento: 
-        <strong> {persona.nacimiento}</strong>
+        Fecha de nacimiento:
+        <strong>
+          {' '}
+          {persona.nacimiento}
+        </strong>
       </p>
     </div>
     <div className="mt-4">
@@ -213,7 +222,7 @@ const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, persona
             <Button
               onClick={() => {
                 const datosJSON = JSON.stringify(STUDIES);
-                localStorage.setItem(localStorageNames.AUDIOGRAM, datosJSON);  
+                localStorage.setItem(localStorageNames.AUDIOGRAM, datosJSON);
                 setProceso(3);
               }}
               className="btn btn-secondary"
@@ -227,22 +236,20 @@ const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, persona
                 setProceso(4);
               }}
               className="btn btn-primary"
-              style={{marginLeft: '10px!important;'}}
+              style={{ marginLeft: '10px!important;' }}
             >
               Realizar otro estudio
             </Button>
           </>
         ) : proceso === 3 ? (
-          <>
-            <Finished modal={true} />
-          </>
+          <Finished modal />
         ) : proceso === 4 ? (
           <>
-            <p className='color-black mt-4'>Realizar otro estudio</p>
-            <div style={{display: 'flex'}}>
+            <p className="color-black mt-4">Realizar otro estudio</p>
+            <div style={{ display: 'flex' }}>
               <Form.Select
                 aria-label="Seleccionar estudio a realizar"
-                style={{marginRight: '10px'}}
+                style={{ marginRight: '10px' }}
               >
                 <option>Seleccionar estudio</option>
                 <option value="logoaudiometria">Logoaudiometría</option>
@@ -266,7 +273,7 @@ const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, persona
 
 function Audiogram() {
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
-  const [persona, setPersona] = useState({apellido: 'Gomez'});
+  const [persona, setPersona] = useState({ apellido: 'Gomez' });
   const [evaluando, setEvaluando] = useState('dAerea');
   const [proceso, setProceso] = useState(1);
   const [STUDIES, setStudies] = useState({
@@ -282,15 +289,15 @@ function Audiogram() {
   useEffect(() => {
     const { userAgent } = navigator;
     setIsMobile(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent));
-    
+
     const currentUrl = window.location.href;
     const urlParams = new URLSearchParams(currentUrl);
     setPersona({
       ...persona,
       apellido: urlParams.get('apellido'),
       nombre: urlParams.get('nombre'),
-      nacimiento: urlParams.get('nacimiento')
-    })
+      nacimiento: urlParams.get('nacimiento'),
+    });
     // eslint-disable-next-line
   }, [])
 
