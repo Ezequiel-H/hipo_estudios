@@ -281,10 +281,16 @@ a {
   font-weight: 400;
 }
 
-p {
+p,
+h1,
+h2,
+h3,
+label,
+table {
   font-family: var(--secondaryFont);
   color: var(--primaryColor) !important;
 }
+
 
 /* DIV AJUST */
 
