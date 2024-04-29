@@ -3,12 +3,13 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import {
-  Container, Table, Row, Col, Button,
+  Container, Table, Row, Col, Button, Form
 } from 'react-bootstrap';
 
 function Otoemision() {
   const [derecha, setDerecha] = useState(Array(12));
   const [izquierda, setIzquierda] = useState(Array(12));
+  const [otoemisor, setOtoemisor] = useState(0);
 
   const numRows = 6;
   const numCols = 6;
@@ -63,10 +64,31 @@ function Otoemision() {
     return cells;
   };
 
+  function changeOtoemisor(e) {
+    setOtoemisor(e.target.value);
+  }
+
   return (
     <main style={{ backgroundColor: 'white' }}>
       <Container>
-        <p className="sub-title this-section mb-0">Otoemision</p>
+        <div
+          style={{ display: 'flex' }}
+          className="this-section"
+        >
+          <p className="sub-title mb-0">Otoemision</p>
+          <Form.Select
+            aria-label="Seleccionar otoemisor"
+            value={otoemisor}
+            onChange={(e) => changeOtoemisor(e)}
+            className="mb-4"
+            style={{ width: 'fit-content', marginLeft: '20px' }}
+          >
+            <option disabled>Seleccionar Otoemisor</option>
+            <option value="1">Cada 1.500 Hz</option>
+            <option value="2">Cada 2.000 Hz</option>
+            <option value="3">Con todos los Hz</option>
+          </Form.Select>
+        </div>
         <Row>
           <Col className="mx-auto" sm={12} md={12} lg={4} xl={4}>
             <p className="text-center sub-title mb-0">IZQUIERDA</p>
