@@ -1,12 +1,24 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import Layout from '@/app/components/general/Layout';
 import AudiogramCompleto from '@/app/components/studies/audiogram/AudiogramCompleto';
+import { getUserById } from '@/app/db/user';
+import { getStudyById } from '@/app/db/studies';
 
-function VerAudiometria() {
+function VerAudiometria({ params }) {
+  const { userId, studyId } = params;
   const [separar, setSeparar] = useState(true);
+  const [user, setUser] = useState();
+  const [study, setStudy] = useState();
+  useEffect(() => {
+    const newUser = getUserById(userId);
+    setUser(newUser);
+
+    const newStudy = getStudyById(studyId);
+    setStudy(newStudy);
+  }, []);
 
   return (
     <Layout>
@@ -39,14 +51,14 @@ function VerAudiometria() {
           (separar) ? (
             <Row>
               <Col>
-                <AudiogramCompleto modo="izquierdo" />
+                <AudiogramCompleto modo="izquierdo" data="study" />
               </Col>
               <Col>
-                <AudiogramCompleto modo="derecho" />
+                <AudiogramCompleto modo="derecho" data="study" />
               </Col>
             </Row>
           ) : (
-            <AudiogramCompleto modo="todo" />
+            <AudiogramCompleto modo="todo" data="study" />
           )
         }
         <div key={4} className="col-estudio-info">

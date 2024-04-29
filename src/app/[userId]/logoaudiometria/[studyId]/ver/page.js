@@ -4,7 +4,7 @@ import React from 'react';
 import Layout from '@/app/components/general/Layout';
 import LogoAudiogramCompleto from '@/app/components/studies/audiogram/LogoAudiogramCompleto';
 
-function VerAudiometria() {
+function VerLogoaudiometria() {
   return (
     <Layout>
       {/* <h1 className="title text-center">Audiometria de Lucas Adlerstein</h1> */}
@@ -21,4 +21,4 @@ function VerAudiometria() {
   );
 }
 
-export default VerAudiometria;
+export default VerLogoaudiometria;

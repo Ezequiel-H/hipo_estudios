@@ -96,7 +96,7 @@ const PARALLEL_STUDIES_IMAGES = {
   [STUDIES_NAMES.I_OSEA]: '/img/estudios/markers/sr_osea_izquierda.png',
 };
 
-function AudiogramCompleto({ modo }) {
+function AudiogramCompleto({ modo, data }) {
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
   const [STUDIES, setStudies] = useState({
@@ -131,7 +131,7 @@ function AudiogramCompleto({ modo }) {
         const puntoSiguiente = puntos[i + 1];
         newLineas.push(
           <line
-            key={i}
+            key={`${i}${nombre}${modo.toString()}`}
             x1={puntoActual.x}
             y1={puntoActual.y}
             x2={puntoSiguiente.x}
@@ -239,12 +239,13 @@ function AudiogramCompleto({ modo }) {
           </Casillero>,
         );
       }
-      rows.push(<Row key={`${row}`}>{cols}</Row>);
+      rows.push(<Row key={`${row}${modo.toString()}`}>{cols}</Row>);
     }
     return rows;
   }
 
   useEffect(() => {
+    console.log(data);
     const datosJSONRecuperados = localStorage.getItem(localStorageNames.AUDIOGRAM);
     const datosRecuperados = JSON.parse(datosJSONRecuperados);
 
@@ -369,7 +370,7 @@ function AudiogramCompleto({ modo }) {
               ].map(({
                 name, aud, freq, izq,
               }) => (
-                <Frecuencia className={`aud-${aud} freq-${freq}`}>
+                <Frecuencia className={`aud-${aud} freq-${freq}`} key={`${name} ${modo.toString()}`}>
                   <p style={{ marginRight: `-${izq}px` }}>{name}</p>
                 </Frecuencia>
               ))}
