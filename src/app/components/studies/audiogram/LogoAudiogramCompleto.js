@@ -50,7 +50,7 @@ const Casillero = styled.div`
   background-color: transparent;
   padding: 0!important;
   border-radius: 0%;
-  height:21px;
+  height:10px;
 
   p {
     color: black;

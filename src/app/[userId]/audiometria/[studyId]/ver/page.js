@@ -12,6 +12,7 @@ function VerAudiometria({ params }) {
   const [separar, setSeparar] = useState(true);
   const [user, setUser] = useState();
   const [study, setStudy] = useState();
+  
   useEffect(() => {
     const newUser = getUserById(userId);
     setUser(newUser);

@@ -449,3 +449,25 @@ table {
 .impedancio-cell input::placeholder {
   font-weight: bold;
 }
+
+
+/* PROFILE */
+
+.profile-section {
+  padding: 30px 0;
+}
+
+.profile-title {
+  font-weight: bold;
+}
+
+.visita-item {
+  background-color: var(--slowYellow);
+  padding: 7px 10px;
+  border-radius: 15px;
+  margin: 5px;
+}
+
+.visita-item:hover {
+  transform: scale(1.2);
+}
