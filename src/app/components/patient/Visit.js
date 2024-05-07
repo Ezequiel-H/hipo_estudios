@@ -1,7 +1,9 @@
-'use client'
+'use client';
 
 import React from 'react';
-import { Row, Col, Card, Button } from 'react-bootstrap';
+import {
+  Row, Col, Card, Button,
+} from 'react-bootstrap';
 import styled from '@emotion/styled';
 
 const Visita = styled(Row)`
@@ -41,31 +43,31 @@ const Datos = styled(Col)`
 `;
 
 function Visit() {
-    return (
-        <Visita>
-            <Card>
-                <Card.Img variant="top" src="/img/web/autumn.jpg" />
-                <Card.Body>
-                    <Card.Title>20/04/2020</Card.Title>
-                    <Row>
-                        <Col>
-                            <Button variant="primary">Audiometria</Button>
-                        </Col>
-                        <Col>
-                            <Button variant="primary">Audiometria</Button>
-                        </Col>
-                        <Col>
-                            <Button variant="primary">Audiometria</Button>
-                        </Col>
-                        <Col>
-                            <Button variant="primary">Audiometria</Button>
-                        </Col>
+  return (
+    <Visita>
+      <Card>
+        <Card.Img variant="top" src="/img/web/autumn.jpg" />
+        <Card.Body>
+          <Card.Title>20/04/2020</Card.Title>
+          <Row>
+            <Col>
+              <Button variant="primary">Audiometria</Button>
+            </Col>
+            <Col>
+              <Button variant="primary">Audiometria</Button>
+            </Col>
+            <Col>
+              <Button variant="primary">Audiometria</Button>
+            </Col>
+            <Col>
+              <Button variant="primary">Audiometria</Button>
+            </Col>
 
-                    </Row>
-                </Card.Body>
-            </Card>
-        </Visita>
-    )
+          </Row>
+        </Card.Body>
+      </Card>
+    </Visita>
+  );
 }
 
 export default Visit;

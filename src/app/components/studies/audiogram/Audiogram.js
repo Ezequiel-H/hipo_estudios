@@ -135,7 +135,7 @@ const STUDIES_SIDE = {
   [STUDIES_NAMES.I_OSEA]: 'izquierda',
 };
 
-const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, persona, proceso, setProceso) => (
+const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, persona, proceso, setProceso, proximoEstudio, setProximoEstudio, realizarProximoEstudio) => (
   <Col md={12} lg={4} xl={4} key={4} className="col-estudio-info" style={{ width: 'fit-content' }}>
     <Row className={isMobile ? 'select-tools-audiogram-mobile' : 'select-tools-audiogram'}>
       <Col xs={6} lg={6} xl={6}>
@@ -171,37 +171,11 @@ const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, persona
         </Col>
       ))}
     </Row>
+
     <div className="mt-4">
-      <p className="mb-0" style={{ fontSize: '22px' }}>Paciente</p>
-      <p className="mb-0">
-        Apellido:
-        <strong>
-          {' '}
-          {persona.apellido || 'Gomez'}
-        </strong>
-      </p>
-      <p className="mb-0">
-        Nombre:
-        <strong>
-          {' '}
-          {persona.nombre}
-        </strong>
-      </p>
-      <p className="mb-0">
-        Fecha de nacimiento:
-        <strong>
-          {' '}
-          {persona.nacimiento}
-        </strong>
-      </p>
-    </div>
-    <div className="mt-4">
-      <p className="m-0" style={{ fontSize: '22px' }}>Observaciones</p>
-      <p>
-        ____________________
-        <br />
-        ____________________
-      </p>
+      <p className="m-0 mb-2" style={{ fontSize: '22px' }}>Observaciones</p>
+      <Form.Control type="textarea" placeholder="Escribir acá observaciones" />
+
     </div>
     <div className="mt-4">
       {
@@ -226,8 +200,9 @@ const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, persona
                 setProceso(3);
               }}
               className="btn btn-secondary"
+              style={{ marginRight: '10px' }}
             >
-              Si, terminé
+              Si
             </Button>
             <Button
               onClick={() => {
@@ -250,6 +225,8 @@ const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, persona
               <Form.Select
                 aria-label="Seleccionar estudio a realizar"
                 style={{ marginRight: '10px' }}
+                value={proximoEstudio}
+                onChange={(e) => setProximoEstudio(e.target.value)}
               >
                 <option>Seleccionar estudio</option>
                 <option value="logoaudiometria">Logoaudiometría</option>
@@ -260,6 +237,7 @@ const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, persona
               </Form.Select>
               <Button
                 className="btn btn-primary"
+                onClick={() => realizarProximoEstudio()}
               >
                 Realizar
               </Button>
@@ -275,6 +253,7 @@ function Audiogram() {
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
   const [persona, setPersona] = useState({ apellido: 'Gomez' });
   const [evaluando, setEvaluando] = useState('dAerea');
+  const [proximoEstudio, setProximoEstudio] = useState('');
   const [proceso, setProceso] = useState(1);
   const [STUDIES, setStudies] = useState({
     [STUDIES_NAMES.D_AEREA]: ['', '', '', '', '', '', '', '', '', '', ''],
@@ -306,6 +285,14 @@ function Audiogram() {
       return str.substring(1);
     }
     return str;
+  }
+
+  function realizarProximoEstudio() {
+    // TODO: guardarEstudio();
+    const datosJSON = JSON.stringify(STUDIES);
+    localStorage.setItem(localStorageNames.AUDIOGRAM, datosJSON);
+
+    window.location.href = `/idDeEzequiel123123/${proximoEstudio}/nueva`;
   }
 
   const agregarCurva = (estudioActual = evaluando) => {
@@ -370,8 +357,9 @@ function Audiogram() {
                   <Image
                     src={STUDIES[evaluando][col] === `a${row}` ? PARALLEL_STUDIES_IMAGES[evaluando] : STUDIES_IMAGES[evaluando]}
                     alt="Circulo rojo audiometria"
-                    width={STUDIES[evaluando][col] === `a${row}` ? 22 : 16}
-                    height={STUDIES[evaluando][col] === `a${row}` ? 22 : 16}
+                    width={STUDIES[evaluando][col] === `a${row}` ? 22 : 22}
+                    // antes decia 22 : 16
+                    height={STUDIES[evaluando][col] === `a${row}` ? 22 : 22}
                     className={STUDIES[evaluando][col] === `${row}` || STUDIES[evaluando][col] === `a${row}` ? 'opacity-100' : 'opacity-0'}
                   />
                 </button>
@@ -387,7 +375,7 @@ function Audiogram() {
   return (
     <main style={{ backgroundColor: 'white!important' }}>
       <Container>
-        <p className="sub-title this-section mb-0">Audiograma</p>
+        {/* <p className="sub-title this-section mb-0">Audiograma</p> */}
         <Template>
           <Container style={{
             position: 'relative', margin: 0, paddingTop: '30px', paddingLeft: '60px', maxWidth: 'none', display: 'flex', height: '800px',
@@ -481,7 +469,7 @@ function Audiogram() {
               </Form>
             </Row>
             {
-              !isMobile && tools(evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, persona, proceso, setProceso)
+              !isMobile && tools(evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, persona, proceso, setProceso, proximoEstudio, setProximoEstudio, realizarProximoEstudio)
             }
 
           </Container>
@@ -490,7 +478,7 @@ function Audiogram() {
       </Container>
       <Container>
         {
-          isMobile && tools(evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, persona, proceso, setProceso)
+          isMobile && tools(evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, persona, proceso, setProceso, proximoEstudio, setProximoEstudio, realizarProximoEstudio)
         }
       </Container>
 

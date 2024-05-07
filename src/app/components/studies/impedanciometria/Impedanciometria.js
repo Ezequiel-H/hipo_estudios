@@ -4,7 +4,7 @@
 /* eslint-disable max-len */
 import React, { useState } from 'react';
 import {
-  Container, Table, Row, Col, Button,
+  Container, Table, Row, Col, Button, Form,
 } from 'react-bootstrap';
 
 function Impedanciometria() {
@@ -99,8 +99,8 @@ function Impedanciometria() {
 
   return (
     <main style={{ backgroundColor: 'white' }}>
-      <Container>
-        <p className="sub-title this-section mb-0">Impedanciometria</p>
+      <Container style={{ marginTop: '40px' }}>
+        {/* <p className="sub-title this-section mb-0">Impedanciometria</p> */}
         <Row>
           <Col className="mx-auto" sm={12} md={12} lg={4} xl={4}>
             <p className="text-center sub-title mb-0">CONTRALATERAL</p>
@@ -126,28 +126,11 @@ function Impedanciometria() {
           </Col>
 
           <Col sm={12} md={12} lg={3} xl={3}>
-            <div style={{ marginLeft: '30px!important' }}>
-              <p className="mb-0" style={{ fontSize: '22px' }}>Paciente</p>
-              <p className="mb-0">
-                Apellido:
-                <strong> Gomez</strong>
-              </p>
-              <p className="mb-0">
-                Nombre:
-                <strong> Jorge</strong>
-              </p>
-              <p className="mb-0">
-                Fecha de nacimiento:
-                <strong> 25/02/1976</strong>
-              </p>
-            </div>
+
             <div className="mt-4" style={{ marginLeft: '30px!important' }}>
-              <p className="m-0" style={{ fontSize: '22px' }}>Observaciones</p>
-              <p>
-                ____________________
-                <br />
-                ____________________
-              </p>
+              <p className="m-0 mb-2" style={{ fontSize: '22px' }}>Observaciones</p>
+              <Form.Control type="textarea" placeholder="Escribir acá observaciones" />
+
             </div>
             <div className="mt-4" style={{ marginLeft: '30px!important' }}>
               <Button className="btn btn-secondary">

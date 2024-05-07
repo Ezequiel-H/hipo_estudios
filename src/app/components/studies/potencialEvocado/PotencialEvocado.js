@@ -80,9 +80,9 @@ function PotencialEvocado() {
   };
 
   return (
-    <main style={{ backgroundColor: 'white', marginBottom: '5rem' }}>
+    <main style={{ backgroundColor: 'white', margin: '3rem 0' }}>
       <Container>
-        <p className="sub-title this-section mb-0">Potenciales Evocados</p>
+        {/* <p className="sub-title this-section mb-0">Potenciales Evocados</p> */}
         <Row>
           <Col sm={12} md={12} lg={6} xl={6}>
             <p className="sub-title mb-0">Por clic</p>
@@ -99,38 +99,20 @@ function PotencialEvocado() {
                 </tbody>
               </Table>
 
-              <p className="sub-title mb-0 mt-5">Microfónicas Cocleares</p>
-              <MicrofonicasCocleares>
-                <Button id="presentes" className="active">Presentes</Button>
-                <Button id="ausentes">Ausentes</Button>
-              </MicrofonicasCocleares>
             </div>
 
           </Col>
 
           <Col sm={12} md={12} lg={5} xl={5}>
-            <div>
-              <p className="mb-0" style={{ fontSize: '22px' }}>Paciente</p>
-              <p className="mb-0">
-                Apellido:
-                <strong> Gomez</strong>
-              </p>
-              <p className="mb-0">
-                Nombre:
-                <strong> Jorge</strong>
-              </p>
-              <p className="mb-0">
-                Fecha de nacimiento:
-                <strong> 25/02/1976</strong>
-              </p>
-            </div>
+            <p className="sub-title mt-0">Microfónicas Cocleares</p>
+            <MicrofonicasCocleares>
+              <Button id="presentes" className="active">Presentes</Button>
+              <Button id="ausentes">Ausentes</Button>
+            </MicrofonicasCocleares>
+
             <div className="mt-4">
-              <p className="m-0" style={{ fontSize: '22px' }}>Observaciones</p>
-              <p>
-                ____________________
-                <br />
-                ____________________
-              </p>
+              <p className="m-0 mb-2" style={{ fontSize: '22px' }}>Observaciones</p>
+              <Form.Control type="textarea" placeholder="Escribir acá observaciones" />
             </div>
             <div className="mt-4">
               <Button className="btn btn-secondary">

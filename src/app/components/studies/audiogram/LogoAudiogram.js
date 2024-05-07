@@ -150,28 +150,10 @@ const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile) => (
         </Col>
       ))}
     </Row>
+
     <div className="mt-4">
-      <p className="mb-0" style={{ fontSize: '22px' }}>Paciente</p>
-      <p className="mb-0">
-        Apellido:
-        <strong> Gomez</strong>
-      </p>
-      <p className="mb-0">
-        Nombre:
-        <strong> Jorge</strong>
-      </p>
-      <p className="mb-0">
-        Fecha de nacimiento:
-        <strong> 25/02/1976</strong>
-      </p>
-    </div>
-    <div className="mt-4">
-      <p className="m-0" style={{ fontSize: '22px' }}>Observaciones</p>
-      <p>
-        ____________________
-        <br />
-        ____________________
-      </p>
+      <p className="m-0 mb-2" style={{ fontSize: '22px' }}>Observaciones</p>
+      <Form.Control type="textarea" placeholder="Escribir acá observaciones" />
     </div>
     <div className="mt-4">
       <Button
@@ -285,7 +267,7 @@ function LogoAudiogram() {
   return (
     <main style={{ backgroundColor: 'white!important' }}>
       <Container>
-        <p className="sub-title this-section mb-0">LogoAudiograma</p>
+        {/* <p className="sub-title this-section mb-0">Logoaudiograma</p> */}
         <Template>
           <Container style={{
             position: 'relative', margin: 0, paddingTop: '30px', paddingLeft: '60px', maxWidth: 'none', display: 'flex', height: '800px',

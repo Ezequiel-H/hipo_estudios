@@ -324,15 +324,14 @@ table {
 
 .btn-secondary {
   background-color: var(--secondaryColor);
-  color: black;
   border: 1px solid transparent;
-  /* color: var(--primaryColor); */
+  color: black!important;
 }
 
 .btn-secondary:hover {
-  background-color: transparent;
+  background-color: var(--secondaryColor);
   border: 1px solid black;
-  color: var(black);
+  transform: scale(1.1);
 }
 
 .btn-nofill {
@@ -402,7 +401,7 @@ table {
 
 .section1 {
   padding-top: 50px;
-  padding-bottom: 50px;
+  padding-bottom: 30px;
   background-color: white;
   color: var(--primaryColor);
 }

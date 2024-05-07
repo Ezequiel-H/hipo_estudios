@@ -114,28 +114,10 @@ function Otoemision() {
           </Col>
 
           <Col sm={12} md={12} lg={3} xl={3}>
-            <div style={{ marginLeft: '30px!important' }}>
-              <p className="mb-0" style={{ fontSize: '22px' }}>Paciente</p>
-              <p className="mb-0">
-                Apellido:
-                <strong> Gomez</strong>
-              </p>
-              <p className="mb-0">
-                Nombre:
-                <strong> Jorge</strong>
-              </p>
-              <p className="mb-0">
-                Fecha de nacimiento:
-                <strong> 25/02/1976</strong>
-              </p>
-            </div>
+
             <div className="mt-4" style={{ marginLeft: '30px!important' }}>
-              <p className="m-0" style={{ fontSize: '22px' }}>Observaciones</p>
-              <p>
-                ____________________
-                <br />
-                ____________________
-              </p>
+              <p className="m-0 mb-2" style={{ fontSize: '22px' }}>Observaciones</p>
+              <Form.Control type="textarea" placeholder="Escribir acá observaciones" />
             </div>
             <div className="mt-4" style={{ marginLeft: '30px!important' }}>
               <Button className="btn btn-secondary">
