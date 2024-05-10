@@ -3,7 +3,7 @@
 import React from 'react';
 import Layout from '@/app/components/general/Layout';
 import PotencialEvocado from '@/app/components/studies/potencialEvocado/PotencialEvocado';
-import DatosDelPaciente from '../../../components/patient/DatosDelPaciente';
+import DatosDelPaciente from '../../../../components/patient/DatosDelPaciente';
 
 function Timpanometria() {
   const persona = {

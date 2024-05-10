@@ -45,17 +45,17 @@ function Navigation() {
               <LinkNavigation href="/">INICIO</LinkNavigation>
               <LinkNavigation href="/ver-mas">VER MAS</LinkNavigation>
               <DropdownNavigation align="end" title="ESTUDIOS">
-                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/audiometria/nueva">AUDIOMETRÍA</NavDropdown.Item>
-                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/logoaudiometria/nueva">LOGOAUDIOMETRÍA</NavDropdown.Item>
-                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/timpanometria/nueva">TIMPANOMETRÍA</NavDropdown.Item>
-                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/impedanciometria/nueva">IMPEDANCIOMETRÍA</NavDropdown.Item>
-                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/potenciales-evocados/nueva">POTENCIALES EVOCADOS</NavDropdown.Item>
-                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/otoemision/nueva">OTOEMISIÓN</NavDropdown.Item>
+                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/estudios/audiometria/nueva">AUDIOMETRÍA</NavDropdown.Item>
+                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/estudios/logoaudiometria/nueva">LOGOAUDIOMETRÍA</NavDropdown.Item>
+                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/estudios/timpanometria/nueva">TIMPANOMETRÍA</NavDropdown.Item>
+                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/estudios/impedanciometria/nueva">IMPEDANCIOMETRÍA</NavDropdown.Item>
+                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/estudios/potenciales-evocados/nueva">POTENCIALES EVOCADOS</NavDropdown.Item>
+                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/estudios/otoemision/nueva">OTOEMISIÓN</NavDropdown.Item>
               </DropdownNavigation>
               <DropdownNavigation align="end" title="CUESTIONARIOS">
-                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/peach/nueva">PEACH</NavDropdown.Item>
-                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/sp-ssq12/nueva">Sp-SSQ12</NavDropdown.Item>
-                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/venderbilt/nueva">Vanderbilt</NavDropdown.Item>
+                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/cuestionarios/peach/nueva">PEACH</NavDropdown.Item>
+                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/cuestionarios/sp-ssq12/nueva">Sp-SSQ12</NavDropdown.Item>
+                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/cuestionarios/venderbilt/nueva">Vanderbilt</NavDropdown.Item>
               </DropdownNavigation>
               <DropdownNavigation
                 align="end"

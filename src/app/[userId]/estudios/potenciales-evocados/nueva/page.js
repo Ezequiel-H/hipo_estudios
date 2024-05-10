@@ -2,10 +2,10 @@
 
 import React from 'react';
 import Layout from '@/app/components/general/Layout';
-import Audiogram from '@/app/components/studies/audiogram/Audiogram';
-import DatosDelPaciente from '../../../components/patient/DatosDelPaciente';
+import PotencialEvocado from '@/app/components/studies/potencialEvocado/PotencialEvocado';
+import DatosDelPaciente from '../../../../components/patient/DatosDelPaciente';
 
-function AudiometriaNueva() {
+function PotencialesEvocados() {
   const persona = {
     nombre: 'Marta',
     apellido: 'Gomez',
@@ -16,11 +16,11 @@ function AudiometriaNueva() {
 
   return (
     <Layout>
-      <h1 className="title text-center section1 pb-0">Nueva audiometría</h1>
+      <h1 className="title text-center section1 pb-0">Nuevo Potencial Evocado</h1>
       <DatosDelPaciente datos={persona} />
-      <Audiogram />
+      <PotencialEvocado />
     </Layout>
   );
 }
 
-export default AudiometriaNueva;
+export default PotencialesEvocados;

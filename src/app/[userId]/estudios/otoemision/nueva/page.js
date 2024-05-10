@@ -3,7 +3,7 @@
 import React from 'react';
 import Layout from '@/app/components/general/Layout';
 import Otoemision from '@/app/components/studies/otoemision/Otoemision';
-import DatosDelPaciente from '../../../components/patient/DatosDelPaciente';
+import DatosDelPaciente from '../../../../components/patient/DatosDelPaciente';
 
 function OtoemisionNueva() {
   const persona = {

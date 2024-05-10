@@ -7,7 +7,7 @@
 
 import React from 'react';
 
-import LogoAudiogram from '../../components/studies/audiogram/LogoAudiogram';
+import LogoAudiogram from '../../../components/studies/audiogram/LogoAudiogram';
 
 function Component() {
   return (

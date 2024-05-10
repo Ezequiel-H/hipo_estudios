@@ -4,7 +4,7 @@ import React from 'react';
 import Layout from '@/app/components/general/Layout';
 import Identify from '@/app/components/patient/Identify';
 import Impedanciometria from '@/app/components/studies/impedanciometria/Impedanciometria';
-import DatosDelPaciente from '../../../components/patient/DatosDelPaciente';
+import DatosDelPaciente from '../../../../components/patient/DatosDelPaciente';
 
 function ImpedanciometriaNueva() {
   const persona = {
