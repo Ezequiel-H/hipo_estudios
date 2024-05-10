@@ -33,8 +33,7 @@ const Boton = styled(Button)`
 
 const Area2 = styled(Area)`
     border: 7px solid var(--tertiaryColor);
-    margin-top: 30px;
-    
+    margin-top: 30px; 
 `;
 
 function Perfil() {

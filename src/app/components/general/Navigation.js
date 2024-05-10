@@ -50,7 +50,7 @@ function Navigation() {
                 <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/timpanometria/nueva">TIMPANOMETRÍA</NavDropdown.Item>
                 <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/impedanciometria/nueva">IMPEDANCIOMETRÍA</NavDropdown.Item>
                 <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/potenciales-evocados/nueva">POTENCIALES EVOCADOS</NavDropdown.Item>
-                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/otoemisiones/nueva">OTOEMISIONES</NavDropdown.Item>
+                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/otoemision/nueva">OTOEMISIÓN</NavDropdown.Item>
               </DropdownNavigation>
               <DropdownNavigation align="end" title="CUESTIONARIOS">
                 <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/peach/nueva">PEACH</NavDropdown.Item>
