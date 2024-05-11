@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import db from './db.json';
 
 const axios = require('axios');

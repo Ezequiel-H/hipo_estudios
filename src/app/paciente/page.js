@@ -22,15 +22,6 @@ const Area = styled.div`
     }
 `;
 
-const Boton = styled(Button)`
-  padding: 5px;
-  margin-right: 10px;
-  background-color: transparent;
-  &:hover {
-    transform: scale(1.3);
-  }
-`;
-
 const Area2 = styled(Area)`
     border: 7px solid var(--tertiaryColor);
     margin-top: 30px; 
@@ -106,21 +97,21 @@ function UserProfile() {
             <h3 className="text-center color-black">Mis estudios</h3>
 
             <div className="study-filter mx-auto text-center mt-4 mb-4">
-              <label>
+              <Form.Label>
                 <select className="input" value={filterType} onChange={(e) => setFilterType(e.target.value)}>
                   <option value="">Todos</option>
                   <option value="audiogram">Audiometría</option>
                   <option value="logoaudiogram">Logoaudiometría</option>
                 </select>
-              </label>
-              <label>
+              </Form.Label>
+              <Form.Label>
                 Desde
                 <input type="date" className="input" value={fromDate} onChange={(e) => setFromDate(e.target.value)} />
-              </label>
-              <label>
+              </Form.Label>
+              <Form.Label>
                 Hasta
                 <input type="date" className="input" value={toDate} onChange={(e) => setToDate(e.target.value)} />
-              </label>
+              </Form.Label>
             </div>
             {filteredStudies.length === 0 ? (
               <p>No hay estudios para el filtro aplicado.</p>

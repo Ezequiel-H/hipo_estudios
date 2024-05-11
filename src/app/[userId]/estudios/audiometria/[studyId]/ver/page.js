@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 'use client';
 
 import React, { useEffect, useState } from 'react';
@@ -12,7 +14,7 @@ function VerAudiometria({ params }) {
   const [separar, setSeparar] = useState(true);
   const [user, setUser] = useState();
   const [study, setStudy] = useState();
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {

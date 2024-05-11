@@ -2,26 +2,16 @@
 
 import React from 'react';
 import {
-  Container, Button, Row, Col, Form, Table,
+  Container, Table,
 } from 'react-bootstrap';
 import styled from '@emotion/styled';
 import Layout from '@/app/components/general/Layout';
-import Visit from '../../../../components/patient/Visit';
 
 const Area = styled.div`
   border: 7px solid var(--quartyColor);
   padding: 30px;
   border-radius: 30px;
   margin-top: 35px;
-`;
-
-const Boton = styled(Button)`
-  padding: 5px;
-  margin-right: 10px;
-  background-color: transparent;
-  &:hover {
-    transform: scale(1.3);
-  }
 `;
 
 function Perfil() {
@@ -32,29 +22,20 @@ function Perfil() {
         <div>
           <p className="mb-0">
             Fecha de nacimiento:
-            {' '}
             <strong>20/04/2000</strong>
-            {' '}
             <br />
             Edad:
-            {' '}
             <strong>23 años</strong>
-            {' '}
             <br />
             Obra social:
-            {' '}
             <strong>Swiss Medical</strong>
             (600006 029334 044 0010)
             <br />
             Email:
-            {' '}
             <strong>marta@gomez.com</strong>
-            {' '}
             <br />
             Celular:
-            {' '}
             <strong>+549244434444</strong>
-            {' '}
             <br />
           </p>
         </div>
@@ -75,10 +56,10 @@ function Perfil() {
                 <td>1</td>
                 <td>15/04/2022</td>
                 <td>
-                  <a className="visita-item" href="#">
+                  <a className="visita-item" href="#logoaudiometria">
                     Audiometria
                   </a>
-                  <a className="visita-item" href="#">
+                  <a className="visita-item" href="#logoaudiometria">
                     Logoaudiometria
                   </a>
                 </td>

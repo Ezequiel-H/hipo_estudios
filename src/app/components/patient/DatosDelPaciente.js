@@ -1,10 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import {
-  Button, Form, Row, Col, Container, ListGroup, Modal,
+  Container,
 } from 'react-bootstrap';
-import styled from '@emotion/styled';
 
 function DatosDelPaciente() {
   return (
@@ -15,19 +14,15 @@ function DatosDelPaciente() {
           <strong>Gomez, Jorge </strong>
           <br />
           Nacimiento:
-          {' '}
           <strong>25/02/1976</strong>
           <br />
           Edad:
-          {' '}
           <strong>55 años</strong>
           <br />
           Obra Social:
-          {' '}
           <strong>Swiss Medical Group</strong>
           <br />
           Afiliado:
-          {' '}
           <strong>2993334 40044 0044 001</strong>
         </p>
       </div>
