@@ -5,25 +5,30 @@ import {
   Container,
 } from 'react-bootstrap';
 
-function DatosDelPaciente() {
+function DatosDelPaciente({ user }) {
+  const {
+    name,
+    surname,
+    birthdate,
+    os,
+    numeroAfiliado,
+  } = user;
+  const parseNumeroAfiliado = (numero) => numero.replace(/(.{4})/g, '$1 ').trim();
   return (
     <Container>
       <div className="pt-4" style={{ backgroundColor: 'white', textAlign: 'center' }}>
         {/* <p className="mb-0" style={{ fontSize: '22px' }}>Paciente</p> */}
         <p className="mb-0">
-          <strong>Gomez, Jorge </strong>
+          <strong>{`${name}, ${surname}`}</strong>
           <br />
           Nacimiento:
-          <strong>25/02/1976</strong>
-          <br />
-          Edad:
-          <strong>55 años</strong>
+          <strong>{` ${birthdate}`}</strong>
           <br />
           Obra Social:
-          <strong>Swiss Medical Group</strong>
+          <strong>{` ${os}`}</strong>
           <br />
           Afiliado:
-          <strong>2993334 40044 0044 001</strong>
+          <strong>{` ${parseNumeroAfiliado(numeroAfiliado)}`}</strong>
         </p>
       </div>
       <div

@@ -136,7 +136,21 @@ const STUDIES_SIDE = {
   [STUDIES_NAMES.I_OSEA]: 'izquierda',
 };
 
-const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, persona, proceso, setProceso, proximoEstudio, setProximoEstudio, realizarProximoEstudio) => (
+const tools = (
+  {
+    evaluando,
+    setEvaluando,
+    agregarCurva,
+    STUDIES,
+    isMobile,
+    userId,
+    proceso,
+    setProceso,
+    proximoEstudio,
+    setProximoEstudio,
+    realizarProximoEstudio,
+  },
+) => (
   <Col md={12} lg={4} xl={4} key={4} className="col-estudio-info" style={{ width: 'fit-content' }}>
     <Row className={isMobile ? 'select-tools-audiogram-mobile' : 'select-tools-audiogram'}>
       <Col xs={6} lg={6} xl={6}>
@@ -185,7 +199,7 @@ const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, persona
             onClick={() => {
               const datosJSON = JSON.stringify(STUDIES);
               localStorage.setItem(localStorageNames.AUDIOGRAM, datosJSON);
-              addStudyForUser(persona.id, STUDIES);
+              addStudyForUser(userId, STUDIES);
               setProceso(2);
             }}
             className="btn btn-secondary"
@@ -251,9 +265,8 @@ const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, persona
   </Col>
 );
 
-function Audiogram({ user }) {
+function Audiogram({ userId }) {
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
-  const [persona, setPersona] = useState();
   const [evaluando, setEvaluando] = useState('dAerea');
   const [proximoEstudio, setProximoEstudio] = useState('');
   const [proceso, setProceso] = useState(1);
@@ -270,14 +283,6 @@ function Audiogram({ user }) {
   useEffect(() => {
     const { userAgent } = navigator;
     setIsMobile(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent));
-
-    setPersona({
-      apellido: user.surname,
-      nombre: user.name,
-      nacimiento: user.birthdate,
-      id: user.id,
-    });
-
     // eslint-disable-next-line
   }, [])
 
@@ -470,7 +475,21 @@ function Audiogram({ user }) {
               </Form>
             </Row>
             {
-              !isMobile && tools(evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, persona, proceso, setProceso, proximoEstudio, setProximoEstudio, realizarProximoEstudio)
+              !isMobile && tools(
+                {
+                  evaluando,
+                  setEvaluando,
+                  agregarCurva,
+                  STUDIES,
+                  isMobile,
+                  userId,
+                  proceso,
+                  setProceso,
+                  proximoEstudio,
+                  setProximoEstudio,
+                  realizarProximoEstudio,
+                },
+              )
             }
 
           </Container>
@@ -479,7 +498,19 @@ function Audiogram({ user }) {
       </Container>
       <Container>
         {
-          isMobile && tools(evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, persona, proceso, setProceso, proximoEstudio, setProximoEstudio, realizarProximoEstudio)
+          isMobile && tools({
+            evaluando,
+            setEvaluando,
+            agregarCurva,
+            STUDIES,
+            isMobile,
+            userId,
+            proceso,
+            setProceso,
+            proximoEstudio,
+            setProximoEstudio,
+            realizarProximoEstudio,
+          })
         }
       </Container>
 
