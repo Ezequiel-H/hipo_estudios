@@ -13,12 +13,20 @@ function VerAudiometria({ params }) {
   const [user, setUser] = useState();
   const [study, setStudy] = useState();
   useEffect(() => {
-    const newUser = getUserById(userId);
-    setUser(newUser);
+    const fetchData = async () => {
+      try {
+        const newUser = await getUserById(userId);
+        setUser(newUser);
 
-    const newStudy = getStudyById(studyId);
-    setStudy(newStudy);
-  }, []);
+        const newStudy = await getStudyById(studyId);
+        setStudy(newStudy);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [userId, studyId]);
 
   return (
     <Layout>
@@ -39,26 +47,30 @@ function VerAudiometria({ params }) {
             <div className="pt-4 text-right" style={{ backgroundColor: 'white', textAlign: 'right' }}>
               <p className="mb-0" style={{ fontSize: '22px' }}>Paciente</p>
               <p className="mb-0">
-                <strong>Gomez, Jorge </strong>
+                {user && (
+                  <strong>{`${user.name}, ${user.surname}`}</strong>
+                )}
                 <br />
-                25/02/1976 (55 años)
+                {user && (
+                  <strong>{user.birthdate}</strong>
+                )}
               </p>
             </div>
           </Col>
         </Row>
 
         {
-          (separar) ? (
+          study && study?.results?.iAerea?.length > 2 && (separar) ? (
             <Row>
               <Col>
-                <AudiogramCompleto modo="izquierdo" data="study" />
+                <AudiogramCompleto modo="izquierdo" data={study} />
               </Col>
               <Col>
-                <AudiogramCompleto modo="derecho" data="study" />
+                <AudiogramCompleto modo="derecho" data={study} />
               </Col>
             </Row>
           ) : (
-            <AudiogramCompleto modo="todo" data="study" />
+            <AudiogramCompleto modo="todo" data={study} />
           )
         }
         <div key={4} className="col-estudio-info">

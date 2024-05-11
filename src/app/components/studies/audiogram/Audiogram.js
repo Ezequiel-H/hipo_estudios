@@ -14,6 +14,7 @@ import {
 import Image from 'next/image';
 import localStorageNames from '@/app/constants/localStorage';
 import Finished from '../Finished';
+import { addStudyForUser } from '@/app/db/studies';
 
 const Template = styled.div`
   background-color: white;
@@ -176,22 +177,19 @@ const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, persona
       <p className="mb-0">
         Apellido:
         <strong>
-          {' '}
-          {persona.apellido || 'Gomez'}
+          {persona?.apellido }
         </strong>
       </p>
       <p className="mb-0">
         Nombre:
         <strong>
-          {' '}
-          {persona.nombre}
+          {persona?.nombre}
         </strong>
       </p>
       <p className="mb-0">
         Fecha de nacimiento:
         <strong>
-          {' '}
-          {persona.nacimiento}
+          {persona?.nacimiento}
         </strong>
       </p>
     </div>
@@ -210,6 +208,7 @@ const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, persona
             onClick={() => {
               const datosJSON = JSON.stringify(STUDIES);
               localStorage.setItem(localStorageNames.AUDIOGRAM, datosJSON);
+              addStudyForUser(persona.id, STUDIES);
               setProceso(2);
             }}
             className="btn btn-secondary"
@@ -271,9 +270,9 @@ const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, persona
   </Col>
 );
 
-function Audiogram() {
+function Audiogram({ user }) {
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
-  const [persona, setPersona] = useState({ apellido: 'Gomez' });
+  const [persona, setPersona] = useState();
   const [evaluando, setEvaluando] = useState('dAerea');
   const [proceso, setProceso] = useState(1);
   const [STUDIES, setStudies] = useState({
@@ -290,14 +289,13 @@ function Audiogram() {
     const { userAgent } = navigator;
     setIsMobile(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent));
 
-    const currentUrl = window.location.href;
-    const urlParams = new URLSearchParams(currentUrl);
     setPersona({
-      ...persona,
-      apellido: urlParams.get('apellido'),
-      nombre: urlParams.get('nombre'),
-      nacimiento: urlParams.get('nacimiento'),
+      apellido: user.surname,
+      nombre: user.name,
+      nacimiento: user.birthdate,
+      id: user.id,
     });
+
     // eslint-disable-next-line
   }, [])
 
