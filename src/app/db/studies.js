@@ -1,9 +1,27 @@
 /* eslint-disable max-len */
-import db from './db.json';
 
-export const getStudyById = (studyId) => db.flatMap((usuario) => usuario.studies).find((estudio) => estudio.id.toString() === studyId.toString());
+const axios = require('axios');
 
-export const getUserByI = (userId) => {
-  const datos = JSON.parse(db);
-  return datos.find((user) => user.id.toString() === userId.toString());
+const baseURL = 'http://localhost:8080';
+
+export const getStudyById = async (studyId) => {
+  try {
+    const response = await axios.get(`/study/${studyId}`, { baseURL });
+    return response.data;
+  } catch (error) {
+    // Handle error
+    console.error('Error fetching study:', error);
+    throw error;
+  }
+};
+
+export const addStudyForUser = async (userId, studyData) => {
+  try {
+    const response = await axios.post(`/study/${userId}`, { study: studyData }, { baseURL });
+    return response.data;
+  } catch (error) {
+    // Handle error
+    console.error('Error adding study:', error);
+    throw error;
+  }
 };
