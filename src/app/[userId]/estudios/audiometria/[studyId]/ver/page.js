@@ -8,6 +8,7 @@ import Layout from '@/app/components/general/Layout';
 import AudiogramCompleto from '@/app/components/studies/audiogram/AudiogramCompleto';
 import { getUserById } from '@/app/db/user';
 import { getStudyById } from '@/app/db/studies';
+import DatosDelPaciente from '@/app/components/patient/DatosDelPaciente';
 
 function VerAudiometria({ params }) {
   const { userId, studyId } = params;
@@ -46,20 +47,7 @@ function VerAudiometria({ params }) {
               {separar ? 'Ver audiograma completo' : 'Separar oídos'}
             </button>
           </Col>
-          <Col className="pt-4">
-            <div className="pt-4 text-right" style={{ backgroundColor: 'white', textAlign: 'right' }}>
-              <p className="mb-0" style={{ fontSize: '22px' }}>Paciente</p>
-              <p className="mb-0">
-                {user && (
-                  <strong>{`${user.name}, ${user.surname}`}</strong>
-                )}
-                <br />
-                {user && (
-                  <strong>{user.birthdate}</strong>
-                )}
-              </p>
-            </div>
-          </Col>
+          {user && <DatosDelPaciente user={user} />}
         </Row>
 
         {

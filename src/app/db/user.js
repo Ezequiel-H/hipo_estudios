@@ -1,9 +1,8 @@
 /* eslint-disable no-console */
-import db from './db.json';
 
 const axios = require('axios');
 
-const baseURL = 'http://localhost:8080';
+const baseURL = 'http://192.168.0.53:8080';
 
 // Function to get user by ID
 export const getUserById = async (userId) => {

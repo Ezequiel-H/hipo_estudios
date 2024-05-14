@@ -15,7 +15,8 @@ const Area = styled.div`
 
 const Area2 = styled(Area)`
     border: 7px solid var(--tertiaryColor);
-    margin-top: 30px;
+    margin: 30px 0 60px 0;
+
     .input {
         margin: 10px;
         max-width: 95%;
@@ -199,6 +200,9 @@ function Pacientes() {
               </Col>
               <Col xs={12} sm={12} md={4} lg={4}>
                 <Form.Control type="number" placeholder="Celular" className="input" />
+              </Col>
+              <Col xs={12} sm={12} md={4} lg={4}>
+                <Form.Control type="text" placeholder="Médico" className="input" />
               </Col>
               <Col xs={12} sm={12} md={4} lg={4}>
                 <Button className="btn btn-primary input" style={{ backgroundColor: 'var(--primaryColor)' }}>Registrar</Button>

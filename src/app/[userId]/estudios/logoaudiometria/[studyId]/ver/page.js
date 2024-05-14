@@ -1,21 +1,35 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from '@/app/components/general/Layout';
 import LogoAudiogramCompleto from '@/app/components/studies/audiogram/LogoAudiogramCompleto';
+import { getUserById } from '@/app/db/user';
+import DatosDelPaciente from '@/app/components/patient/DatosDelPaciente';
+import { getStudyById } from '@/app/db/studies';
 
-function VerLogoaudiometria() {
+function VerLogoaudiometria({ params }) {
+  const { userId, studyId } = params;
+  const [user, setUser] = useState('');
+  const [study, setStudy] = useState();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const newUser = await getUserById(userId);
+        setUser(newUser);
+
+        const newStudy = await getStudyById(studyId);
+        setStudy(newStudy);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [userId, studyId]);
   return (
     <Layout>
-      {/* <h1 className="title text-center">Audiometria de Lucas Adlerstein</h1> */}
-      <div className="pt-4 text-center" style={{ backgroundColor: 'white' }}>
-        <p className="mb-0" style={{ fontSize: '22px' }}>Paciente</p>
-        <p className="mb-0">
-          <strong>Gomez, Jorge </strong>
-          <br />
-          25/02/1976 (55 años)
-        </p>
-      </div>
+      {user && <DatosDelPaciente user={user} />}
       <LogoAudiogramCompleto />
     </Layout>
   );

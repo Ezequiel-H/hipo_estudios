@@ -1,23 +1,27 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from '@/app/components/general/Layout';
 import PotencialEvocado from '@/app/components/studies/potencialEvocado/PotencialEvocado';
 import DatosDelPaciente from '../../../../components/patient/DatosDelPaciente';
+import { getUserById } from '@/app/db/user';
 
-function PotencialesEvocados() {
-  const persona = {
-    nombre: 'Marta',
-    apellido: 'Gomez',
-    nacimiento: '15/04/2000',
-    obraSocial: 'Swiss Medical Group',
-    afiliado: '540004 400449 010 0010',
-  };
+function PotencialesEvocados({ params }) {
+  const { userId } = params;
+  const [user, setUser] = useState('');
+  useEffect(() => {
+    const fetchData = async () => {
+      const newUser = await getUserById(userId);
+      setUser(newUser);
+    };
+
+    fetchData();
+  }, [userId]);
 
   return (
     <Layout>
       <h1 className="title text-center section1 pb-0">Nuevo Potencial Evocado</h1>
-      <DatosDelPaciente datos={persona} />
+      {user && <DatosDelPaciente user={user} />}
       <PotencialEvocado />
     </Layout>
   );
