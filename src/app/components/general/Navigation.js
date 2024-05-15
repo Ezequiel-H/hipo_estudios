@@ -53,9 +53,9 @@ function Navigation() {
                 <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/estudios/otoemision/nueva">OTOEMISIÓN</NavDropdown.Item>
               </DropdownNavigation>
               <DropdownNavigation align="end" title="CUESTIONARIOS">
-                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/cuestionarios/peach/nueva">PEACH</NavDropdown.Item>
-                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/cuestionarios/sp-ssq12/nueva">Sp-SSQ12</NavDropdown.Item>
-                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/cuestionarios/venderbilt/nueva">Vanderbilt</NavDropdown.Item>
+                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/cuestionarios/peach/nuevo">PEACH</NavDropdown.Item>
+                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/cuestionarios/sp-ssq12/nuevo">Sp-SSQ12</NavDropdown.Item>
+                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/cuestionarios/venderbilt/nuevo">Vanderbilt</NavDropdown.Item>
               </DropdownNavigation>
               <DropdownNavigation
                 align="end"

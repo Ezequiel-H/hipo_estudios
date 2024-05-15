@@ -66,8 +66,8 @@ const VANDERBILTdata = {
   ],
 };
 
-const SPSSQ12 = [
-  {
+const SPSSQ12 = {
+  sec1: {
     title: 'Seleccione una de las siguientes opciones',
     options: [
       'No uso audífono(s)',
@@ -76,10 +76,10 @@ const SPSSQ12 = [
       'Uso dos audífonos (en ambos oídos)',
     ],
   },
-  {
+  sec2: {
     title: 'Si usa audífono(s), ¿por cuánto tiempo?',
   },
-  [
+  sec3: [
     'Está hablando con una persona y hay un televisor prendido en la misma habitación. Sin bajar el volumen de la TV. ¿Puede oír lo que dice la persona con la que habla?',
     'Está escuchando a alguien que habla con usted mientras intenta seguir las noticias de la TV. ¿Puede entender a la persona con la que habla y lo que dicen en la TV al mismo tiempo?',
     'Está conversando con un amigo/familiar en una habitación donde hay otras personas hablando. ¿Puede oír lo que dice la persona con la que habla?',
@@ -93,6 +93,6 @@ const SPSSQ12 = [
     'Los sonidos cotidianos que puede oír fácilmente, ¿le parecen claros?',
     '¿Tiene que concentrarse mucho cuando escucha a alguien o algo?',
   ],
-];
+};
 
 export { PEACHdata, VANDERBILTdata, SPSSQ12 };

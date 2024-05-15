@@ -4,10 +4,10 @@ import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import Layout from '@/app/components/general/Layout';
 import DatosDelPaciente from '../../../../components/patient/DatosDelPaciente';
-import PeachForm from '@/app/components/forms/PeachForm';
 import { getUserById } from '@/app/db/user';
+import SpSSQ12Form from '@/app/components/forms/SpSSQ12Form';
 
-function PeachNuevo({ params }) {
+function VanderbiltDocentes({ params }) {
   const { userId } = params;
   const [user, setUser] = useState('');
   useEffect(() => {
@@ -22,18 +22,14 @@ function PeachNuevo({ params }) {
   return (
     <Layout>
       <Container>
-        <h1 className="title text-center section1 pb-0">Nuevo PEACH</h1>
-        <h2 className="text-center mt-3" style={{ fontSize: '20px' }}>Escala de Evaluación de los Padres sobre el Desempeño Auditivo/Oral Infantil</h2>
+        <h1 className="title text-center section1 pb-0">Sp-SSQ12</h1>
+        <h2 className="text-center mt-3" style={{ fontSize: '20px' }}>Cuestionario sobre el Habla, Audición Espacial y Cualidades Auditivas.</h2>
         {user && <DatosDelPaciente user={user} />}
-        <PeachForm />
-        <section style={{ marginTop: '100px' }}>
-          <h2 className="text-center mt-3" style={{ fontSize: '35px' }}>Información sobre el PEACH</h2>
-          <h3 className="text-center mt-3" style={{ fontSize: '20px' }}>¿Qué es el PEACH?</h3>
+        <SpSSQ12Form />
 
-        </section>
       </Container>
     </Layout>
   );
 }
 
-export default PeachNuevo;
+export default VanderbiltDocentes;

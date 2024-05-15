@@ -2,9 +2,10 @@
 
 import React from 'react';
 import {
-  Row, Col, Form,
+  Row, Col, Form, Button,
 } from 'react-bootstrap';
 import styled from '@emotion/styled';
+import HipoAlert from '../elements/HipoAlert';
 
 import { PEACHdata } from './formsData';
 
@@ -30,9 +31,19 @@ const Area2 = styled(Area)`
 
 const QuestionBox = styled(Row)`
     border-bottom: 1px solid var(--tertiaryColor);
-    padding: 10px 0;
-    margin: 10px 0;
+    padding: 15px;
+    margin: 15px;
     font-size: 18px;
+    border-radius: 20px;
+    transition: all .3s ease;
+    &:hover {
+      background-color: var(--slowBackground);
+    }
+
+    label {
+      margin: 0;
+      max-width: 90%;
+    }
 `;
 
 function PeachForm() {
@@ -55,8 +66,12 @@ function PeachForm() {
   // });
   return (
     <Form>
+      <HipoAlert
+        title="Información importante a la hora de completar el PEACH"
+        message="El siguiente formulario NO es una prueba, está diseñado para documentar la comunicación y escucha en niños. Al contestar cada una de las preguntas, tome en consideración la conducta de su hijo(a) durante la última semana."
+        variant="secondary"
+      />
       <Area>
-
         {PEACHdata[0].map((question, index) => (
           <QuestionBox key={index}>
             <Col xs={12} sm={12} md={9} lg={10}>
@@ -107,6 +122,22 @@ function PeachForm() {
           </QuestionBox>
         ))}
       </Area2>
+
+      <Area>
+        <p className="m-0 mb-2" style={{ fontSize: '22px' }}>Comentarios</p>
+        <Row>
+          <Col>
+            <Form.Control type="textarea" placeholder="Por favor provea comentarios sobre cualquiera de las premisas anteriores" />
+          </Col>
+          <Col>
+            <Button
+              className="btn btn-secondary mx-3"
+            >
+              Enviar formulario
+            </Button>
+          </Col>
+        </Row>
+      </Area>
 
     </Form>
   );
