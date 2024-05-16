@@ -2,10 +2,11 @@
 
 import React from 'react';
 import {
-  Table, Container, Form, Button, Row, Col,
+  Table, Container, Form, Button, Row, Col, NavDropdown,
 } from 'react-bootstrap';
 import styled from '@emotion/styled';
 import Layout from '@/app/components/general/Layout';
+import PatientActions from '@/app/components/professional/profile/PatientActions';
 
 const Area = styled.div`
     border: 7px solid var(--quartyColor);
@@ -57,7 +58,7 @@ function Pacientes() {
                 <th>Obra Social</th>
                 <th>Número de Afiliado</th>
                 <th>Última visita</th>
-                <th>Próxima visita</th>
+                <th>Centro</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -71,17 +72,7 @@ function Pacientes() {
                 <td>16/05/2023</td>
                 <td>-</td>
                 <td>
-                  <div style={{ display: 'flex' }}>
-                    <Boton>
-                      <img src="/img/estudios/markers/eye.png" alt="Ver paciente" width="35px" />
-                    </Boton>
-                    <Boton>
-                      <img src="/img/estudios/markers/edit.png" alt="Editar paciente" width="35px" />
-                    </Boton>
-                    <Boton>
-                      <img src="/img/estudios/markers/new-file.png" alt="Nuevo estudio" width="35px" />
-                    </Boton>
-                  </div>
+                  <PatientActions patientID="idDeEzequiel123123" />
                 </td>
               </tr>
               <tr>
@@ -93,17 +84,7 @@ function Pacientes() {
                 <td>10/01/2020</td>
                 <td>-</td>
                 <td>
-                  <div style={{ display: 'flex' }}>
-                    <Boton>
-                      <img src="/img/estudios/markers/eye.png" alt="Ver paciente" width="35px" />
-                    </Boton>
-                    <Boton>
-                      <img src="/img/estudios/markers/edit.png" alt="Editar paciente" width="35px" />
-                    </Boton>
-                    <Boton>
-                      <img src="/img/estudios/markers/new-file.png" alt="Nuevo estudio" width="35px" />
-                    </Boton>
-                  </div>
+                  <PatientActions patientID="idDeEzequiel123123" />
                 </td>
               </tr>
               <tr>
@@ -115,17 +96,7 @@ function Pacientes() {
                 <td>10/01/2020</td>
                 <td>-</td>
                 <td>
-                  <div style={{ display: 'flex' }}>
-                    <Boton>
-                      <img src="/img/estudios/markers/eye.png" alt="Ver paciente" width="35px" />
-                    </Boton>
-                    <Boton>
-                      <img src="/img/estudios/markers/edit.png" alt="Editar paciente" width="35px" />
-                    </Boton>
-                    <Boton>
-                      <img src="/img/estudios/markers/new-file.png" alt="Nuevo estudio" width="35px" />
-                    </Boton>
-                  </div>
+                  <PatientActions patientID="idDeEzequiel123123" />
                 </td>
               </tr>
               <tr>
@@ -137,17 +108,7 @@ function Pacientes() {
                 <td>10/01/2020</td>
                 <td>-</td>
                 <td>
-                  <div style={{ display: 'flex' }}>
-                    <Boton>
-                      <img src="/img/estudios/markers/eye.png" alt="Ver paciente" width="35px" />
-                    </Boton>
-                    <Boton>
-                      <img src="/img/estudios/markers/edit.png" alt="Editar paciente" width="35px" />
-                    </Boton>
-                    <Boton>
-                      <img src="/img/estudios/markers/new-file.png" alt="Nuevo estudio" width="35px" />
-                    </Boton>
-                  </div>
+                  <PatientActions patientID="idDeEzequiel123123" />
                 </td>
               </tr>
               <tr>
@@ -159,17 +120,7 @@ function Pacientes() {
                 <td>10/01/2020</td>
                 <td>-</td>
                 <td>
-                  <div style={{ display: 'flex' }}>
-                    <Boton>
-                      <img src="/img/estudios/markers/eye.png" alt="Ver paciente" width="35px" />
-                    </Boton>
-                    <Boton>
-                      <img src="/img/estudios/markers/edit.png" alt="Editar paciente" width="35px" />
-                    </Boton>
-                    <Boton>
-                      <img src="/img/estudios/markers/new-file.png" alt="Nuevo estudio" width="35px" />
-                    </Boton>
-                  </div>
+                  <PatientActions patientID="idDeEzequiel123123" />
                 </td>
               </tr>
             </tbody>
@@ -201,10 +152,18 @@ function Pacientes() {
               <Col xs={12} sm={12} md={4} lg={4}>
                 <Form.Control type="number" placeholder="Celular" className="input" />
               </Col>
-              <Col xs={12} sm={12} md={4} lg={4}>
+              <Col xs={12} sm={12} md={4} lg={3}>
                 <Form.Control type="text" placeholder="Médico" className="input" />
               </Col>
-              <Col xs={12} sm={12} md={4} lg={4}>
+              <Col xs={12} sm={12} md={4} lg={3}>
+                <Form.Select aria-label="Seleccionar centro" className="input">
+                  <option disabled selected>Seleccionar consultorio</option>
+                  <option value="1">Av. Cramer 1234</option>
+                  <option value="2">ORL PALERMO</option>
+                  <option value="3">Balvin 1222</option>
+                </Form.Select>
+              </Col>
+              <Col xs={12} sm={12} md={4} lg={2}>
                 <Button className="btn btn-primary input" style={{ backgroundColor: 'var(--primaryColor)' }}>Registrar</Button>
               </Col>
             </Row>

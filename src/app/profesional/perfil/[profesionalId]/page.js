@@ -2,10 +2,11 @@
 
 import React from 'react';
 import {
-  Container, Button, Row, Col, Form,
+  Container, Button, Row, Col, Form, Table,
 } from 'react-bootstrap';
 import styled from '@emotion/styled';
 import Layout from '@/app/components/general/Layout';
+import OneCenter from '@/app/components/professional/profile/OneCenter';
 
 const Area = styled.div`
   border: 7px solid var(--quartyColor);
@@ -25,6 +26,15 @@ const Area = styled.div`
 const Area2 = styled(Area)`
     border: 7px solid var(--tertiaryColor);
     margin-top: 30px; 
+`;
+
+const Boton = styled(Button)`
+    padding: 5px;
+    margin-right: 10px;
+    background-color: transparent;
+    &:hover {
+        transform: scale(1.3);
+    }
 `;
 
 function Perfil() {
@@ -68,7 +78,24 @@ function Perfil() {
         </Area>
 
         <Area2>
-          <h3 className="text-center color-black">Consultorio</h3>
+          <h3 className="text-center color-black">Consultorios</h3>
+          <Form.Control
+            type="text"
+            id="identifier"
+            placeholder="Buscá por nombre, apellido o DNI..."
+            className="mb-3"
+          />
+          <Row>
+            <OneCenter center={{ title: 'Centro de Implantes', address: 'Dorrego 123', email: 'centro@implantes.com' }} />
+            <OneCenter center={{ title: 'Centro de Implantes', address: 'Dorrego 123', email: 'centro@implantes.com' }} />
+            <OneCenter center={{ title: 'Centro de Implantes', address: 'Dorrego 123', email: 'centro@implantes.com' }} />
+            <OneCenter center={{ title: 'Centro de Implantes', address: 'Dorrego 123', email: 'centro@implantes.com' }} />
+            <OneCenter center={{ title: 'Centro de Implantes', address: 'Dorrego 123', email: 'centro@implantes.com' }} />
+          </Row>
+        </Area2>
+
+        <Area>
+          <h3 className="text-center color-black">Dar de alta un nuevo consultorio</h3>
           <Form>
             <Row>
               <Col xs={12} sm={6} md={3} lg={3}>
@@ -103,11 +130,11 @@ function Perfil() {
                 <Form.Control type="number" placeholder="Descripción para los informes" className="input" />
               </Col>
               <Col xs={12} sm={6} md={3} lg={3}>
-                <Button className="btn btn-primary input" style={{ backgroundColor: 'var(--primaryColor)' }}>Guardar</Button>
+                <Button className="btn btn-primary input" style={{ backgroundColor: 'var(--primaryColor)' }}>Crear consultorio</Button>
               </Col>
             </Row>
           </Form>
-        </Area2>
+        </Area>
       </Container>
     </Layout>
   );

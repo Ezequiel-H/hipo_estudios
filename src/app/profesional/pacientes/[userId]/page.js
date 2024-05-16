@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import {
   Container, Table, Button, Col, Row, Form,
 } from 'react-bootstrap';
+import { useSearchParams } from 'next/navigation';
 import styled from '@emotion/styled';
 import Layout from '@/app/components/general/Layout';
 import DatosDelPaciente from '@/app/components/patient/DatosDelPaciente';
@@ -31,6 +32,9 @@ const Area2 = styled(Area)`
 `;
 
 function Perfil({ params }) {
+  const searchParams = useSearchParams();
+  const mode = searchParams.get('mode');
+
   const { userId } = params;
   const [user, setUser] = useState('');
   useEffect(() => {
@@ -116,30 +120,45 @@ function Perfil({ params }) {
           </Table>
         </Area>
         <Area2>
-          <h3 className="text-center color-black">Actualizar datos del paciente</h3>
+          <h3 className="text-center color-black">
+            {
+              mode === 'edit' ? 'Actualizar datos del paciente' : 'Datos del paciente'
+            }
+          </h3>
           <Form>
             <Row>
               <Col xs={12} sm={12} md={4} lg={4}>
                 <Form.Control
+                  disabled={mode !== 'edit'}
                   placeholder="Nombre"
                   type="text"
                   className="input"
                 />
               </Col>
               <Col xs={12} sm={12} md={4} lg={4}>
-                <Form.Control placeholder="Apellido" className="input" />
+                <Form.Control
+                  disabled={mode !== 'edit'}
+                  placeholder="Apellido"
+                  className="input"
+                />
               </Col>
               <Col xs={12} sm={12} md={4} lg={4}>
                 <Form.Control
+                  disabled={mode !== 'edit'}
                   placeholder="Fecha de nacimiento"
                   className="input"
                 />
               </Col>
               <Col xs={12} sm={12} md={4} lg={4}>
-                <Form.Control placeholder="Obra social" className="input" />
+                <Form.Control
+                  disabled={mode !== 'edit'}
+                  placeholder="Obra social"
+                  className="input"
+                />
               </Col>
               <Col xs={12} sm={12} md={4} lg={4}>
                 <Form.Control
+                  disabled={mode !== 'edit'}
                   type="number"
                   placeholder="Numero de afiliado"
                   className="input"
@@ -147,6 +166,7 @@ function Perfil({ params }) {
               </Col>
               <Col xs={12} sm={12} md={4} lg={4}>
                 <Form.Control
+                  disabled={mode !== 'edit'}
                   type="email"
                   placeholder="Email"
                   className="input"
@@ -154,6 +174,7 @@ function Perfil({ params }) {
               </Col>
               <Col xs={12} sm={12} md={4} lg={4}>
                 <Form.Control
+                  disabled={mode !== 'edit'}
                   type="number"
                   placeholder="Celular"
                   className="input"
@@ -161,19 +182,24 @@ function Perfil({ params }) {
               </Col>
               <Col xs={12} sm={12} md={4} lg={4}>
                 <Form.Control
+                  disabled={mode !== 'edit'}
                   type="text"
                   placeholder="Médico"
                   className="input"
                 />
               </Col>
-              <Col xs={12} sm={12} md={4} lg={4}>
-                <Button
-                  className="btn btn-primary input"
-                  style={{ backgroundColor: 'var(--primaryColor)' }}
-                >
-                  Registrar
-                </Button>
-              </Col>
+              {
+                mode === 'edit' ? (
+                  <Col xs={12} sm={12} md={4} lg={4}>
+                    <Button
+                      className="btn btn-primary input"
+                      style={{ backgroundColor: 'var(--primaryColor)' }}
+                    >
+                      Actualizar
+                    </Button>
+                  </Col>
+                ) : null
+              }
             </Row>
           </Form>
         </Area2>
