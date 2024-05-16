@@ -24,6 +24,12 @@ const TheNavDropdown2 = styled(TheNavDropdown)`
       background-color: var(--primaryColor);
       color: white;
     }
+    .dropdown-item {
+      color: var(--slowBackground);
+    }
+    .dropdown-item:hover {
+      color: var(--primaryColor);
+    }
 `;
 
 function PatientActions({ patientID }) {
@@ -42,22 +48,12 @@ function PatientActions({ patientID }) {
             <Boton>
               <img src="/img/estudios/markers/new-file.png" alt="Nuevo estudio" width="35px" />
             </Boton>
-                          )}
+          )}
           id="basic-nav-dropdown"
         >
-
-          <NavDropdown.Divider />
-          <NavDropdown.Item href={`/${patientID}/cuestionario/peach/nuevo`}>
-            PEACH
-          </NavDropdown.Item>
-          <NavDropdown.Item href={`/${patientID}/cuestionario/sp-ssq12/nuevo`}>
-            SP-SSQ12
-          </NavDropdown.Item>
-          <NavDropdown.Item href={`/${patientID}/cuestionario/vanderbilt/nuevo`}>
-            VANDERBILT
-          </NavDropdown.Item>
           <TheNavDropdown2
             title="Estudios"
+            className="dropdown-item"
           >
             <NavDropdown.Item href={`/${patientID}/estudios/audiometria/nueva`}>
               Audiometria
@@ -77,8 +73,11 @@ function PatientActions({ patientID }) {
             <NavDropdown.Item href={`/${patientID}/estudios/otoemision/nueva`}>
               Otoemisión
             </NavDropdown.Item>
-
-            <NavDropdown.Divider />
+          </TheNavDropdown2>
+          <TheNavDropdown2
+            title="Formularios"
+            className="dropdown-item"
+          >
             <NavDropdown.Item href={`/${patientID}/cuestionario/peach/nuevo`}>
               PEACH
             </NavDropdown.Item>
@@ -87,6 +86,23 @@ function PatientActions({ patientID }) {
             </NavDropdown.Item>
             <NavDropdown.Item href={`/${patientID}/cuestionario/vanderbilt/nuevo`}>
               VANDERBILT
+            </NavDropdown.Item>
+          </TheNavDropdown2>
+          <TheNavDropdown2
+            title="Hito"
+            className="dropdown-item"
+          >
+            <NavDropdown.Item href={`/${patientID}/estudios/audiometria/nueva`}>
+              Selección de equipamiento
+            </NavDropdown.Item>
+            <NavDropdown.Item href={`/${patientID}/estudios/audiometria/nueva`}>
+              Alta de equipamiento
+            </NavDropdown.Item>
+            <NavDropdown.Item href={`/${patientID}/estudios/audiometria/nueva`}>
+              Calibración o control
+            </NavDropdown.Item>
+            <NavDropdown.Item href={`/${patientID}/estudios/logoaudiometria/nueva`}>
+              Otro
             </NavDropdown.Item>
           </TheNavDropdown2>
         </TheNavDropdown>

@@ -153,7 +153,7 @@ const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile) => (
 
     <div className="mt-4">
       <p className="m-0 mb-2" style={{ fontSize: '22px' }}>Observaciones</p>
-      <Form.Control type="textarea" placeholder="Escribir acá observaciones" />
+      <Form.Control type="textarea" placeholder="Escribir acá..." />
     </div>
     <div className="mt-4">
       <Button

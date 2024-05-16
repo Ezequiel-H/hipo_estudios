@@ -20,9 +20,9 @@ function Timpanometria() {
   const [proximoEstudio, setProximoEstudio] = useState('');
   return (
     <Container>
-      <Row>
-        <Col>
-          <Form>
+      <Row className="mt-4">
+        <Col style={{ maxWidth: 'fit-content' }}>
+          <Form style={{ maxWidth: 'fit-content' }}>
             <Table bordered hover style={{ maxWidth: '600px' }}>
               <thead>
                 <tr>
@@ -96,8 +96,8 @@ function Timpanometria() {
             </Table>
           </Form>
         </Col>
-        <Col>
-          <div className="mt-4">
+        <Col style={{ maxWidth: 'fit-content', marginLeft: '50px;' }}>
+          <div>
             <p className="m-0 mb-2" style={{ fontSize: '22px' }}>Observaciones</p>
             <Form.Control type="textarea" placeholder="Escribir acá observaciones" />
           </div>

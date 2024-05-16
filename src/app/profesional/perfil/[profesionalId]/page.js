@@ -70,12 +70,6 @@ function Perfil() {
 
         <Area2>
           <h3 className="text-center color-black">Consultorios</h3>
-          <Form.Control
-            type="text"
-            id="identifier"
-            placeholder="Buscá por nombre, apellido o DNI..."
-            className="mb-3"
-          />
           <Row>
             <OneCenter center={{ title: 'Centro de Implantes', address: 'Dorrego 123', email: 'centro@implantes.com' }} />
             <OneCenter center={{ title: 'Centro de Implantes', address: 'Dorrego 123', email: 'centro@implantes.com' }} />

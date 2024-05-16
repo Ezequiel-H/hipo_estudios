@@ -23,8 +23,6 @@ const Title = styled.p`
 
 const Address = styled.p``;
 
-const Contact = styled.p``;
-
 const Actions = styled.div``;
 
 function OneCenter({ center }) {
@@ -32,7 +30,6 @@ function OneCenter({ center }) {
     <Center className="mx-auto text-center">
       <Title>{center.title}</Title>
       <Address>{center.address}</Address>
-      <Contact>{center.email}</Contact>
       <Actions>
         <p>Editar</p>
         <p>Eliminar</p>

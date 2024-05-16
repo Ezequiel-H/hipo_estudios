@@ -21,9 +21,7 @@ function AudiometriaNueva({ params }) {
   return (
     <Layout>
       <h1 className="title text-center section1 pb-0">Nueva logoaudiometría</h1>
-      {/* <Identify /> */}
       {user && <DatosDelPaciente user={user} />}
-
       <LogoAudiogram />
     </Layout>
   );
