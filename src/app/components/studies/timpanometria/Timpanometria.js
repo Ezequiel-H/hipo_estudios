@@ -3,6 +3,7 @@ import {
   Row, Col, Container, Form, Table, Button,
 } from 'react-bootstrap';
 import styled from '@emotion/styled';
+import Finished from '../Finished';
 
 const TdCell = styled.td`
     margin: 0!important;
@@ -159,7 +160,7 @@ function Timpanometria() {
                   </Form.Select>
                   <Button
                     className="btn btn-primary"
-                    onClick={() => realizarProximoEstudio()}
+                    // onClick={() => realizarProximoEstudio()}
                   >
                     Realizar
                   </Button>

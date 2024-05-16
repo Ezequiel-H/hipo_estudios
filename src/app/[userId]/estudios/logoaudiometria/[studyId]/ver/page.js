@@ -20,6 +20,7 @@ function VerLogoaudiometria({ params }) {
 
         const newStudy = await getStudyById(studyId);
         setStudy(newStudy);
+        console.log(study);
       } catch (error) {
         console.error('Error fetching data:', error);
       }

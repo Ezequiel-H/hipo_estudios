@@ -2,7 +2,7 @@
 
 import React from 'react';
 import {
-  Container, Button, Row, Col, Form, Table,
+  Container, Button, Row, Col, Form,
 } from 'react-bootstrap';
 import styled from '@emotion/styled';
 import Layout from '@/app/components/general/Layout';
@@ -26,15 +26,6 @@ const Area = styled.div`
 const Area2 = styled(Area)`
     border: 7px solid var(--tertiaryColor);
     margin-top: 30px; 
-`;
-
-const Boton = styled(Button)`
-    padding: 5px;
-    margin-right: 10px;
-    background-color: transparent;
-    &:hover {
-        transform: scale(1.3);
-    }
 `;
 
 function Perfil() {

@@ -5,7 +5,6 @@ import { Container } from 'react-bootstrap';
 import Layout from '@/app/components/general/Layout';
 import DatosDelPaciente from '../../../../../components/patient/DatosDelPaciente';
 import { getUserById } from '@/app/db/user';
-import VanderbiltForm from '@/app/components/forms/VanderbiltKidsForm';
 import VanderbiltKidsForm from '@/app/components/forms/VanderbiltKidsForm';
 
 function VanderbiltNinos({ params }) {

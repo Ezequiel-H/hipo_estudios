@@ -2,7 +2,7 @@
 
 import React from 'react';
 import {
-  Table, Container, Form, Button, Row, Col, NavDropdown,
+  Table, Container, Form, Button, Row, Col,
 } from 'react-bootstrap';
 import styled from '@emotion/styled';
 import Layout from '@/app/components/general/Layout';
@@ -25,15 +25,6 @@ const Area2 = styled(Area)`
         background-color:  var(--tertiaryColor);
         border-radius: 25px;
         padding: 10px 15px;
-    }
-`;
-
-const Boton = styled(Button)`
-    padding: 5px;
-    margin-right: 10px;
-    background-color: transparent;
-    &:hover {
-        transform: scale(1.3);
     }
 `;
 
@@ -71,9 +62,8 @@ function Pacientes() {
                 <td>60004 00445 005 951</td>
                 <td>16/05/2023</td>
                 <td>-</td>
-                <td>
-                  <PatientActions patientID="idDeEzequiel123123" />
-                </td>
+                <PatientActions patientID="idDeEzequiel123123" />
+
               </tr>
               <tr>
                 <td>2</td>
@@ -83,9 +73,8 @@ function Pacientes() {
                 <td>60004 00445 005 952</td>
                 <td>10/01/2020</td>
                 <td>-</td>
-                <td>
-                  <PatientActions patientID="idDeEzequiel123123" />
-                </td>
+                <PatientActions patientID="idDeEzequiel123123" />
+
               </tr>
               <tr>
                 <td>3</td>
@@ -95,9 +84,7 @@ function Pacientes() {
                 <td>60004 00445 005 952</td>
                 <td>10/01/2020</td>
                 <td>-</td>
-                <td>
-                  <PatientActions patientID="idDeEzequiel123123" />
-                </td>
+                <PatientActions patientID="idDeEzequiel123123" />
               </tr>
               <tr>
                 <td>4</td>
@@ -107,9 +94,8 @@ function Pacientes() {
                 <td>60004 00445 005 952</td>
                 <td>10/01/2020</td>
                 <td>-</td>
-                <td>
-                  <PatientActions patientID="idDeEzequiel123123" />
-                </td>
+                <PatientActions patientID="idDeEzequiel123123" />
+
               </tr>
               <tr>
                 <td>5</td>
@@ -119,9 +105,8 @@ function Pacientes() {
                 <td>60004 00445 005 952</td>
                 <td>10/01/2020</td>
                 <td>-</td>
-                <td>
-                  <PatientActions patientID="idDeEzequiel123123" />
-                </td>
+                <PatientActions patientID="idDeEzequiel123123" />
+
               </tr>
             </tbody>
           </Table>

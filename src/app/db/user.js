@@ -17,6 +17,6 @@ export const getUserById = async (userId) => {
 };
 
 export const getUserByI = (userId) => {
-  const datos = JSON.parse(db);
+  const datos = JSON.parse('db'); // TODO: Correct db
   return datos.find((user) => user.id.toString() === userId.toString());
 };

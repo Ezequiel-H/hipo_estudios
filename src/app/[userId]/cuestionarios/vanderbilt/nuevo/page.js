@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import Layout from '@/app/components/general/Layout';
 import DatosDelPaciente from '../../../../components/patient/DatosDelPaciente';
-import PeachForm from '@/app/components/forms/PeachForm';
 import { getUserById } from '@/app/db/user';
 
 function VanderbiltNuevo({ params }) {
