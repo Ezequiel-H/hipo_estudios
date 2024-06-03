@@ -38,7 +38,7 @@ function Navigation() {
     <Area>
       <Navbar expand="lg" sticky="top">
         <Container>
-          <Navbar.Brand href="#home" className="mr-auto">Sonko</Navbar.Brand>
+          <Navbar.Brand href="#home" className="mr-auto">Decibele</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
             <Nav className="ml-auto">

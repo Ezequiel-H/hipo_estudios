@@ -347,6 +347,7 @@ table {
   color: white;
 }
 
+
 /*  ==================   COLOR   ====================   */
 
 .color-primary {
@@ -471,4 +472,41 @@ table {
 
 .visita-item:hover {
   transform: scale(1.2);
+}
+
+
+/* Form */
+
+.login-area {
+  border: 5px solid var(--primaryColor);
+  padding: 15px;
+  margin: 50px 0;
+  border-radius: 40px;
+}
+
+.login-area img {
+  border-radius: 40px;
+} 
+
+.login-col {
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+.login-form {
+  max-width: 85%;
+  text-align:center;
+  margin: 30px auto;
+  max-width: 100%;
+  width: 600px;
+}
+
+.login-form .text-input,
+.login-form .login-btn {
+  width: 100%;
+  margin: 10px auto;
+  border: 1px solid var(--primaryColor);
+  border-radius: 20px;
+  padding: 10px;
+   
 }
