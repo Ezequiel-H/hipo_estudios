@@ -2,9 +2,8 @@
 
 import React from 'react';
 import {
-  Container, Table, Button, Col, Row, Form,
+  Container, Button, Col, Row, Form,
 } from 'react-bootstrap';
-import { Margin } from 'react-to-pdf';
 import Link from 'next/link';
 import Layout from '@/app/components/general/Layout';
 

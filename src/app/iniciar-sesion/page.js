@@ -2,9 +2,8 @@
 
 import React from 'react';
 import {
-  Container, Table, Button, Col, Row, Form,
+  Container, Button, Col, Row, Form,
 } from 'react-bootstrap';
-import { Margin } from 'react-to-pdf';
 import Link from 'next/link';
 import Layout from '@/app/components/general/Layout';
 
@@ -41,7 +40,8 @@ function login() {
                     </Link>
                     <button
                       style={{ color: 'var(--primaryColor)', backgroundColor: 'transparent', border: 'none' }}
-                      onClick={() => console.log('recuperar pass')}
+                      // onClick={() => console.log('recuperar pass')}
+                      type="button"
                     >
                       Olvidé mi contraseña
                     </button>

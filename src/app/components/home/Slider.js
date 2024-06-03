@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 import {
   Col, Row, Container,
 } from 'react-bootstrap';
-import Link from 'next/link';
 
 const Area = styled.div`
   background-color: var(--slowBackground);
@@ -61,7 +60,8 @@ function Slider() {
               <div>
                 <h5>Historial clínico detallado</h5>
                 <p>
-                  Estudios, formularios, calibraciones, intervenciones, informes de rehabilitación y demás.
+                  Estudios, formularios, calibraciones, intervenciones,
+                  informes de rehabilitación y demás.
                 </p>
               </div>
             </Cuadro>
@@ -85,7 +85,8 @@ function Slider() {
               <div>
                 <h5>Recordatorios al paciente</h5>
                 <p>
-                  Al terminar la visita podes registrar en cuanto tiempo el paciente deberá volver al control y nosotros le avisamos.
+                  Al terminar la visita podes registrar en cuanto tiempo el paciente
+                  deberá volver al control y nosotros le avisamos.
                 </p>
               </div>
             </Cuadro>
