@@ -13,9 +13,6 @@ function Home() {
   return (
     <Layout>
       <Slider />
-      <Banner2 />
-      <ParaCadaPersona />
-      <Estudios />
       <Testimonials />
     </Layout>
   );
