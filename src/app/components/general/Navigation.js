@@ -33,7 +33,7 @@ const DropdownNavigation = styled(NavDropdown)`
 
 `;
 
-function Navigation() {
+function Navigation({ login }) {
   return (
     <Area>
       <Navbar expand="lg" sticky="top">
@@ -57,14 +57,18 @@ function Navigation() {
                 <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/cuestionarios/sp-ssq12/nuevo">Sp-SSQ12</NavDropdown.Item>
                 <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/cuestionarios/venderbilt/nuevo">Vanderbilt</NavDropdown.Item>
               </DropdownNavigation>
-              <DropdownNavigation
-                align="end"
-                title={<img src="/img/web/n_perfil_usuario.svg" alt="Icono del perfil" />}
-              >
-                <NavDropdown.Item className="btn btn-secondary mb-1" href="/profesional/pacientes">MIS PACIENTES</NavDropdown.Item>
-                <NavDropdown.Item className="btn btn-secondary mb-1" href="/profesional/perfil/122">MI CUENTA</NavDropdown.Item>
-                <NavDropdown.Item className="btn btn-secondary mb-1" href="/cerrar-sesion">CERRAR SESIÓN</NavDropdown.Item>
-              </DropdownNavigation>
+              {
+                login ? (
+                  <DropdownNavigation
+                    align="end"
+                    title={<img src="/img/web/n_perfil_usuario.svg" alt="Icono del perfil" />}
+                  >
+                    <NavDropdown.Item className="btn btn-secondary mb-1" href="/profesional/pacientes">MIS PACIENTES</NavDropdown.Item>
+                    <NavDropdown.Item className="btn btn-secondary mb-1" href="/profesional/perfil/122">MI CUENTA</NavDropdown.Item>
+                    <NavDropdown.Item className="btn btn-secondary mb-1" href="/cerrar-sesion">CERRAR SESIÓN</NavDropdown.Item>
+                  </DropdownNavigation>
+                ) : null
+              }
 
             </Nav>
           </Navbar.Collapse>
