@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
+
 import { USER_TYPES } from '../constants/users';
 import axiosInstance from './config';
 
-// Function to get user by ID
 const getUserById = (type) => async (userId) => {
   try {
     const response = await axiosInstance.get(`/${type}/${userId}`);

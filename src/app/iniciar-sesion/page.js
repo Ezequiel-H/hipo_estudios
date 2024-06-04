@@ -5,9 +5,14 @@ import {
   Container, Button, Col, Row, Form,
 } from 'react-bootstrap';
 import Link from 'next/link';
+
 import Layout from '@/app/components/general/Layout';
 
 function login() {
+  function logInClick() {
+    localStorage.setItem('token', 'trucho');
+    window.location.href = '/';
+  }
   return (
     <Layout>
       <Container>
@@ -33,14 +38,14 @@ function login() {
                     label="Recordar sesión por 30 días"
                     style={{ textAlign: 'left' }}
                   />
-                  <Button className="btn btn-secondary login-btn">Iniciar sesión</Button>
+                  <Button onClick={() => logInClick()} className="btn btn-secondary login-btn">Iniciar sesión</Button>
                   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Link href="/registro" style={{ color: 'var(--primaryColor)' }}>
                       Crear cuenta
                     </Link>
                     <button
                       style={{ color: 'var(--primaryColor)', backgroundColor: 'transparent', border: 'none' }}
-                      // onClick={() => console.log('recuperar pass')}
+                      // onClick={() => logInClick()}
                       type="button"
                     >
                       Olvidé mi contraseña
