@@ -1,14 +1,11 @@
 /* eslint-disable no-console */
 
-const axios = require('axios');
+import { USER_TYPES } from '../constants/users';
+import axiosInstance from './config';
 
-const baseURL = 'http://192.168.0.53:8080';
-// const baseURL = 'localhost:8080';
-
-// Function to get user by ID
-export const getUserById = async (userId) => {
+const getUserById = (type) => async (userId) => {
   try {
-    const response = await axios.get(`/user/${userId}`, { baseURL });
+    const response = await axiosInstance.get(`/${type}/${userId}`);
     return response.data;
   } catch (error) {
     // Handle error
@@ -17,7 +14,6 @@ export const getUserById = async (userId) => {
   }
 };
 
-export const getUserByI = (userId) => {
-  const datos = JSON.parse('db'); // TODO: Correct db
-  return datos.find((user) => user.id.toString() === userId.toString());
-};
+export const getPatientById = getUserById(USER_TYPES.PATIENT);
+export const getProfessionalById = getUserById(USER_TYPES.PROFESSIONAL);
+export const getCenterById = getUserById(USER_TYPES.CENTER);

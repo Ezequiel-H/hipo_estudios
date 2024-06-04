@@ -4,6 +4,7 @@ import React from 'react';
 import {
   Container,
 } from 'react-bootstrap';
+import { formatDate } from '@/utils/date';
 
 function DatosDelPaciente({ user, alignLeft }) {
   const {
@@ -22,7 +23,7 @@ function DatosDelPaciente({ user, alignLeft }) {
           {alignLeft ? <strong style={{ fontSize: '30px' }}>{`${name} ${surname}`}</strong> : <strong>{`${name}, ${surname}`}</strong>}
           <br />
           Nacimiento:
-          <strong>{` ${birthdate}`}</strong>
+          <strong>{` ${formatDate(birthdate)}`}</strong>
           <br />
           Obra Social:
           <strong>{` ${os}`}</strong>

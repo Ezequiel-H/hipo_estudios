@@ -4,14 +4,14 @@ import React, { useEffect, useState } from 'react';
 import Layout from '@/app/components/general/Layout';
 import Audiogram from '@/app/components/studies/audiogram/Audiogram';
 import DatosDelPaciente from '../../../../components/patient/DatosDelPaciente';
-import { getUserById } from '@/app/db/user';
+import { getPatientById } from '@/app/db/user';
 
 function AudiometriaNueva({ params }) {
   const { userId } = params;
   const [user, setUser] = useState('');
   useEffect(() => {
     const fetchData = async () => {
-      const newUser = await getUserById(userId);
+      const newUser = await getPatientById(userId);
       setUser(newUser);
     };
 

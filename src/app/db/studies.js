@@ -1,13 +1,9 @@
 /* eslint-disable no-console */
-/* eslint-disable max-len */
-
-const axios = require('axios');
-
-const baseURL = 'http://localhost:8080';
+import axiosInstance from './config';
 
 export const getStudyById = async (studyId) => {
   try {
-    const response = await axios.get(`/study/${studyId}`, { baseURL });
+    const response = await axiosInstance.get(`/study/${studyId}`);
     return response.data;
   } catch (error) {
     // Handle error
@@ -18,7 +14,7 @@ export const getStudyById = async (studyId) => {
 
 export const addStudyForUser = async (userId, studyData) => {
   try {
-    const response = await axios.post(`/study/${userId}`, { study: studyData }, { baseURL });
+    const response = await axiosInstance.post(`/study/${userId}`, { study: studyData });
     return response.data;
   } catch (error) {
     // Handle error
