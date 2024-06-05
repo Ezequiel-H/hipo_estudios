@@ -13,6 +13,7 @@
     "react/prop-types": ["off"],
     "import/extensions": "off",
     "import/no-unresolved": "off",
-    "react/no-array-index-key": "off"
+    "react/no-array-index-key": "off",
+    "no-underscore-dangle": "off"
   }
 }

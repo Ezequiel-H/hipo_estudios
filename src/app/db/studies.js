@@ -14,7 +14,7 @@ export const getStudyById = async (studyId) => {
 
 export const addStudyForUser = async (userId, studyData) => {
   try {
-    const response = await axiosInstance.post(`/study/${userId}`, { study: studyData });
+    const response = await axiosInstance.post(`/study/${userId}`, studyData);
     return response.data;
   } catch (error) {
     // Handle error

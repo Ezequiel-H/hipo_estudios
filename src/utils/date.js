@@ -8,4 +8,4 @@ export const formatDate = (originalDate) => {
   return `${day}/${month}/${year}`;
 };
 
-export const a = () => console.log('object');
+export const a = () => {};

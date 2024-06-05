@@ -15,6 +15,7 @@ import Image from 'next/image';
 import localStorageNames from '@/app/constants/localStorage';
 import Finished from '../Finished';
 import { addStudyForUser } from '@/app/db/studies';
+import { STUDY_TYPES } from '@/app/constants/study';
 
 const Template = styled.div`
   background-color: white;
@@ -150,56 +151,69 @@ const tools = (
     setProximoEstudio,
     realizarProximoEstudio,
   },
-) => (
-  <Col md={12} lg={4} xl={4} key={4} className="col-estudio-info" style={{ width: 'fit-content' }}>
-    <Row className={isMobile ? 'select-tools-audiogram-mobile' : 'select-tools-audiogram'}>
-      <Col xs={6} lg={6} xl={6}>
-        <p className={`color-primary text-center ${(evaluando === 'dAerea' || evaluando === 'iAerea') ? 'opacity-100' : 'opacity-25'}`}>
-          Vía aérea
-        </p>
-      </Col>
-      <Col xs={6} lg={6} xl={6}>
-        <p className={`color-primary text-center ${(evaluando === 'dOsea' || evaluando === 'iOsea') ? 'opacity-100' : 'opacity-25'}`}>
-          Vía ósea
-        </p>
-      </Col>
-      {Object.values(STUDIES_NAMES).map((name, index) => (
-        <Col key={index}>
-          <SeleccionEstudio
-            onClick={() => {
-              setEvaluando(name);
-              agregarCurva(name);
-            }}
-            key={`${index}SeleccionEstudios`}
-            className={evaluando === name ? 'opacity-100' : 'opacity-25'}
-          >
-            <Image
-              src={STUDIES_IMAGES[name]}
-              alt={STUDIES_FULL_NAMES[name]}
-              width={55}
-              height={55}
-              className={evaluando === name ? 'opacity-100' : 'opacity-25'}
-              style={{ margin: '10px auto' }}
-            />
-            {STUDIES_SIDE[name]}
-          </SeleccionEstudio>
+) => {
+  const [observations, setObservations] = useState('');
+  return (
+    <Col md={12} lg={4} xl={4} key={4} className="col-estudio-info" style={{ width: 'fit-content' }}>
+      <Row className={isMobile ? 'select-tools-audiogram-mobile' : 'select-tools-audiogram'}>
+        <Col xs={6} lg={6} xl={6}>
+          <p className={`color-primary text-center ${(evaluando === 'dAerea' || evaluando === 'iAerea') ? 'opacity-100' : 'opacity-25'}`}>
+            Vía aérea
+          </p>
         </Col>
-      ))}
-    </Row>
+        <Col xs={6} lg={6} xl={6}>
+          <p className={`color-primary text-center ${(evaluando === 'dOsea' || evaluando === 'iOsea') ? 'opacity-100' : 'opacity-25'}`}>
+            Vía ósea
+          </p>
+        </Col>
+        {Object.values(STUDIES_NAMES).map((name, index) => (
+          <Col key={index}>
+            <SeleccionEstudio
+              onClick={() => {
+                setEvaluando(name);
+                agregarCurva(name);
+              }}
+              key={`${index}SeleccionEstudios`}
+              className={evaluando === name ? 'opacity-100' : 'opacity-25'}
+            >
+              <Image
+                src={STUDIES_IMAGES[name]}
+                alt={STUDIES_FULL_NAMES[name]}
+                width={55}
+                height={55}
+                className={evaluando === name ? 'opacity-100' : 'opacity-25'}
+                style={{ margin: '10px auto' }}
+              />
+              {STUDIES_SIDE[name]}
+            </SeleccionEstudio>
+          </Col>
+        ))}
+      </Row>
 
-    <div className="mt-4">
-      <p className="m-0 mb-2" style={{ fontSize: '22px' }}>Observaciones</p>
-      <Form.Control type="textarea" placeholder="Escribir acá observaciones" />
-
-    </div>
-    <div className="mt-4">
-      {
+      <div className="mt-4">
+        <p className="m-0 mb-2" style={{ fontSize: '22px' }}>Observaciones</p>
+        <Form.Control
+          type="textarea"
+          placeholder="Escribir acá observaciones"
+          value={observations}
+          onChange={(e) => setObservations(e.target.value)}
+        />
+      </div>
+      <div className="mt-4">
+        {
         proceso === 1 ? (
           <Button
             onClick={() => {
               const datosJSON = JSON.stringify(STUDIES);
               localStorage.setItem(localStorageNames.AUDIOGRAM, datosJSON);
-              addStudyForUser(userId, STUDIES);
+              const professionalId = localStorage.getItem('userId');
+              addStudyForUser(userId, {
+                type: STUDY_TYPES.AUDIOGRAM,
+                result: STUDIES,
+                date: new Date(),
+                observation: observations,
+                professional: professionalId,
+              });
               setProceso(2);
             }}
             className="btn btn-secondary"
@@ -227,7 +241,7 @@ const tools = (
                 setProceso(4);
               }}
               className="btn btn-primary"
-              style={{ marginLeft: '10px!important;' }}
+              style={{ marginLeft: '10px!important' }}
             >
               Realizar otro estudio
             </Button>
@@ -261,9 +275,10 @@ const tools = (
           </>
         ) : null
       }
-    </div>
-  </Col>
-);
+      </div>
+    </Col>
+  );
+};
 
 function Audiogram({ userId }) {
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
@@ -298,7 +313,7 @@ function Audiogram({ userId }) {
     const datosJSON = JSON.stringify(STUDIES);
     localStorage.setItem(localStorageNames.AUDIOGRAM, datosJSON);
 
-    window.location.href = `/idDeEzequiel123123/${proximoEstudio}/nueva`;
+    window.location.href = `/${userId}/${proximoEstudio}/nueva`;
   }
 
   const agregarCurva = (estudioActual = evaluando) => {
@@ -493,7 +508,6 @@ function Audiogram({ userId }) {
             }
 
           </Container>
-
         </Template>
       </Container>
       <Container>
