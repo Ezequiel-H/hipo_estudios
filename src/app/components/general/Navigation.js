@@ -6,6 +6,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 
 import styled from '@emotion/styled';
 import Link from 'next/link';
+import { USER_TYPES } from '@/app/constants/users';
 
 const Area = styled.div`
     background-image: url('/img/web/header-bg.png');
@@ -33,7 +34,7 @@ const DropdownNavigation = styled(NavDropdown)`
 
 `;
 
-function Navigation({ login }) {
+function Navigation({ login, userType }) {
   return (
     <Area>
       <Navbar expand="lg" sticky="top">
@@ -43,6 +44,7 @@ function Navigation({ login }) {
           <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
             <Nav className="ml-auto">
               <LinkNavigation href="/">INICIO</LinkNavigation>
+              {userType === USER_TYPES.PATIENT && <LinkNavigation href="/professional-conect">CONECTAR A PROFESIONAL</LinkNavigation>}
               <LinkNavigation href="/ver-mas">VER MAS</LinkNavigation>
               <DropdownNavigation align="end" title="ESTUDIOS">
                 <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/estudios/audiometria/nueva">AUDIOMETRÍA</NavDropdown.Item>

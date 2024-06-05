@@ -7,12 +7,14 @@ import Footer from './Footer';
 function Layout({ children }) {
   const router = useRouter();
   const [login, setLogin] = useState(false);
+  const [userType, setUserType] = useState('');
   function checkLogIn() {
     if (!localStorage.getItem('token')) {
       router.push('/iniciar-sesion');
       setLogin(false);
     } else {
       setLogin(true);
+      setUserType(localStorage.getItem('userType'));
     }
   }
   useEffect(() => {
@@ -23,7 +25,7 @@ function Layout({ children }) {
   return (
     <>
       <Header />
-      <Navigation login={login} />
+      <Navigation login={login} userType={userType} />
       {children}
       <Footer />
     </>
