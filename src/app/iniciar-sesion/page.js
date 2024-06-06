@@ -18,6 +18,7 @@ function login() {
     const user = await signIn(email, password);
     // TODO: navegar dependiendo del user.type
     window.location.href = '/';
+    console.log(user);
   };
 
   return (

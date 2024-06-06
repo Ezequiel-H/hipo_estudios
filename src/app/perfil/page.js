@@ -67,41 +67,15 @@ function UserProfile() {
             </a>
           </div>
 
-          <Area>
-            <h3 className="text-center color-black mb-4">Datos personales</h3>
-            <Form>
-              <Row>
-                <Col xs={12} sm={12} md={4} lg={4}>
-                  <Form.Control placeholder="Nombre" type="text" className="input" value={user.name} />
-                </Col>
-                <Col xs={12} sm={12} md={4} lg={4}>
-                  <Form.Control placeholder="Apellido" className="input" value={user.surname} />
-                </Col>
-                <Col xs={12} sm={12} md={4} lg={4}>
-                  <Form.Control placeholder="Fecha de nacimiento" className="input" value={user.birthdate} />
-                </Col>
-                <Col xs={12} sm={12} md={4} lg={4}>
-                  <Form.Control placeholder="Email" type="email" className="input" />
-                </Col>
-                <Col xs={12} sm={12} md={4} lg={4}>
-                  <Form.Control type="number" placeholder="Celular" className="input" />
-                </Col>
-                <Col xs={12} sm={12} md={4} lg={4}>
-                  <Button className="btn btn-primary input" style={{ backgroundColor: 'var(--primaryColor)' }}>Actualizar</Button>
-                </Col>
-              </Row>
-            </Form>
-          </Area>
-
           <Area2>
-            <h3 className="text-center color-black">Mis estudios</h3>
+            <h3 className="text-center color-black" id="estudios">Mis estudios</h3>
 
             <div className="study-filter mx-auto text-center mt-4 mb-4">
               <Form.Label>
                 <select className="input" value={filterType} onChange={(e) => setFilterType(e.target.value)}>
                   <option value="">Todos</option>
-                  <option value="audiogram">Audiometría</option>
-                  <option value="logoaudiogram">Logoaudiometría</option>
+                  <option value="estudios">Estudios</option>
+                  <option value="formularios">Formularios</option>
                 </select>
               </Form.Label>
               <Form.Label>
@@ -141,6 +115,32 @@ function UserProfile() {
               </Table>
             )}
           </Area2>
+
+          <Area>
+            <h3 className="text-center color-black mb-4">Datos personales</h3>
+            <Form>
+              <Row>
+                <Col xs={12} sm={12} md={4} lg={4}>
+                  <Form.Control placeholder="Nombre" type="text" className="input" value={user.name} />
+                </Col>
+                <Col xs={12} sm={12} md={4} lg={4}>
+                  <Form.Control placeholder="Apellido" className="input" value={user.surname} />
+                </Col>
+                <Col xs={12} sm={12} md={4} lg={4}>
+                  <Form.Control placeholder="Fecha de nacimiento" className="input" value={user.birthdate} />
+                </Col>
+                <Col xs={12} sm={12} md={4} lg={4}>
+                  <Form.Control placeholder="Email" type="email" className="input" />
+                </Col>
+                <Col xs={12} sm={12} md={4} lg={4}>
+                  <Form.Control type="number" placeholder="Celular" className="input" />
+                </Col>
+                <Col xs={12} sm={12} md={4} lg={4}>
+                  <Button className="btn btn-primary input" style={{ backgroundColor: 'var(--primaryColor)' }}>Actualizar</Button>
+                </Col>
+              </Row>
+            </Form>
+          </Area>
 
         </div>
       </Container>

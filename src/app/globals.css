@@ -108,7 +108,14 @@ body {
   max-width: unset;
   overflow-x: visible;
   background-color: white !important;
-  min-width: fit-content;
+  /* TODO: Revisar si no afecta esto: */
+  /* min-width: fit-content; */
+}
+
+html {
+    box-sizing: border-box;
+    /* font-size: 62.5%; */
+    scroll-behavior: smooth;
 }
 
 body {
@@ -481,6 +488,10 @@ table {
 .dropdown-menu {
   background-color: transparent;
   border: none;
+}
+
+.dropdown-menu a {
+  color: var(--primaryColor);
 }
 
 .navbar {

@@ -6,6 +6,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 
 import styled from '@emotion/styled';
 import Link from 'next/link';
+import { logOut } from '@/app/db/user';
 import { USER_TYPES } from '@/app/constants/users';
 
 const Area = styled.div`
@@ -16,7 +17,7 @@ const Area = styled.div`
 const LinkNavigation = styled(Link)`
     color: var(--slowYellow);
     font-size: 18px;
-    margin-left: 10px;
+    margin-left: 25px;
     margin-top: auto;
     margin-bottom: auto;
     text-align:right;
@@ -26,15 +27,16 @@ const LinkNavigation = styled(Link)`
 
 const DropdownNavigation = styled(NavDropdown)`
     margin: auto 0;
+        margin-left: 25px;
+
     a {
         color: var(--slowYellow)!important;
         font-size: 18px!important;
         text-align: right;
     }
-
 `;
 
-function Navigation({ login, userType }) {
+function Navigation({ userType }) {
   return (
     <Area>
       <Navbar expand="lg" sticky="top">
@@ -43,32 +45,59 @@ function Navigation({ login, userType }) {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
             <Nav className="ml-auto">
-              <LinkNavigation href="/">INICIO</LinkNavigation>
-              {userType === USER_TYPES.PATIENT && <LinkNavigation href="/professional-conect">CONECTAR A PROFESIONAL</LinkNavigation>}
-              <LinkNavigation href="/ver-mas">VER MAS</LinkNavigation>
-              <DropdownNavigation align="end" title="ESTUDIOS">
-                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/estudios/audiometria/nueva">AUDIOMETRÍA</NavDropdown.Item>
-                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/estudios/logoaudiometria/nueva">LOGOAUDIOMETRÍA</NavDropdown.Item>
-                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/estudios/timpanometria/nueva">TIMPANOMETRÍA</NavDropdown.Item>
-                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/estudios/impedanciometria/nueva">IMPEDANCIOMETRÍA</NavDropdown.Item>
-                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/estudios/potenciales-evocados/nueva">POTENCIALES EVOCADOS</NavDropdown.Item>
-                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/estudios/otoemision/nueva">OTOEMISIÓN</NavDropdown.Item>
-              </DropdownNavigation>
-              <DropdownNavigation align="end" title="CUESTIONARIOS">
-                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/cuestionarios/peach/nuevo">PEACH</NavDropdown.Item>
-                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/cuestionarios/sp-ssq12/nuevo">Sp-SSQ12</NavDropdown.Item>
-                <NavDropdown.Item className="btn btn-secondary mb-1" href="/idDeEzequiel123123/cuestionarios/venderbilt/nuevo">Vanderbilt</NavDropdown.Item>
-              </DropdownNavigation>
+              <LinkNavigation href="/">Inicio</LinkNavigation>
+
+              {userType !== USER_TYPES.PROFESSIONAL && (
+              <LinkNavigation href="#">Buscar profesional</LinkNavigation>
+              )}
+
               {
-                login ? (
+                userType === USER_TYPES.PROFESSIONAL && (
+                  <>
+                    <DropdownNavigation className="btn btn-primary p-0" align="end" title="Nuevo estudio">
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/seleccionar/estudios/audiometria/nueva">AUDIOMETRÍA</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/seleccionar/estudios/logoaudiometria/nueva">LOGOAUDIOMETRÍA</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/seleccionar/estudios/timpanometria/nueva">TIMPANOMETRÍA</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/seleccionar/estudios/impedanciometria/nueva">IMPEDANCIOMETRÍA</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/seleccionar/estudios/potenciales-evocados/nueva">POTENCIALES EVOCADOS</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/seleccionar/estudios/otoemision/nueva">OTOEMISIÓN</NavDropdown.Item>
+                    </DropdownNavigation>
+                    <DropdownNavigation className="btn btn-primary p-0" align="end" title="Nuevo formulario">
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/seleccionar/cuestionarios/peach/nuevo">PEACH</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/seleccionar/cuestionarios/sp-ssq12/nuevo">Sp-SSQ12</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/seleccionar/cuestionarios/venderbilt/nuevo">Vanderbilt</NavDropdown.Item>
+                    </DropdownNavigation>
+                    <LinkNavigation href="/profesional/pacientes#nuevo">Nuevo paciente</LinkNavigation>
+
+                  </>
+                )
+              }
+
+              {
+                userType === USER_TYPES.PROFESSIONAL ? (
                   <DropdownNavigation
                     align="end"
                     title={<img src="/img/web/n_perfil_usuario.svg" alt="Icono del perfil" />}
                   >
-                    <NavDropdown.Item className="btn btn-secondary mb-1" href="/profesional/pacientes">MIS PACIENTES</NavDropdown.Item>
-                    <NavDropdown.Item className="btn btn-secondary mb-1" href="/profesional/perfil/122">MI CUENTA</NavDropdown.Item>
-                    <NavDropdown.Item className="btn btn-secondary mb-1" href="/cerrar-sesion">CERRAR SESIÓN</NavDropdown.Item>
+                    <NavDropdown.Item className="btn btn-primary mb-1" href="/profesional/perfil">Mi perfil</NavDropdown.Item>
+                    <NavDropdown.Item className="btn btn-primary mb-1" href="/profesional/pacientes">Mis pacientes</NavDropdown.Item>
+                    <NavDropdown.Item className="btn btn-primary mb-1" onClick={() => logOut()}>Cerrar sesión</NavDropdown.Item>
                   </DropdownNavigation>
+                ) : null
+              }
+              {
+                userType === USER_TYPES.PATIENT ? (
+                  <>
+                    <LinkNavigation href="/perfil#estudios">Mis estudios</LinkNavigation>
+                    <DropdownNavigation
+                      align="end"
+                      title={<img src="/img/web/n_perfil_usuario.svg" alt="Icono del perfil" />}
+                    >
+                      <NavDropdown.Item className="btn btn-secondary mb-1" href="/perfil">Mi perfil</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-secondary mb-1" href="/perfil#estudios">Mis estudios</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-secondary mb-1" onClick={() => logOut()}>Cerrar sesión</NavDropdown.Item>
+                    </DropdownNavigation>
+                  </>
                 ) : null
               }
 
