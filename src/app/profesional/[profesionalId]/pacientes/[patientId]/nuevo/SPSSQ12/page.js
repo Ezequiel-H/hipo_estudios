@@ -3,16 +3,16 @@
 import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import Layout from '@/app/components/general/Layout';
-import DatosDelPaciente from '../../../../../components/patient/DatosDelPaciente';
-import { getUserById } from '@/app/db/user';
-import VanderbiltTeachersForm from '@/app/components/forms/VanderbiltTeachersForm';
+import DatosDelPaciente from '@/app/components/patient/DatosDelPaciente';
+import { getPatientById } from '@/app/db/user';
+import SpSSQ12Form from '@/app/components/forms/SpSSQ12Form';
 
 function VanderbiltDocentes({ params }) {
   const { userId } = params;
   const [user, setUser] = useState('');
   useEffect(() => {
     const fetchData = async () => {
-      const newUser = await getUserById(userId);
+      const newUser = await getPatientById(userId);
       setUser(newUser);
     };
 
@@ -22,10 +22,10 @@ function VanderbiltDocentes({ params }) {
   return (
     <Layout>
       <Container>
-        <h1 className="title text-center section1 pb-0">VANDERBILT PARA DOCENTES</h1>
-        <h2 className="text-center mt-3" style={{ fontSize: '20px' }}>Esta escala está concebida para evaluar la fatiga relacionada con la audición en niños/as.</h2>
+        <h1 className="title text-center section1 pb-0">Sp-SSQ12</h1>
+        <h2 className="text-center mt-3" style={{ fontSize: '20px' }}>Cuestionario sobre el Habla, Audición Espacial y Cualidades Auditivas.</h2>
         {user && <DatosDelPaciente user={user} />}
-        <VanderbiltTeachersForm />
+        <SpSSQ12Form />
 
       </Container>
     </Layout>
