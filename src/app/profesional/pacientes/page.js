@@ -113,7 +113,7 @@ function Pacientes() {
         </Area>
 
         <Area2>
-          <h3 className="text-center color-black">Paciente nuevo</h3>
+          <h3 className="text-center color-black" id="nuevo">Paciente nuevo</h3>
           <Form>
             <Row>
               <Col xs={12} sm={12} md={4} lg={4}>

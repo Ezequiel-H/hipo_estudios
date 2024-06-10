@@ -69,7 +69,7 @@ const Casillero = styled.div`
     font-size:10px;
     position: relative;
     bottom: -5px; 
-    right: 9px; 
+    right: 11px; 
     transition: all .5s ease;
     transform: scale(1.5);
   }

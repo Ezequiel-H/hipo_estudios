@@ -31,3 +31,24 @@ export const signIn = async (email, password) => {
     throw error;
   }
 };
+
+export const signUp = async (user) => {
+  try {
+    const response = await axiosInstance.post('/sign_up/', { user });
+    localStorage.setItem('token', response.data._id);
+    localStorage.setItem('userId', response.data._id);
+    localStorage.setItem('userType', response.data.userType);
+    return response.data;
+  } catch (error) {
+    // Handle error
+    console.error('Error creating user:', error);
+    throw error;
+  }
+};
+
+export const logOut = () => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('userId');
+  localStorage.removeItem('userType');
+  window.location.href = '/';
+};

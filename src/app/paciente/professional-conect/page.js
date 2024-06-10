@@ -26,25 +26,24 @@ function login() {
         <div className="login-area">
           <Row>
             <Col className="text-center login-col">
-              <h1>Comparte estudios con un profesional</h1>
+              <h1>Compartí tus estudios</h1>
+              <p>con tus profesionales.</p>
               <div className="login-form">
                 <Form>
                   <Form.Control
                     placeholder="Email"
                     type="email"
-                    className="text-input"
+                    className="text-input text-center"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
-                  <Button onClick={logInClick} className="btn btn-secondary login-btn">
-                    Compartir Estudios
+                  <Button className="btn btn-secondary login-btn">
+                    Compartir estudios
                   </Button>
                 </Form>
               </div>
             </Col>
-            <Col xs={12} sm={12} md={5} lg={4} className="d-none d-sm-none d-lg-block">
-              <img style={{ maxWidth: '100%' }} src="img/freedom/vertical/04.jpg" alt="Pez en el mar" />
-            </Col>
+
           </Row>
         </div>
       </Container>

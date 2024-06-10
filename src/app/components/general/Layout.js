@@ -6,14 +6,13 @@ import Footer from './Footer';
 
 function Layout({ children }) {
   const router = useRouter();
-  const [login, setLogin] = useState(false);
   const [userType, setUserType] = useState('');
   function checkLogIn() {
     if (!localStorage.getItem('token')) {
-      router.push('/iniciar-sesion');
-      setLogin(false);
+      if (!(window.location.href.includes('iniciar-sesion') || window.location.href.includes('registro'))) {
+        router.push('/iniciar-sesion');
+      }
     } else {
-      setLogin(true);
       setUserType(localStorage.getItem('userType'));
     }
   }
@@ -25,7 +24,7 @@ function Layout({ children }) {
   return (
     <>
       <Header />
-      <Navigation login={login} userType={userType} />
+      <Navigation userType={userType} />
       {children}
       <Footer />
     </>

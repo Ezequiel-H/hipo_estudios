@@ -92,7 +92,7 @@ const Casillero = styled.div`
     font-size:10px;
     position: relative;
     bottom: -5px; 
-    right: 9px; 
+    right: 11px; 
     transition: all .5s ease;
     transform: scale(1.5);
   }
@@ -265,7 +265,7 @@ function LogoAudiogram() {
   }
 
   return (
-    <main style={{ backgroundColor: 'white!important' }}>
+    <main style={{ minWidth: 'fit-content', backgroundColor: 'white!important' }}>
       <Container>
         {/* <p className="sub-title this-section mb-0">Logoaudiograma</p> */}
         <Template>
