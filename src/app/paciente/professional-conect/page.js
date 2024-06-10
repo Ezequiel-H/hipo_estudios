@@ -6,9 +6,19 @@ import {
 } from 'react-bootstrap';
 
 import Layout from '@/app/components/general/Layout';
+import { signIn } from '../../db/user';
 
 function login() {
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const logInClick = async () => {
+    const user = await signIn(email, password);
+    console.log(user);
+    console.log(setPassword);
+    // TODO: navegar dependiendo del user.type
+    window.location.href = '/';
+  };
 
   return (
     <Layout>

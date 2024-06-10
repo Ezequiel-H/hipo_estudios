@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import Layout from '@/app/components/general/Layout';
 import DatosDelPaciente from '../../../../../components/patient/DatosDelPaciente';
-import { getUserById } from '@/app/db/user';
+import { getPatientById } from '@/app/db/user';
 import VanderbiltParentsForm from '@/app/components/forms/VanderbiltParentsForm';
 import SelectPatient from '@/app/components/studies/SelectPatient';
 
@@ -15,7 +15,7 @@ function VanderbiltPadres({ params }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const newUser = await getUserById(userId);
+      const newUser = await getPatientById(userId);
       setUser(newUser);
     };
     if (window.location.href.includes('seleccionar')) {

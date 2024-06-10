@@ -3,10 +3,10 @@
 import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import Layout from '@/app/components/general/Layout';
-import DatosDelPaciente from '../../../../components/patient/DatosDelPaciente';
+import DatosDelPaciente from '@/app/components/patient/DatosDelPaciente';
 import PeachForm from '@/app/components/forms/PeachForm';
-import { getUserById } from '@/app/db/user';
 import SelectPatient from '@/app/components/studies/SelectPatient';
+import { getPatientById } from '@/app/db/user';
 
 function PeachNuevo({ params }) {
   const { userId } = params;
@@ -15,7 +15,7 @@ function PeachNuevo({ params }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const newUser = await getUserById(userId);
+      const newUser = await getPatientById(userId);
       setUser(newUser);
     };
     if (window.location.href.includes('seleccionar')) {

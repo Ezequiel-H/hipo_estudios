@@ -16,6 +16,7 @@ function login() {
 
   const logInClick = async () => {
     const user = await signIn(email, password);
+    console.log(user);
     // TODO: navegar dependiendo del user.type
     window.location.href = '/';
     console.log(user);
