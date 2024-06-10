@@ -37,6 +37,9 @@ const DropdownNavigation = styled(NavDropdown)`
 `;
 
 function Navigation({ userType }) {
+  function comingSoon() {
+    alert('Función disponible próximamente.');
+  }
   return (
     <Area>
       <Navbar expand="lg" sticky="top">
@@ -48,7 +51,7 @@ function Navigation({ userType }) {
               <LinkNavigation href="/">Inicio</LinkNavigation>
 
               {userType !== USER_TYPES.PROFESSIONAL && (
-              <LinkNavigation href="#">Buscar profesional</LinkNavigation>
+              <LinkNavigation href="#" onClick={() => comingSoon()}>Buscar profesional</LinkNavigation>
               )}
 
               {
@@ -88,13 +91,23 @@ function Navigation({ userType }) {
               {
                 userType === USER_TYPES.PATIENT ? (
                   <>
-                    <LinkNavigation href="/perfil#estudios">Mis estudios</LinkNavigation>
+                    <DropdownNavigation className="btn btn-primary p-0" align="end" title="Estudios">
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/info/estudios/audiometria">AUDIOMETRÍA</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/info/estudios/logoaudiometria">LOGOAUDIOMETRÍA</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/info/estudios/timpanometria">TIMPANOMETRÍA</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/info/estudios/impedanciometria">IMPEDANCIOMETRÍA</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/info/estudios/potenciales-evocados">POTENCIALES EVOCADOS</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/info/estudios/otoemision">OTOEMISIÓN</NavDropdown.Item>
+                    </DropdownNavigation>
+
+                    <LinkNavigation href="/perfil">Mis estudios</LinkNavigation>
                     <DropdownNavigation
                       align="end"
                       title={<img src="/img/web/n_perfil_usuario.svg" alt="Icono del perfil" />}
                     >
                       <NavDropdown.Item className="btn btn-secondary mb-1" href="/perfil">Mi perfil</NavDropdown.Item>
                       <NavDropdown.Item className="btn btn-secondary mb-1" href="/perfil#estudios">Mis estudios</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-secondary mb-1" href="/professional-conect">Compartir estudios</NavDropdown.Item>
                       <NavDropdown.Item className="btn btn-secondary mb-1" onClick={() => logOut()}>Cerrar sesión</NavDropdown.Item>
                     </DropdownNavigation>
                   </>

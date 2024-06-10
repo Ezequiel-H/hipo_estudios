@@ -62,8 +62,8 @@ function UserProfile() {
             <a className="visita-item" href="#estudios">
               Estudios
             </a>
-            <a className="visita-item" href="#formularios">
-              Formularios
+            <a className="visita-item" href="/professional-conect">
+              Compartir estudios
             </a>
           </div>
 
