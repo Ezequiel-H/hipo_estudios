@@ -6,7 +6,7 @@ import {
 } from 'react-bootstrap';
 
 import Layout from '@/app/components/general/Layout';
-import { signIn } from '../../../db/user';
+import { signIn } from '../../db/user';
 
 function login() {
   const [email, setEmail] = useState('');

@@ -7,7 +7,11 @@ import {
 import Link from 'next/link';
 import Layout from '@/app/components/general/Layout';
 
-function registrarse() {
+function Registrarse() {
+  const createUser = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <Layout>
       <Container>
@@ -78,7 +82,7 @@ function registrarse() {
                       </Form.Select>
                     </Col>
                     <Col sm={12} md={12} lg={6}>
-                      <Button style={{ width: '97%' }} className="btn btn-secondary login-btn">Crear cuenta</Button>
+                      <Button type="submit" onClick={(e) => createUser(e)} style={{ width: '97%' }} className="btn btn-secondary login-btn">Crear cuenta</Button>
                     </Col>
                   </Row>
 
@@ -98,4 +102,4 @@ function registrarse() {
   );
 }
 
-export default registrarse;
+export default Registrarse;

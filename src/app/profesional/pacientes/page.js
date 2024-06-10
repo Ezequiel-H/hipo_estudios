@@ -102,7 +102,7 @@ function Pacientes() {
                 <td>Gomez</td>
                 <td>Carmen</td>
                 <td>Swiss Medical Group</td>
-                <td>60004 00445 005 952</td>
+                <td>6000 4004 4500 5952</td>
                 <td>10/01/2020</td>
                 <td>-</td>
                 <PatientActions patientID="idDeEzequiel123123" />
