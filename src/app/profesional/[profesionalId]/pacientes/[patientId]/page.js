@@ -8,7 +8,7 @@ import { useSearchParams } from 'next/navigation';
 import styled from '@emotion/styled';
 import Layout from '@/app/components/general/Layout';
 import DatosDelPaciente from '@/app/components/patient/DatosDelPaciente';
-import { getUserById } from '@/app/db/user';
+import { getPatientById } from '@/app/db/user';
 
 const Area = styled.div`
   border: 7px solid var(--quartyColor);
@@ -35,16 +35,16 @@ function Perfil({ params }) {
   const searchParams = useSearchParams();
   const mode = searchParams.get('mode');
 
-  const { userId } = params;
+  const { patientId } = params;
   const [user, setUser] = useState('');
   useEffect(() => {
     const fetchData = async () => {
-      const newUser = await getUserById(userId);
+      const newUser = await getPatientById(patientId);
       setUser(newUser);
     };
 
     fetchData();
-  }, [userId]);
+  }, [patientId]);
   // TODO: Que existan disable estudios que no se pueden ver pero estan.
 
   return (
