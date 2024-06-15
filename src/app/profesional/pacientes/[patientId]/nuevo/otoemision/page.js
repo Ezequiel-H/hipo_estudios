@@ -5,15 +5,20 @@ import Layout from '@/app/components/general/Layout';
 import Otoemision from '@/app/components/studies/otoemision/Otoemision';
 import DatosDelPaciente from '@/app/components/patient/DatosDelPaciente';
 import { getPatientById } from '@/app/db/user';
+import SelectPatient from '@/app/components/studies/SelectPatient';
 
 function OtoemisionNueva({ params }) {
   const { userId } = params;
   const [user, setUser] = useState('');
+  const [selectPatient, setSelectPatient] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       const newUser = await getPatientById(userId);
       setUser(newUser);
     };
+    if (window.location.href.includes('seleccionar')) {
+      setSelectPatient(true);
+    }
 
     fetchData();
   }, [userId]);
@@ -28,6 +33,7 @@ function OtoemisionNueva({ params }) {
     <Layout>
       <h1 className="title text-center section1">Nueva Otoemisión</h1>
       {user && <DatosDelPaciente user={user} />}
+      {selectPatient ? <SelectPatient /> : null}
       <Otoemision />
     </Layout>
   );

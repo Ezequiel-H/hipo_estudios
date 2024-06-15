@@ -1,33 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container, Modal, Button, Form,
 } from 'react-bootstrap';
 import styled from '@emotion/styled';
 
 const ModalP = styled(Modal)`
-    color: var(--primaryColor);
-
+  color: var(--primaryColor);S
 `;
 
-const patientList = [
-  {
-    name: 'Juan',
-    surname: 'Cruz',
-    id: '123',
-  },
-  {
-    name: 'Marta',
-    surname: 'Gomez',
-    id: '1223',
-  },
-  {
-    name: 'Juana',
-    surname: 'Gutierrez',
-    id: '1111',
-  },
-];
-
 function SelectPatient() {
+  const [patientList, setPatientList] = useState([
+    {
+      name: 'Juan',
+      surname: 'Cruz',
+      id: '123',
+    },
+    {
+      name: 'Marta',
+      surname: 'Gomez',
+      id: '1223',
+    },
+    {
+      name: 'Juana',
+      surname: 'Gutierrez',
+      id: '1111',
+    },
+  ]);
+
+  useEffect(() => {
+    // TODO DB: getListOfPatients(professionalID?)
+    // setPatientList(result)
+
+    // eslint-disable-next-line
+  }, [])
+
   const [patient, setPatient] = useState('');
   const [search, setSearch] = useState('');
   function createStudy(e) {

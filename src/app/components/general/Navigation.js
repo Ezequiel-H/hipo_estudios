@@ -58,56 +58,50 @@ function Navigation({ userType }) {
                 userType === USER_TYPES.PROFESSIONAL && (
                   <>
                     <DropdownNavigation className="btn btn-primary p-0" align="end" title="Nuevo estudio">
-                      <NavDropdown.Item className="btn btn-primary mb-1" href="/seleccionar/estudios/audiometria/nueva">AUDIOMETRÍA</NavDropdown.Item>
-                      <NavDropdown.Item className="btn btn-primary mb-1" href="/seleccionar/estudios/logoaudiometria/nueva">LOGOAUDIOMETRÍA</NavDropdown.Item>
-                      <NavDropdown.Item className="btn btn-primary mb-1" href="/seleccionar/estudios/timpanometria/nueva">TIMPANOMETRÍA</NavDropdown.Item>
-                      <NavDropdown.Item className="btn btn-primary mb-1" href="/seleccionar/estudios/impedanciometria/nueva">IMPEDANCIOMETRÍA</NavDropdown.Item>
-                      <NavDropdown.Item className="btn btn-primary mb-1" href="/seleccionar/estudios/potenciales-evocados/nueva">POTENCIALES EVOCADOS</NavDropdown.Item>
-                      <NavDropdown.Item className="btn btn-primary mb-1" href="/seleccionar/estudios/otoemision/nueva">OTOEMISIÓN</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/profesional/pacientes/seleccionar/nuevo/audiometria">AUDIOMETRÍA</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/profesional/pacientes/seleccionar/nuevo/logoaudiometria">LOGOAUDIOMETRÍA</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/profesional/pacientes/seleccionar/nuevo/timpanometria">TIMPANOMETRÍA</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/profesional/pacientes/seleccionar/nuevo/impedanciometria">IMPEDANCIOMETRÍA</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/profesional/pacientes/seleccionar/nuevo/potenciales-evocados">POTENCIALES EVOCADOS</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/profesional/pacientes/seleccionar/nuevo/otoemision">OTOEMISIÓN</NavDropdown.Item>
                     </DropdownNavigation>
                     <DropdownNavigation className="btn btn-primary p-0" align="end" title="Nuevo formulario">
-                      <NavDropdown.Item className="btn btn-primary mb-1" href="/seleccionar/cuestionarios/peach/nuevo">PEACH</NavDropdown.Item>
-                      <NavDropdown.Item className="btn btn-primary mb-1" href="/seleccionar/cuestionarios/sp-ssq12/nuevo">Sp-SSQ12</NavDropdown.Item>
-                      <NavDropdown.Item className="btn btn-primary mb-1" href="/seleccionar/cuestionarios/venderbilt/nuevo">Vanderbilt</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/profesional/pacientes/seleccionar/nuevo/peach">PEACH</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/profesional/pacientes/seleccionar/nuevo/SPSSQ12">Sp-SSQ12</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/profesional/pacientes/seleccionar/nuevo/vanderbilt">Vanderbilt</NavDropdown.Item>
                     </DropdownNavigation>
                     <LinkNavigation href="/profesional/pacientes#nuevo">Nuevo paciente</LinkNavigation>
-
+                    <DropdownNavigation
+                      align="end"
+                      title={<img src="/img/web/n_perfil_usuario.svg" alt="Icono del perfil" />}
+                    >
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/profesional/perfil">Mi perfil</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/profesional/pacientes">Mis pacientes</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-primary mb-1" onClick={() => logOut()}>Cerrar sesión</NavDropdown.Item>
+                    </DropdownNavigation>
                   </>
                 )
-              }
-
-              {
-                userType === USER_TYPES.PROFESSIONAL ? (
-                  <DropdownNavigation
-                    align="end"
-                    title={<img src="/img/web/n_perfil_usuario.svg" alt="Icono del perfil" />}
-                  >
-                    <NavDropdown.Item className="btn btn-primary mb-1" href="/profesional/perfil">Mi perfil</NavDropdown.Item>
-                    <NavDropdown.Item className="btn btn-primary mb-1" href="/profesional/pacientes">Mis pacientes</NavDropdown.Item>
-                    <NavDropdown.Item className="btn btn-primary mb-1" onClick={() => logOut()}>Cerrar sesión</NavDropdown.Item>
-                  </DropdownNavigation>
-                ) : null
               }
               {
                 userType === USER_TYPES.PATIENT ? (
                   <>
                     <DropdownNavigation className="btn btn-primary p-0" align="end" title="Estudios">
-                      <NavDropdown.Item className="btn btn-primary mb-1" href="/info/estudios/audiometria">AUDIOMETRÍA</NavDropdown.Item>
-                      <NavDropdown.Item className="btn btn-primary mb-1" href="/info/estudios/logoaudiometria">LOGOAUDIOMETRÍA</NavDropdown.Item>
-                      <NavDropdown.Item className="btn btn-primary mb-1" href="/info/estudios/timpanometria">TIMPANOMETRÍA</NavDropdown.Item>
-                      <NavDropdown.Item className="btn btn-primary mb-1" href="/info/estudios/impedanciometria">IMPEDANCIOMETRÍA</NavDropdown.Item>
-                      <NavDropdown.Item className="btn btn-primary mb-1" href="/info/estudios/potenciales-evocados">POTENCIALES EVOCADOS</NavDropdown.Item>
-                      <NavDropdown.Item className="btn btn-primary mb-1" href="/info/estudios/otoemision">OTOEMISIÓN</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/info/audiometria">AUDIOMETRÍA</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/info/logoaudiometria">LOGOAUDIOMETRÍA</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/info/timpanometria">TIMPANOMETRÍA</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/info/impedanciometria">IMPEDANCIOMETRÍA</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/info/potenciales-evocados">POTENCIALES EVOCADOS</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-primary mb-1" href="/info/otoemision">OTOEMISIÓN</NavDropdown.Item>
                     </DropdownNavigation>
 
-                    <LinkNavigation href="/perfil">Mis estudios</LinkNavigation>
+                    <LinkNavigation href="/paciente/perfil#estudios">Mis estudios</LinkNavigation>
                     <DropdownNavigation
                       align="end"
                       title={<img src="/img/web/n_perfil_usuario.svg" alt="Icono del perfil" />}
                     >
-                      <NavDropdown.Item className="btn btn-secondary mb-1" href="/perfil">Mi perfil</NavDropdown.Item>
-                      <NavDropdown.Item className="btn btn-secondary mb-1" href="/perfil#estudios">Mis estudios</NavDropdown.Item>
-                      <NavDropdown.Item className="btn btn-secondary mb-1" href="/professional-conect">Compartir estudios</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-secondary mb-1" href="/paciente/perfil">Mi perfil</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-secondary mb-1" href="/paciente/perfil#estudios">Mis estudios</NavDropdown.Item>
+                      <NavDropdown.Item className="btn btn-secondary mb-1" href="/paciente/compartir">Compartir estudios</NavDropdown.Item>
                       <NavDropdown.Item className="btn btn-secondary mb-1" onClick={() => logOut()}>Cerrar sesión</NavDropdown.Item>
                     </DropdownNavigation>
                   </>

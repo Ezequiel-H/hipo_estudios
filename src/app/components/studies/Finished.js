@@ -8,6 +8,24 @@ import {
 } from 'react-bootstrap';
 
 function MyVerticallyCenteredModal(props) {
+  const [emailsToShare, setEmailsToShare] = useState('');
+  const [reminderTime, setReminderTime] = useState('');
+
+  function finishAndShareStudy(e) {
+    e.preventDefault();
+    // TODO DB: post guardar estudio
+    // compartirPorEmailAlPaciente();
+    // setCronJobEnXTiempoConRecordatorioDeVolverAlControl();
+
+    // Aca dejo un ejemplo de funcion para el back para enviar el email:
+    // https://github.com/lucasadlerstein/Latam-Hospitals-Platform-Back/blob/main/helpers/funciones.js
+
+    // Si te parece mas comodo, podes dejar puesto en el back
+    // enviarEmail() ponele y yo hago la plantilla, lo redacto y eso.
+  }
+
+  // TODO LUCAS: Una vez que este listo para ver estudio desde DB, ir a esa vista y exportar
+
   return (
     <Modal
       {...props}
@@ -22,7 +40,11 @@ function MyVerticallyCenteredModal(props) {
       </Modal.Header>
       <Modal.Body>
         <p className="color-black">Agregar recordatorio para nuevo control</p>
-        <Form.Select aria-label="Recordar control en...">
+        <Form.Select
+          value={reminderTime}
+          onChange={(e) => setReminderTime(e.target.value)}
+          aria-label="Recordar control en..."
+        >
           <option value="0" selected>Recordar control en...</option>
           <option value="3">3 meses</option>
           <option value="6">6 meses</option>
@@ -35,10 +57,16 @@ function MyVerticallyCenteredModal(props) {
         <p className="color-black mt-4">Compartir estudio</p>
         <Row>
           <Col>
-            <Form.Control type="email" placeholder="Ingresar emails separados por coma" />
+
+            <Form.Control
+              value={emailsToShare}
+              onChange={(e) => setEmailsToShare(e.target.value)}
+              type="email"
+              placeholder="Ingresar emails separados por coma"
+            />
           </Col>
           <Col>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" onClick={(e) => finishAndShareStudy(e)}>
               Compartir y copiar enlace
             </Button>
           </Col>
@@ -47,7 +75,7 @@ function MyVerticallyCenteredModal(props) {
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Cerrar</Button>
-        <Button onClick={props.onHide}>Exportar informe</Button>
+        <Button onClick={props.onHide}>Exportar informe a PDF</Button>
       </Modal.Footer>
     </Modal>
   );

@@ -258,7 +258,7 @@ const tools = (
                 value={proximoEstudio}
                 onChange={(e) => setProximoEstudio(e.target.value)}
               >
-                <option>Seleccionar estudio</option>
+                <option>Seleccionar próximo estudio</option>
                 <option value="logoaudiometria">Logoaudiometría</option>
                 <option value="impedanciometria">Impedanciometría</option>
                 <option value="timpanometria">Timpanometría</option>
@@ -309,11 +309,10 @@ function Audiogram({ userId }) {
   }
 
   function realizarProximoEstudio() {
-    // TODO: guardarEstudio();
+    // TODO DB: guardarEstudio();
     const datosJSON = JSON.stringify(STUDIES);
     localStorage.setItem(localStorageNames.AUDIOGRAM, datosJSON);
-
-    window.location.href = `/${userId}/${proximoEstudio}/nueva`;
+    window.location.href = `/profesional/pacientes/${userId}/nuevo/${proximoEstudio}`;
   }
 
   const agregarCurva = (estudioActual = evaluando) => {
@@ -355,6 +354,9 @@ function Audiogram({ userId }) {
   };
 
   function AudiometriaComp() {
+    // TODO: Karina habia pedido poder ver lo compeltado anteriormente.
+    // EJ: si hizo viaOseaDerecha y ahora esta en la izquierda, poder ver la derecha
+    // Podria estar bueno que se vea con menos opacidad o algo asi y no sea editable, claro.
     const rows = [];
 
     for (let row = 0; row < 29; row++) {

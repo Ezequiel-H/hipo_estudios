@@ -1,12 +1,13 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Container, Button, Row, Col, Form,
 } from 'react-bootstrap';
+// import Select from 'react-select';
 import styled from '@emotion/styled';
 import Layout from '@/app/components/general/Layout';
-import OneCenter from '@/app/components/professional/profile/OneCenter';
+// import OneCenter from '@/app/components/professional/profile/OneCenter';
 
 const Area = styled.div`
   border: 7px solid var(--quartyColor);
@@ -28,7 +29,15 @@ const Area2 = styled(Area)`
     margin-top: 30px; 
 `;
 
+const obrasSociales = [
+  { value: 'SwissMedical', label: 'Swiss Medical' },
+  { value: 'OSDE', label: 'OSDE' },
+  { value: 'Galeno', label: 'Galeno' },
+];
+
 function Perfil() {
+  const [selectedOS, setSelectedOS] = useState([]);
+
   return (
     <Layout>
       <Container>
@@ -37,9 +46,9 @@ function Perfil() {
           <a className="visita-item" href="/test">
             Datos personales
           </a>
-          <a className="visita-item" href="/test">
+          {/* <a className="visita-item" href="/test">
             Consultorio
-          </a>
+          </a> */}
         </div>
 
         <Area>
@@ -68,18 +77,24 @@ function Perfil() {
           </Form>
         </Area>
 
-        <Area2>
+        {/* <Area2>
+        // TODO: Sacamos por ahora los consultorios, no?
           <h3 className="text-center color-black">Consultorios</h3>
           <Row>
-            <OneCenter center={{ title: 'Centro de Implantes', address: 'Dorrego 123', email: 'centro@implantes.com' }} />
-            <OneCenter center={{ title: 'Centro de Implantes', address: 'Dorrego 123', email: 'centro@implantes.com' }} />
-            <OneCenter center={{ title: 'Centro de Implantes', address: 'Dorrego 123', email: 'centro@implantes.com' }} />
-            <OneCenter center={{ title: 'Centro de Implantes', address: 'Dorrego 123', email: 'centro@implantes.com' }} />
-            <OneCenter center={{ title: 'Centro de Implantes', address: 'Dorrego 123', email: 'centro@implantes.com' }} />
+            <OneCenter center={{ title:'Centro de Implantes', address: 'Dorrego 123',
+            email: 'centro@implantes.com' }} />
+            <OneCenter center={{ title: 'Centro de Implantes', address: 'Dorrego 123',
+            email: 'centro@implantes.com' }} />
+            <OneCenter center={{ title: 'Centro de Implantes', address: 'Dorrego 123',
+            email: 'centro@implantes.com' }} />
+            <OneCenter center={{ title: 'Centro de Implantes', address: 'Dorrego 123',
+            email: 'centro@implantes.com' }} />
+            <OneCenter center={{ title: 'Centro de Implantes', address: 'Dorrego 123',
+            email: 'centro@implantes.com' }} />
           </Row>
-        </Area2>
+        </Area2> */}
 
-        <Area>
+        {/* <Area>
           <h3 className="text-center color-black">Dar de alta un nuevo consultorio</h3>
           <Form>
             <Row>
@@ -119,7 +134,7 @@ function Perfil() {
               </Col>
             </Row>
           </Form>
-        </Area>
+        </Area> */}
       </Container>
     </Layout>
   );

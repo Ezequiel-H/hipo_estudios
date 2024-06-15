@@ -72,7 +72,7 @@ function UserProfile() {
             <a className="visita-item" href="#estudios">
               Estudios
             </a>
-            <a className="visita-item" href="/professional-conect">
+            <a className="visita-item" href="/paciente/compartir">
               Compartir estudios
             </a>
           </div>
