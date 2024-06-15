@@ -60,12 +60,9 @@ function login() {
                     <Link href="/registro" style={{ color: 'var(--primaryColor)' }}>
                       Crear cuenta
                     </Link>
-                    <button
-                      style={{ color: 'var(--primaryColor)', backgroundColor: 'transparent', border: 'none' }}
-                      type="button"
-                    >
+                    <Link href="/recordar" style={{ color: 'var(--primaryColor)' }}>
                       Olvidé mi contraseña
-                    </button>
+                    </Link>
                   </div>
                 </Form>
               </div>

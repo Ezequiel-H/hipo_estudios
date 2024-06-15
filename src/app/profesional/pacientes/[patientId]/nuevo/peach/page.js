@@ -22,6 +22,12 @@ function PeachNuevo({ params }) {
       setSelectPatient(true);
     }
     fetchData();
+
+    // function saveForm() {
+    //   // TODO: setCronReminder() ?
+    //   // TODO DB: saveStudy();
+    //   // TODO: guardar y luego crear uno nuevo y router o listo.
+    // }
   }, [userId]);
 
   return (

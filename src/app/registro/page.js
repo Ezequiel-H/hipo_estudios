@@ -32,7 +32,7 @@ function registrarse() {
     //   setError('La contraseña debe tener al menos 6 caracteres.');
     } else {
       setError('');
-      // TODO: Registrar en db
+      // TODO: DB: Registrar en db a la persona
     }
   }
   const handleChange = (e) => {

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container, Button, Row, Col, Form, Table,
 } from 'react-bootstrap';
@@ -28,6 +28,16 @@ const Area2 = styled(Area)`
 `;
 
 function UserProfile() {
+  useEffect(() => {
+    // TODO DB: getStudies();
+    // TODO DB: getPersonalData();
+    // eslint-disable-next-line
+  }, [])
+
+  async function updateData() {
+    // TODO DB: updateData(); - aca yo hago la validacion en el front si queres.
+  }
+
   const studies = [
     {
       id: 1, type: 'audiogram', date: '2024-02-02', title: 'Audiometria sin audifono',

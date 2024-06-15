@@ -18,6 +18,7 @@ const TdCell = styled.td`
 function Timpanometria() {
   const [proceso, setProceso] = useState(1);
   const [proximoEstudio, setProximoEstudio] = useState('');
+  // TODO EZE: Hacer la campana en el grafico
   return (
     <Container>
       <Row className="mt-4">

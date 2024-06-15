@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { use, useEffect, useState } from 'react';
 import {
   Table, Container, Form, Button, Row, Col,
 } from 'react-bootstrap';
@@ -29,6 +29,12 @@ const Area2 = styled(Area)`
 `;
 
 function Pacientes() {
+  // TODO DB: getPacientes
+  // const [misPacientes, setMisPacientes] = useState([]);
+  useEffect(() => {
+    // setMisPacientes(getPacientes())
+    // eslint-disable-next-line
+  }, [ ])
   return (
     <Layout>
       <Container>

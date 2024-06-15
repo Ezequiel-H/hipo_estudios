@@ -18,6 +18,11 @@ function NuevaTimpanometria({ params }) {
     fetchData();
   }, [userId]);
 
+  // function saveStudy() {
+  //   // TODO: setCronReminder() ?
+  //   // TODO DB: saveStudy();
+  //   // TODO: guardar y luego crear uno nuevo y router o listo.
+  // }
   return (
     <Layout>
       <h1 className="title text-center section1 pb-0">Nueva Timpanometría</h1>
