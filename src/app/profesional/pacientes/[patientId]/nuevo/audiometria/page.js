@@ -12,15 +12,15 @@ function AudiometriaNueva({ params }) {
   const [user, setUser] = useState('');
   const [selectPatient, setSelectPatient] = useState(false);
   useEffect(() => {
-    const fetchData = async () => {
-      const newUser = await getPatientById(patientId);
-      setUser(newUser);
-    };
     if (window.location.href.includes('seleccionar')) {
       setSelectPatient(true);
+    } else {
+      const fetchData = async () => {
+        const newUser = await getPatientById(patientId);
+        setUser(newUser);
+      };
+      fetchData();
     }
-
-    fetchData();
   }, [patientId]);
 
   // function saveStudy() {

@@ -9,7 +9,10 @@ function Layout({ children }) {
   const [userType, setUserType] = useState('');
   function checkLogIn() {
     if (!localStorage.getItem('token')) {
-      if (!(window.location.href.includes('iniciar-sesion') || window.location.href.includes('registro') || window.location.href.includes('recordar'))) {
+      if (!(window.location.href.includes('iniciar-sesion')
+        || window.location.href.includes('registro')
+        || window.location.href.includes('recordar')
+        || window.location.pathname === '/')) {
         router.push('/iniciar-sesion');
       }
     } else {

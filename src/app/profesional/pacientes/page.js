@@ -1,12 +1,13 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Table, Container, Form, Button, Row, Col,
 } from 'react-bootstrap';
 import styled from '@emotion/styled';
 import Layout from '@/app/components/general/Layout';
 import PatientActions from '@/app/components/professional/profile/PatientActions';
+import { getListOfPatients } from '@/app/db/professional';
 
 const Area = styled.div`
     border: 7px solid var(--quartyColor);
@@ -29,12 +30,28 @@ const Area2 = styled(Area)`
 `;
 
 function Pacientes() {
-  // TODO DB: getPacientes
+  // TODO DB: getListOfPatients()
   // const [misPacientes, setMisPacientes] = useState([]);
+  const [newPatient, setNewPatient] = useState();
   useEffect(() => {
-    // setMisPacientes(getPacientes())
+    // setMisPacientes(getListOfPatients())
+    console.log(getListOfPatients());
     // eslint-disable-next-line
-  }, [ ])
+  }, [])
+
+  function newPatientFormSubmit(e) {
+    e.preventDefault();
+
+    // TODO DB: postNewPatient(newPatient) y asignarlo al profesional.
+  }
+
+  function handleChange(e) {
+    setNewPatient({
+      ...newPatient,
+      [e.target.name]: e.target.value,
+    });
+  }
+
   return (
     <Layout>
       <Container>
@@ -120,42 +137,34 @@ function Pacientes() {
 
         <Area2>
           <h3 className="text-center color-black" id="nuevo">Paciente nuevo</h3>
-          <Form>
+          <Form onSubmit={(e) => newPatientFormSubmit(e)}>
             <Row>
               <Col xs={12} sm={12} md={4} lg={4}>
-                <Form.Control placeholder="Nombre" type="text" className="input" />
+                <Form.Control required onChange={(e) => handleChange(e)} name="name" placeholder="Nombre" type="text" className="input" />
               </Col>
               <Col xs={12} sm={12} md={4} lg={4}>
-                <Form.Control placeholder="Apellido" className="input" />
+                <Form.Control required onChange={(e) => handleChange(e)} name="surname" placeholder="Apellido" className="input" />
               </Col>
               <Col xs={12} sm={12} md={4} lg={4}>
-                <Form.Control placeholder="Fecha de nacimiento" className="input" />
+                <Form.Control required onChange={(e) => handleChange(e)} name="birthdate" placeholder="Fecha de nacimiento" className="input" />
               </Col>
               <Col xs={12} sm={12} md={4} lg={4}>
-                <Form.Control placeholder="Obra social" className="input" />
+                <Form.Control onChange={(e) => handleChange(e)} name="os" placeholder="Obra social" className="input" />
               </Col>
               <Col xs={12} sm={12} md={4} lg={4}>
-                <Form.Control type="number" placeholder="Numero de afiliado" className="input" />
+                <Form.Control onChange={(e) => handleChange(e)} name="osNumber" type="number" placeholder="Numero de afiliado" className="input" />
               </Col>
               <Col xs={12} sm={12} md={4} lg={4}>
-                <Form.Control type="email" placeholder="Email" className="input" />
+                <Form.Control required onChange={(e) => handleChange(e)} name="email" type="email" placeholder="Email" className="input" />
               </Col>
               <Col xs={12} sm={12} md={4} lg={4}>
-                <Form.Control type="number" placeholder="Celular" className="input" />
+                <Form.Control required onChange={(e) => handleChange(e)} name="phone" type="number" placeholder="Celular" className="input" />
               </Col>
               <Col xs={12} sm={12} md={4} lg={3}>
-                <Form.Control type="text" placeholder="Médico" className="input" />
-              </Col>
-              <Col xs={12} sm={12} md={4} lg={3}>
-                <Form.Select aria-label="Seleccionar centro" className="input">
-                  <option disabled selected>Seleccionar consultorio</option>
-                  <option value="1">Av. Cramer 1234</option>
-                  <option value="2">ORL PALERMO</option>
-                  <option value="3">Balvin 1222</option>
-                </Form.Select>
+                <Form.Control onChange={(e) => handleChange(e)} name="doctor" type="text" placeholder="Médico" className="input" />
               </Col>
               <Col xs={12} sm={12} md={4} lg={2}>
-                <Button className="btn btn-primary input" style={{ backgroundColor: 'var(--primaryColor)' }}>Registrar</Button>
+                <Button type="submit" className="btn btn-primary input" style={{ backgroundColor: 'var(--primaryColor)' }}>Registrar</Button>
               </Col>
             </Row>
           </Form>

@@ -41,17 +41,28 @@ function Perfil({ params }) {
     const fetchData = async () => {
       const newUser = await getPatientById(patientId);
       setUser(newUser);
+      console.log(newUser);
     };
 
     fetchData();
   }, [patientId]);
-  // TODO: Que existan disable estudios que no se pueden ver pero estan.
+
+  function updatePatient(e) {
+    e.preventDefault();
+    // TODO DB: updatePatient();
+  }
+
+  function handleChange(e) {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
+  }
 
   return (
     <Layout>
       <Container>
         {user && <DatosDelPaciente user={user} alignLeft />}
-
         <Area>
           <h3 className="text-center color-black">Visitas</h3>
 
@@ -125,11 +136,14 @@ function Perfil({ params }) {
               mode === 'edit' ? 'Actualizar datos del paciente' : 'Datos del paciente'
             }
           </h3>
-          <Form>
+          <Form onSubmit={(e) => updatePatient(e)}>
             <Row>
               <Col xs={12} sm={12} md={4} lg={4}>
                 <Form.Control
                   disabled={mode !== 'edit'}
+                  name="name"
+                  value={user.name}
+                  onChange={(e) => handleChange(e)}
                   placeholder="Nombre"
                   type="text"
                   className="input"
@@ -138,6 +152,9 @@ function Perfil({ params }) {
               <Col xs={12} sm={12} md={4} lg={4}>
                 <Form.Control
                   disabled={mode !== 'edit'}
+                  name="surname"
+                  value={user.surname}
+                  onChange={(e) => handleChange(e)}
                   placeholder="Apellido"
                   className="input"
                 />
@@ -145,6 +162,9 @@ function Perfil({ params }) {
               <Col xs={12} sm={12} md={4} lg={4}>
                 <Form.Control
                   disabled={mode !== 'edit'}
+                  name="birthdate"
+                  value={user.birthdate}
+                  onChange={(e) => handleChange(e)}
                   placeholder="Fecha de nacimiento"
                   className="input"
                 />
@@ -152,6 +172,9 @@ function Perfil({ params }) {
               <Col xs={12} sm={12} md={4} lg={4}>
                 <Form.Control
                   disabled={mode !== 'edit'}
+                  name="os"
+                  value={user.os}
+                  onChange={(e) => handleChange(e)}
                   placeholder="Obra social"
                   className="input"
                 />
@@ -160,6 +183,9 @@ function Perfil({ params }) {
                 <Form.Control
                   disabled={mode !== 'edit'}
                   type="number"
+                  name="osNumber"
+                  value={user.osNumber}
+                  onChange={(e) => handleChange(e)}
                   placeholder="Numero de afiliado"
                   className="input"
                 />
@@ -168,6 +194,9 @@ function Perfil({ params }) {
                 <Form.Control
                   disabled={mode !== 'edit'}
                   type="email"
+                  name="email"
+                  value={user.email}
+                  onChange={(e) => handleChange(e)}
                   placeholder="Email"
                   className="input"
                 />
@@ -176,15 +205,10 @@ function Perfil({ params }) {
                 <Form.Control
                   disabled={mode !== 'edit'}
                   type="number"
+                  name="phone"
+                  value={user.phone}
+                  onChange={(e) => handleChange(e)}
                   placeholder="Celular"
-                  className="input"
-                />
-              </Col>
-              <Col xs={12} sm={12} md={4} lg={4}>
-                <Form.Control
-                  disabled={mode !== 'edit'}
-                  type="text"
-                  placeholder="Médico"
                   className="input"
                 />
               </Col>
@@ -192,6 +216,7 @@ function Perfil({ params }) {
                 mode === 'edit' ? (
                   <Col xs={12} sm={12} md={4} lg={4}>
                     <Button
+                      type="submit"
                       className="btn btn-primary input"
                       style={{ backgroundColor: 'var(--primaryColor)' }}
                     >
