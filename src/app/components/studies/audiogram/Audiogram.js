@@ -144,7 +144,7 @@ const tools = (
     agregarCurva,
     STUDIES,
     isMobile,
-    userId,
+    patientId,
     proceso,
     setProceso,
     proximoEstudio,
@@ -207,7 +207,7 @@ const tools = (
               const datosJSON = JSON.stringify(STUDIES);
               localStorage.setItem(localStorageNames.AUDIOGRAM, datosJSON);
               const professionalId = localStorage.getItem('userId');
-              addStudyForUser(userId, {
+              addStudyForUser(patientId, {
                 type: STUDY_TYPES.AUDIOGRAM,
                 result: STUDIES,
                 date: new Date(),
@@ -280,7 +280,7 @@ const tools = (
   );
 };
 
-function Audiogram({ userId }) {
+function Audiogram({ patientId }) {
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
   const [evaluando, setEvaluando] = useState('dAerea');
   const [proximoEstudio, setProximoEstudio] = useState('');
@@ -312,7 +312,7 @@ function Audiogram({ userId }) {
     // TODO DB: guardarEstudio();
     const datosJSON = JSON.stringify(STUDIES);
     localStorage.setItem(localStorageNames.AUDIOGRAM, datosJSON);
-    window.location.href = `/profesional/pacientes/${userId}/nuevo/${proximoEstudio}`;
+    window.location.href = `/profesional/pacientes/${patientId}/nuevo/${proximoEstudio}`;
   }
 
   const agregarCurva = (estudioActual = evaluando) => {
@@ -499,7 +499,7 @@ function Audiogram({ userId }) {
                   agregarCurva,
                   STUDIES,
                   isMobile,
-                  userId,
+                  patientId,
                   proceso,
                   setProceso,
                   proximoEstudio,
@@ -520,7 +520,7 @@ function Audiogram({ userId }) {
             agregarCurva,
             STUDIES,
             isMobile,
-            userId,
+            patientId,
             proceso,
             setProceso,
             proximoEstudio,

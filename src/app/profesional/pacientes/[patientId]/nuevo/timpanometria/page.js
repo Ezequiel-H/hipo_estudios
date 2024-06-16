@@ -8,12 +8,12 @@ import Timpanometria from '@/app/components/studies/timpanometria/Timpanometria'
 import SelectPatient from '@/app/components/studies/SelectPatient';
 
 function NuevaTimpanometria({ params }) {
-  const { userId } = params;
+  const { patientId } = params;
   const [user, setUser] = useState('');
   const [selectPatient, setSelectPatient] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
-      const newUser = await getPatientById(userId);
+      const newUser = await getPatientById(patientId);
       setUser(newUser);
     };
     if (window.location.href.includes('seleccionar')) {
@@ -21,7 +21,7 @@ function NuevaTimpanometria({ params }) {
     }
 
     fetchData();
-  }, [userId]);
+  }, [patientId]);
 
   // function saveStudy() {
   //   // TODO: setCronReminder() ?
@@ -33,8 +33,7 @@ function NuevaTimpanometria({ params }) {
       <h1 className="title text-center section1 pb-0">Nueva Timpanometría</h1>
       {user && <DatosDelPaciente user={user} />}
       {selectPatient ? <SelectPatient /> : null}
-
-      <Timpanometria />
+      <Timpanometria patientId={patientId} />
     </Layout>
   );
 }
