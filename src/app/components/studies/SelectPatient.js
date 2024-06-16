@@ -3,6 +3,7 @@ import {
   Container, Modal, Button, Form,
 } from 'react-bootstrap';
 import styled from '@emotion/styled';
+import { getListOfPatients } from '@/app/db/professional';
 
 const ModalP = styled(Modal)`
   color: var(--primaryColor);S
@@ -27,12 +28,14 @@ function SelectPatient() {
     },
   ]);
 
-  useEffect(() => {
-    // TODO DB: getListOfPatients(professionalID?)
-    // setPatientList(result)
+  const professionalId = localStorage.getItem('userId');
 
-    // eslint-disable-next-line
-  }, [])
+  useEffect(async () => {
+    const getNewPatientList = async () => getListOfPatients(professionalId);
+    const newPatientList = await getNewPatientList();
+
+    setPatientList(newPatientList);
+  }, [professionalId]);
 
   const [patient, setPatient] = useState('');
   const [search, setSearch] = useState('');
@@ -62,7 +65,6 @@ function SelectPatient() {
                       <option key={pat.id} value={pat.id}>
                         {pat.surname}
                         ,
-                        {' '}
                         {pat.name}
                       </option>
                     );

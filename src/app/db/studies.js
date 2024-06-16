@@ -2,23 +2,23 @@
 import axiosInstance from './config';
 
 export const getStudyById = async (studyId) => {
+  let response;
   try {
-    const response = await axiosInstance.get(`/study/${studyId}`);
-    return response.data;
+    response = await axiosInstance.get(`/study/${studyId}`);
   } catch (error) {
     // Handle error
     console.error('Error fetching study:', error);
-    throw error;
   }
+  return response?.data;
 };
 
 export const addStudyForUser = async (userId, studyData) => {
+  let response;
   try {
-    const response = await axiosInstance.post(`/study/${userId}`, studyData);
-    return response.data;
+    response = await axiosInstance.post(`/study/${userId}`, studyData);
   } catch (error) {
     // Handle error
     console.error('Error adding study:', error);
-    throw error;
   }
+  return response?.data;
 };

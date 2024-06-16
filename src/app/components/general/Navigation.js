@@ -38,6 +38,7 @@ const DropdownNavigation = styled(NavDropdown)`
 
 function Navigation({ userType }) {
   function comingSoon() {
+    // eslint-disable-next-line no-alert
     alert('Función disponible próximamente.');
   }
   return (

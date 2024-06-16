@@ -8,6 +8,8 @@ import Link from 'next/link';
 // import { swalAlert } from '../helpers';
 // import { signUp } from '../db/user';
 import Layout from '@/app/components/general/Layout';
+import { USER_TYPES } from '../constants/users';
+import { signUp } from '../db/user';
 
 function registrarse() {
   const [error, setError] = useState('');
@@ -18,11 +20,11 @@ function registrarse() {
     email_verif: '',
     password: '',
     password_verif: '',
-    rol: '',
+    role: '',
   });
   async function signUpClick(e) {
     e.preventDefault();
-    if (newUser.name === '' || newUser.surname === '' || newUser.email === '' || newUser.email_verif === '' || newUser.password === '' || newUser.password_verif === '' || newUser.rol === '') {
+    if (newUser.name === '' || newUser.surname === '' || newUser.email === '' || newUser.email_verif === '' || newUser.password === '' || newUser.password_verif === '' || newUser.role === '') {
       setError('Todos los campos son obligatorios.');
     } else if (newUser.password !== newUser.password_verif) {
       setError('Las contraseñas no coinciden.');
@@ -32,7 +34,7 @@ function registrarse() {
     //   setError('La contraseña debe tener al menos 6 caracteres.');
     } else {
       setError('');
-      // TODO: DB: Registrar en db a la persona
+      signUp(newUser);
     }
   }
   const handleChange = (e) => {
@@ -44,7 +46,7 @@ function registrarse() {
   const handleChangeSelect = (e) => {
     setNewUser({
       ...newUser,
-      rol: e.target.value,
+      role: e.target.value,
     });
   };
   return (
@@ -128,7 +130,7 @@ function registrarse() {
                     </Col>
                     <Col sm={12} md={12} lg={6}>
                       <Form.Select
-                        name="rol"
+                        name="role"
                         aria-label="Seleccioná tu rol"
                         className="text-input"
                         required
@@ -136,9 +138,9 @@ function registrarse() {
                         style={{ width: '97%' }}
                       >
                         <option selected disabled>Soy...</option>
-                        <option value="aud">Audiólogo/a</option>
-                        <option value="orl">Otorrinolaringólogo/a</option>
-                        <option value="pac">Paciente</option>
+                        <option value={USER_TYPES.PROFESSIONAL}>Audiólogo/a</option>
+                        <option value={USER_TYPES.PROFESSIONAL}>Otorrinolaringólogo/a</option>
+                        <option value={USER_TYPES.PATIENT}>Paciente</option>
                       </Form.Select>
                     </Col>
                     <Col sm={12} md={12} lg={6}>

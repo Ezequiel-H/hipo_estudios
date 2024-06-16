@@ -6,14 +6,17 @@ import {
 } from 'react-bootstrap';
 
 import Layout from '@/app/components/general/Layout';
+import { professionalConenct } from '@/app/db/patient';
 
 function login() {
   const [email, setEmail] = useState('');
 
-  function connectWithProfessional(e) {
+  const patientId = localStorage.getItem('userId');
+
+  const connectWithProfessional = async (e) => {
     e.preventDefault();
-    // TODO DB: saveProfessionalDataIntoUserInfo();
-  }
+    await professionalConenct(patientId, email);
+  };
 
   return (
     <Layout>
@@ -42,7 +45,6 @@ function login() {
                 </Form>
               </div>
             </Col>
-
           </Row>
         </div>
       </Container>
