@@ -3,10 +3,10 @@
 import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import Layout from '@/app/components/general/Layout';
-import DatosDelPaciente from '../../../../../components/patient/DatosDelPaciente';
 import { getPatientById } from '@/app/db/user';
 import VanderbiltTeachersForm from '@/app/components/forms/VanderbiltTeachersForm';
 import SelectPatient from '@/app/components/studies/SelectPatient';
+import DatosDelPaciente from '@/app/components/patient/DatosDelPaciente';
 
 function VanderbiltDocentes({ params }) {
   const { userId } = params;

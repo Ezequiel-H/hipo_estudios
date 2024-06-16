@@ -3,8 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import Layout from '@/app/components/general/Layout';
-import DatosDelPaciente from '../../../../components/patient/DatosDelPaciente';
 import { getPatientById } from '@/app/db/user';
+import DatosDelPaciente from '@/app/components/patient/DatosDelPaciente';
 
 function VanderbiltNuevo({ params }) {
   const { userId } = params;
