@@ -3,9 +3,9 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '@/app/components/general/Layout';
 import Otoemision from '@/app/components/studies/otoemision/Otoemision';
-import DatosDelPaciente from '../../../../components/patient/DatosDelPaciente';
 import { getUserById } from '@/app/db/user';
 import SelectPatient from '@/app/components/studies/SelectPatient';
+import DatosDelPaciente from '@/app/components/patient/DatosDelPaciente';
 
 function OtoemisionNueva({ params }) {
   const { userId } = params;

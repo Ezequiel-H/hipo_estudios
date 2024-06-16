@@ -2,10 +2,10 @@
 
 import React, { useEffect, useState } from 'react';
 import Layout from '@/app/components/general/Layout';
-import DatosDelPaciente from '../../../../components/patient/DatosDelPaciente';
 import { getUserById } from '@/app/db/user';
-import Timpanometria from '../../../../components/studies/timpanometria/Timpanometria';
 import SelectPatient from '@/app/components/studies/SelectPatient';
+import DatosDelPaciente from '@/app/components/patient/DatosDelPaciente';
+import Timpanometria from '@/app/components/studies/timpanometria/Timpanometria';
 
 function NuevaTimpanometria({ params }) {
   const { userId } = params;

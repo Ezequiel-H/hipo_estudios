@@ -3,9 +3,9 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '@/app/components/general/Layout';
 import Impedanciometria from '@/app/components/studies/impedanciometria/Impedanciometria';
-import DatosDelPaciente from '../../../../components/patient/DatosDelPaciente';
 import { getUserById } from '@/app/db/user';
 import SelectPatient from '@/app/components/studies/SelectPatient';
+import DatosDelPaciente from '@/app/components/patient/DatosDelPaciente';
 
 function ImpedanciometriaNueva({ params }) {
   const { userId } = params;

@@ -3,9 +3,10 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '@/app/components/general/Layout';
 import Audiogram from '@/app/components/studies/audiogram/Audiogram';
-import DatosDelPaciente from '../../../../components/patient/DatosDelPaciente';
+
 import { getPatientById } from '@/app/db/user';
 import SelectPatient from '@/app/components/studies/SelectPatient';
+import DatosDelPaciente from '@/app/components/patient/DatosDelPaciente';
 
 function AudiometriaNueva({ params }) {
   const { userId } = params;
