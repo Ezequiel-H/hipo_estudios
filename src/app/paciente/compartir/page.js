@@ -8,7 +8,7 @@ import {
 import Layout from '@/app/components/general/Layout';
 import { professionalConenct } from '@/app/db/patient';
 
-function login() {
+function Login() {
   const [email, setEmail] = useState('');
 
   const patientId = localStorage.getItem('userId');
@@ -52,4 +52,4 @@ function login() {
   );
 }
 
-export default login;
+export default Login;
