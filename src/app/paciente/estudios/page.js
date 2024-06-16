@@ -35,8 +35,8 @@ function Estudios() {
           <>
             <h1>Soy un profesional, haces clic para crear</h1>
             <p>abajo los ultimos hechos y abajo algo mas?.</p>
-            <Slider />
-            <Testimonials />
+            {/* <Slider />
+            <Testimonials /> */}
           </>
         ) : null
       }
@@ -47,8 +47,8 @@ function Estudios() {
             <p>
               Mostrar que es el estudio y abajo profesionales que lo hacen
             </p>
-            <Slider />
-            <Testimonials />
+            {/* <Slider />
+            <Testimonials /> */}
           </>
         ) : null
       }

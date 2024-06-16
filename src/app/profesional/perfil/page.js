@@ -1,6 +1,8 @@
+/* eslint-disable max-len */
+
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Container, Button, Row, Col, Form,
 } from 'react-bootstrap';
@@ -24,19 +26,19 @@ const Area = styled.div`
     }
 `;
 
-const Area2 = styled(Area)`
-    border: 7px solid var(--tertiaryColor);
-    margin-top: 30px; 
-`;
+// const Area2 = styled(Area)`
+//     border: 7px solid var(--tertiaryColor);
+//     margin-top: 30px;
+// `;
 
-const obrasSociales = [
-  { value: 'SwissMedical', label: 'Swiss Medical' },
-  { value: 'OSDE', label: 'OSDE' },
-  { value: 'Galeno', label: 'Galeno' },
-];
+// const obrasSociales = [
+//   { value: 'SwissMedical', label: 'Swiss Medical' },
+//   { value: 'OSDE', label: 'OSDE' },
+//   { value: 'Galeno', label: 'Galeno' },
+// ];
 
 function Perfil() {
-  const [selectedOS, setSelectedOS] = useState([]);
+  // const [selectedOS, setSelectedOS] = useState([]);
 
   return (
     <Layout>

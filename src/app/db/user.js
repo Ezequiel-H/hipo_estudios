@@ -25,17 +25,19 @@ export const signIn = async (email, password) => {
 
   try {
     response = await axiosInstance.post('/sign_in/', { email, password });
+    if (response) {
+      localStorage.setItem('token', response.data._id);
+      localStorage.setItem('userId', response.data._id);
+      localStorage.setItem('userType', response.data.userType);
+      return response.data;
+    }
   } catch (error) {
     // Handle error
     console.error('Error fetching user:', error);
     throw error;
   }
-  if (response) {
-    localStorage.setItem('token', response.data._id);
-    localStorage.setItem('userId', response.data._id);
-    localStorage.setItem('userType', response.data.userType);
-    return response?.data;
-  }
+
+  return undefined;
 };
 
 export const signUp = async (user) => {
@@ -43,17 +45,19 @@ export const signUp = async (user) => {
 
   try {
     response = await axiosInstance.post('/sign_up/', { ...user });
+    if (response) {
+      localStorage.setItem('token', response.data._id);
+      localStorage.setItem('userId', response.data._id);
+      localStorage.setItem('userType', response.data.userType);
+      return response.data;
+    }
   } catch (error) {
     // Handle error
     console.error('Error creating user:', error);
     throw error;
   }
-  if (response) {
-    localStorage.setItem('token', response.data._id);
-    localStorage.setItem('userId', response.data._id);
-    localStorage.setItem('userType', response.data.userType);
-    return response.data;
-  }
+
+  return undefined;
 };
 
 export const logOut = () => {

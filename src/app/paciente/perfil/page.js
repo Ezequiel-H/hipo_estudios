@@ -37,6 +37,7 @@ function UserProfile() {
   async function updateData() {
     // TODO DB: updateData(); - aca yo hago la validacion en el front si queres.
   }
+  updateData();
 
   const studies = [
     {
