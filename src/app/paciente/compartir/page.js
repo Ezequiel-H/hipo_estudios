@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Container, Button, Col, Row, Form,
 } from 'react-bootstrap';
@@ -10,8 +10,12 @@ import { professionalConenct } from '@/app/db/patient';
 
 function Login() {
   const [email, setEmail] = useState('');
+  const [patientId, setPatientId] = useState();
 
-  const patientId = localStorage.getItem('userId');
+  useEffect(() => {
+    const newPatientId = localStorage.getItem('userId');
+    setPatientId(newPatientId);
+  }, []);
 
   const connectWithProfessional = async (e) => {
     e.preventDefault();
