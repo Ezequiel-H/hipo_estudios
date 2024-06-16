@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import Layout from '@/app/components/general/Layout';
 import AudiogramCompleto from '@/app/components/studies/audiogram/AudiogramCompleto';
-import { getUserById } from '@/app/db/user';
+import { getPatientById } from '@/app/db/user';
 import { getStudyById } from '@/app/db/studies';
 import DatosDelPaciente from '@/app/components/patient/DatosDelPaciente';
 
@@ -19,7 +19,7 @@ function VerAudiometria({ params }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const newUser = await getUserById(userId);
+        const newUser = await getPatientById(userId);
         setUser(newUser);
 
         const newStudy = await getStudyById(studyId);

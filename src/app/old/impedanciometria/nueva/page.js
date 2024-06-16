@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '@/app/components/general/Layout';
 import Impedanciometria from '@/app/components/studies/impedanciometria/Impedanciometria';
-import { getUserById } from '@/app/db/user';
+import { getPatientById } from '@/app/db/user';
 import SelectPatient from '@/app/components/studies/SelectPatient';
 import DatosDelPaciente from '@/app/components/patient/DatosDelPaciente';
 
@@ -14,7 +14,7 @@ function ImpedanciometriaNueva({ params }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const newUser = await getUserById(userId);
+      const newUser = await getPatientById(userId);
       setUser(newUser);
     };
     if (window.location.href.includes('seleccionar')) {

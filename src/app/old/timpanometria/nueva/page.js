@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Layout from '@/app/components/general/Layout';
-import { getUserById } from '@/app/db/user';
+import { getPatientById } from '@/app/db/user';
 import SelectPatient from '@/app/components/studies/SelectPatient';
 import DatosDelPaciente from '@/app/components/patient/DatosDelPaciente';
 import Timpanometria from '@/app/components/studies/timpanometria/Timpanometria';
@@ -14,7 +14,7 @@ function NuevaTimpanometria({ params }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const newUser = await getUserById(userId);
+      const newUser = await getPatientById(userId);
       setUser(newUser);
     };
     if (window.location.href.includes('seleccionar')) {

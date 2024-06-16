@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '@/app/components/general/Layout';
 import LogoAudiogramCompleto from '@/app/components/studies/audiogram/LogoAudiogramCompleto';
-import { getUserById } from '@/app/db/user';
+import { getPatientById } from '@/app/db/user';
 import DatosDelPaciente from '@/app/components/patient/DatosDelPaciente';
 import { getStudyById } from '@/app/db/studies';
 
@@ -15,7 +15,7 @@ function VerLogoaudiometria({ params }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const newUser = await getUserById(userId);
+        const newUser = await getPatientById(userId);
         setUser(newUser);
 
         const newStudy = await getStudyById(studyId);
