@@ -96,7 +96,7 @@ const PARALLEL_STUDIES_IMAGES = {
   [STUDIES_NAMES.I_OSEA]: '/img/estudios/markers/sr_osea_izquierda.png',
 };
 
-function AudiogramCompleto({ modo }) {
+function AudiogramCompleto({ modo, result }) {
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
   const [STUDIES, setStudies] = useState({
@@ -245,8 +245,7 @@ function AudiogramCompleto({ modo }) {
   }
 
   useEffect(() => {
-    const datosJSONRecuperados = localStorage.getItem(localStorageNames.AUDIOGRAM);
-    const datosRecuperados = JSON.parse(datosJSONRecuperados);
+    const datosRecuperados = result;
 
     if (modo === 'izquierdo') {
       setStudies({

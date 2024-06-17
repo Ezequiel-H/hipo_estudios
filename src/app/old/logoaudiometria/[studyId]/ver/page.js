@@ -10,6 +10,7 @@ import { getStudyById } from '@/app/db/studies';
 function VerLogoaudiometria({ params }) {
   const { userId, studyId } = params;
   const [user, setUser] = useState('');
+  // eslint-disable-next-line no-unused-vars
   const [study, setStudy] = useState();
 
   useEffect(() => {
@@ -20,7 +21,6 @@ function VerLogoaudiometria({ params }) {
 
         const newStudy = await getStudyById(studyId);
         setStudy(newStudy);
-        console.log(study);
       } catch (error) {
         console.error('Error fetching data:', error);
       }

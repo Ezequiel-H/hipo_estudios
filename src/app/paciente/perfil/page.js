@@ -6,6 +6,7 @@ import {
 } from 'react-bootstrap';
 import styled from '@emotion/styled';
 import Layout from '@/app/components/general/Layout';
+import {getUserById}  
 
 const Area = styled.div`
   border: 7px solid var(--quartyColor);
@@ -28,11 +29,18 @@ const Area2 = styled(Area)`
 `;
 
 function UserProfile() {
+  // eslint-disable-next-line no-unused-vars
+  const [user, setUser] = useState({});
+
   useEffect(() => {
-    // TODO DB: getStudies();
-    // TODO DB: getPersonalData();
-    // eslint-disable-next-line
-  }, [])
+    const fetchUser = async () => {
+      const response = await getUserById(localStorage.getItem('userId'));
+      setUser(response);
+      console.log(response);
+    };
+
+    fetchUser();
+  }, []);
 
   async function updateData() {
     // TODO DB: updateData(); - aca yo hago la validacion en el front si queres.
@@ -47,9 +55,6 @@ function UserProfile() {
       id: 2, type: 'audiogram', date: '2024-04-03', title: 'Audiometria con audifono',
     }];
 
-  const user = {
-    id: 1, name: 'Ezequiel', surname: 'Horowitz', birthdate: '18/09/2000',
-  };
   const [filterType, setFilterType] = useState('');
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');

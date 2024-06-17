@@ -131,9 +131,9 @@ function Timpanometria({ patientId }) {
     // Podria estar bueno que se vea con menos opacidad o algo asi y no sea editable, claro.
     const rows = [];
 
-    for (let row = 0; row < 29; row++) {
+    for (let row = 0; row < 35; row++) {
       const cols = [];
-      for (let col = 0; col < 12; col++) {
+      for (let col = 0; col < 20; col++) {
         cols.push(
           <Casillero
             id={`c-${row}-${col}`}

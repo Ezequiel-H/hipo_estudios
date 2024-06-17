@@ -203,11 +203,11 @@ const tools = (
         {
         proceso === 1 ? (
           <Button
-            onClick={() => {
+            onClick={async () => {
               const datosJSON = JSON.stringify(STUDIES);
               localStorage.setItem(localStorageNames.AUDIOGRAM, datosJSON);
               const professionalId = localStorage.getItem('userId');
-              addStudyForUser(patientId, {
+              await addStudyForUser(patientId, {
                 type: STUDY_TYPES.AUDIOGRAM,
                 result: STUDIES,
                 date: new Date(),

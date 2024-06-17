@@ -10,30 +10,29 @@ import { logOut } from '@/app/db/user';
 import { USER_TYPES } from '@/app/constants/users';
 
 const Area = styled.div`
-    background-image: url('/img/web/header-bg.png');
-    background-attachment: fixed;
+  background-image: url('/img/web/header-bg.png');
+  background-attachment: fixed;
 `;
 
 const LinkNavigation = styled(Link)`
-    color: var(--slowYellow);
-    font-size: 18px;
-    margin-left: 25px;
-    margin-top: auto;
-    margin-bottom: auto;
-    text-align:right;
-    padding: 8px 0;
-
+  color: var(--slowYellow);
+  font-size: 18px;
+  margin-left: 25px;
+  margin-top: auto;
+  margin-bottom: auto;
+  text-align:right;
+  padding: 8px 0;
 `;
 
 const DropdownNavigation = styled(NavDropdown)`
-    margin: auto 0;
-        margin-left: 25px;
+  margin: auto 0;
+      margin-left: 25px;
 
-    a {
-        color: var(--slowYellow)!important;
-        font-size: 18px!important;
-        text-align: right;
-    }
+  a {
+      color: var(--slowYellow)!important;
+      font-size: 18px!important;
+      text-align: right;
+  }
 `;
 
 function Navigation({ userType }) {
@@ -106,7 +105,13 @@ function Navigation({ userType }) {
                       <NavDropdown.Item className="btn btn-secondary mb-1" onClick={() => logOut()}>Cerrar sesión</NavDropdown.Item>
                     </DropdownNavigation>
                   </>
-                ) : null
+                ) : (
+                  <>
+                    <LinkNavigation href="/iniciar-sesion">Iniciar sesión</LinkNavigation>
+                    <LinkNavigation href="/registro">Registrarme</LinkNavigation>
+                  </>
+
+                )
               }
 
             </Nav>
