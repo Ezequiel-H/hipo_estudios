@@ -6,30 +6,41 @@ import {
 
 const Area = styled.div`
   background-color: var(--slowBackground);
+  h2 {
+    margin: 20px 0 40px 0;
+    font-size:40px;
+    text-align:center;
+  }
 `;
 
 const Info = styled.div`
-  text-align: center;
+  text-align: left;
   padding: 50px 0;
 `;
 
 const Cuadro = styled(Col)`
   div {
-    border: 3px solid var(--tertiaryColor);
+    // border: 3px solid var(--tertiaryColor);
+    background-color: white;
     padding: 50px;
-    border-radius: 50px;
+    border-radius: 30px;
     margin: 10px 0;
     max-width: 90%;
     transition: all .3s ease;
     &:hover {
-      background-color: var(--tertiaryColor);
+      // background-color: var(--tertiaryColor);
     }
+  }
+  p.icon {
+    font-size: 50px;
   }
   h5 {
     font-weight: bold;
+    font-size: 25px;
   }
   p {
     margin: 0;
+    font-size: 18px;
   }
 `;
 
@@ -38,15 +49,11 @@ function Slider() {
     <Area>
       <Container>
         <Info>
-          <h1>
-            Decibele,
-            <br />
-            audiología digital con muchos beneficios.
-          </h1>
+          <h2>Los beneficios de digitalizar</h2>
           <Row style={{ marginTop: '40px' }}>
             <Cuadro xs={12} sm={12} md={6} lg={4}>
               <div>
-                <h5>Estudios que perduran</h5>
+                <h5>Estudios ♾️</h5>
                 <p>
                   No se rompen, pierden ni arrugan.
                   <br />
