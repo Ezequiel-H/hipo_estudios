@@ -20,6 +20,8 @@ export const getPatientById = getUserById(USER_TYPES.PATIENT);
 export const getProfessionalById = getUserById(USER_TYPES.PROFESSIONAL);
 export const getCenterById = getUserById(USER_TYPES.CENTER);
 
+// TODO - DB: updateUser(); // para profesionales y pacientes (cambiar email, celular, etc.).
+
 export const signIn = async (email, password) => {
   let response;
 

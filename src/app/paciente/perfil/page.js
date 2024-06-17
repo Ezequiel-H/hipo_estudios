@@ -6,7 +6,8 @@ import {
 } from 'react-bootstrap';
 import styled from '@emotion/styled';
 import Layout from '@/app/components/general/Layout';
-import {getUserById}  
+import { getPatientById, getProfessionalById } from '../../db/user';
+import { getStudyById } from '@/app/db/studies';
 
 const Area = styled.div`
   border: 7px solid var(--quartyColor);
@@ -31,40 +32,53 @@ const Area2 = styled(Area)`
 function UserProfile() {
   // eslint-disable-next-line no-unused-vars
   const [user, setUser] = useState({});
+  // const [studies, setStudies] = useState({});
+  // const [professionals, setProfessionals] = useState({});
 
   useEffect(() => {
     const fetchUser = async () => {
-      const response = await getUserById(localStorage.getItem('userId'));
+      const response = await getPatientById(localStorage.getItem('userId'));
       setUser(response);
       console.log(response);
+
+      // FIXME: Se rompe el back en estas funciones de la DB: http://localhost:3000/paciente/perfil
+
+      if (response.studies.length > 0) {
+        const studiesArray = [];
+        response.studies.forEach(async (oneStudy) => {
+          const thisStudy = await getStudyById(oneStudy);
+          studiesArray.push(thisStudy);
+        });
+        // setStudies(studiesArray);
+        console.log(studiesArray);
+      }
+      if (response.professionals.length > 0) {
+        const professionalsArray = [];
+        response.professionals.forEach(async (oneProfessional) => {
+          const thisStudy = await getProfessionalById(oneProfessional);
+          professionalsArray.push(thisStudy);
+        });
+        // setProfessionals(professionalsArray);
+        console.log(professionalsArray);
+      }
     };
 
     fetchUser();
   }, []);
 
-  async function updateData() {
-    // TODO DB: updateData(); - aca yo hago la validacion en el front si queres.
-  }
-  updateData();
-
-  const studies = [
-    {
-      id: 1, type: 'audiogram', date: '2024-02-02', title: 'Audiometria sin audifono',
-    },
-    {
-      id: 2, type: 'audiogram', date: '2024-04-03', title: 'Audiometria con audifono',
-    }];
+  // TODO LUCAS: hacer update de la info si quiere actualizar
 
   const [filterType, setFilterType] = useState('');
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');
 
-  const filteredStudies = studies.filter((study) => {
-    if (filterType && study.type !== filterType) return false;
-    if (fromDate && study.date < fromDate) return false;
-    if (toDate && study.date > toDate) return false;
-    return true;
-  });
+  const filteredStudies = [];
+  // const filteredStudies = studies.filter((study) => {
+  //   if (filterType && study.type !== filterType) return false;
+  //   if (fromDate && study.date < fromDate) return false;
+  //   if (toDate && study.date > toDate) return false;
+  //   return true;
+  // });
 
   return (
     <Layout>

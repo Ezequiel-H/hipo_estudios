@@ -10,7 +10,6 @@ import React, { useReducer, useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { Row, Container } from 'react-bootstrap';
 import Image from 'next/image';
-import localStorageNames from '@/app/constants/localStorage';
 
 const Template = styled.div`
   background-color: white;

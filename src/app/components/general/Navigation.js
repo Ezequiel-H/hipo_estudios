@@ -105,13 +105,15 @@ function Navigation({ userType }) {
                       <NavDropdown.Item className="btn btn-secondary mb-1" onClick={() => logOut()}>Cerrar sesión</NavDropdown.Item>
                     </DropdownNavigation>
                   </>
-                ) : (
+                ) : null
+              }
+              {
+                userType === '' ? (
                   <>
                     <LinkNavigation href="/iniciar-sesion">Iniciar sesión</LinkNavigation>
                     <LinkNavigation href="/registro">Registrarme</LinkNavigation>
                   </>
-
-                )
+                ) : null
               }
 
             </Nav>

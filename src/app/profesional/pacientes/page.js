@@ -1,13 +1,16 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  // useState
+} from 'react';
 import {
   Table, Container, Form, Button, Row, Col,
 } from 'react-bootstrap';
 import styled from '@emotion/styled';
 import Layout from '@/app/components/general/Layout';
 import PatientActions from '@/app/components/professional/profile/PatientActions';
-import { getListOfPatients } from '@/app/db/professional';
+// import { getListOfPatients } from '@/app/db/professional';
 
 const Area = styled.div`
     border: 7px solid var(--quartyColor);
@@ -30,12 +33,17 @@ const Area2 = styled(Area)`
 `;
 
 function Pacientes() {
-  // TODO DB: getListOfPatients()
-  // const [misPacientes, setMisPacientes] = useState([]);
-  const [newPatient, setNewPatient] = useState();
+  // const [myPatients, setMyPatients] = useState([]);
+  // const [newPatient, setNewPatient] = useState();
+
+  async function fetchPatients() {
+    // const result = await getListOfPatients(localStorage.getItem('userId'));
+    // console.log(result);
+    // setMyPatients(result);
+  }
+
   useEffect(() => {
-    // setMisPacientes(getListOfPatients())
-    console.log(getListOfPatients());
+    fetchPatients();
     // eslint-disable-next-line
   }, [])
 
@@ -46,10 +54,11 @@ function Pacientes() {
   }
 
   function handleChange(e) {
-    setNewPatient({
-      ...newPatient,
-      [e.target.name]: e.target.value,
-    });
+    console.log(e);
+    // setNewPatient({
+    //   ...newPatient,
+    //   [e.target.name]: e.target.value,
+    // });
   }
 
   return (
