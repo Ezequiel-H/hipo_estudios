@@ -1,13 +1,12 @@
+/* eslint-disable no-const-assign */
 /* eslint-disable max-len */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-plusplus */
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useReducer, useState } from 'react';
 import {
-  Row, Col, Container, Form, Table, Button,
+  Row, Col, Container, Form,
 } from 'react-bootstrap';
 import styled from '@emotion/styled';
-import Image from 'next/image';
-import Finished from '../Finished';
 
 const Audiograma = styled.div`
   position: relative;
@@ -47,26 +46,26 @@ const CeldaTextsInput = styled.div`
   border: 1px solid black;
 `;
 
-const TextInputDiv = styled.div`
-  margin: 0 !important;
-  padding: 0!important;
-  background-color: transparent;
-  border-radius: 0%;
-  color: white;
-  display: flex;
-  justify-content: flex-end;
-  text-align: right;
-`;
+// const TextInputDiv = styled.div`
+//   margin: 0 !important;
+//   padding: 0!important;
+//   background-color: transparent;
+//   border-radius: 0%;
+//   color: white;
+//   display: flex;
+//   justify-content: flex-end;
+//   text-align: right;
+// `;
 
 const STUDIES_NAMES = {
   DERECHA: 'derecha',
   IZQUIERDA: 'izquierda',
 };
 
-function Timpanometria({ patientId }) {
+function Timpanometria() {
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
-  const [proceso, setProceso] = useState(1);
-  const [proximoEstudio, setProximoEstudio] = useState('');
+  // const [proceso, setProceso] = useState(1);
+  // const [proximoEstudio, setProximoEstudio] = useState('');
   const [lineasElementos, setLineas] = useState([]);
   const [STUDIES, setStudies] = useState({
     [STUDIES_NAMES.DERECHA]: ['', '', '', '', '', '', '', '', '', '', ''],
@@ -78,7 +77,8 @@ function Timpanometria({ patientId }) {
     Object.entries(STUDIES).forEach(([nombre, valores]) => {
       console.log(valores);
       const puntos = valores.map((punto, index) => {
-        const elemento = document.getElementById(`b-${punto}-${index}`);
+        const valorDelPunto = parseFloat(punto).toFixed(1) * (-10) + 28;
+        const elemento = document.getElementById(`b-${valorDelPunto}-${index}`);
         const lineas = document.getElementById('lineas');
         return (elemento && punto !== '')
           ? {
@@ -102,7 +102,7 @@ function Timpanometria({ patientId }) {
             x2={puntoSiguiente.x}
             y2={puntoSiguiente.y}
             stroke={nombre === STUDIES_NAMES.DERECHA ? 'red' : 'blue'}
-            strokeWidth="2"
+            strokeWidth="3"
             strokeOpacity="1"
           />,
         );
@@ -112,9 +112,9 @@ function Timpanometria({ patientId }) {
   };
 
   const addValueToResults = (row, col, estudio) => {
-    const newRow = parseInt(row, 10).toString();
+    const newRow = parseFloat(row);
     const newStudy = STUDIES[estudio];
-    newStudy[col] = newRow ? `${newRow}` : '';
+    newStudy[col] = newRow === 0 ? '0' : newRow ? `${newRow}` : '';
     setStudies({ ...STUDIES, [estudio]: newStudy });
     agregarCurva();
     forceUpdate();
@@ -234,7 +234,7 @@ function Timpanometria({ patientId }) {
                       type="number"
                       name="txtNumber"
                       key={`input: formd-${volumen}`}
-                      value={STUDIES[STUDIES_NAMES.DERECHA][index]}
+                      value={STUDIES[STUDIES_NAMES.DERECHA][index] ? `${STUDIES[STUDIES_NAMES.DERECHA][index]}` : ''}
                       onChange={(event) => addValueToResults(event.target.value, index, STUDIES_NAMES.DERECHA)}
                     />
                   </CeldaTextsInput>
