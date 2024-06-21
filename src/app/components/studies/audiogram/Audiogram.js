@@ -309,7 +309,6 @@ function Audiogram({ patientId }) {
   }
 
   function realizarProximoEstudio() {
-    // TODO DB: guardarEstudio();
     const datosJSON = JSON.stringify(STUDIES);
     localStorage.setItem(localStorageNames.AUDIOGRAM, datosJSON);
     window.location.href = `/profesional/pacientes/${patientId}/nuevo/${proximoEstudio}`;

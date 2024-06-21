@@ -80,7 +80,6 @@ function Perfil() {
         </Area>
 
         {/* <Area2>
-        // TODO: Sacamos por ahora los consultorios, no?
           <h3 className="text-center color-black">Consultorios</h3>
           <Row>
             <OneCenter center={{ title:'Centro de Implantes', address: 'Dorrego 123',

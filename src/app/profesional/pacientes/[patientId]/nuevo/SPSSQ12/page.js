@@ -24,12 +24,6 @@ function VanderbiltDocentes({ params }) {
     fetchData();
   }, [userId]);
 
-  // function saveForm() {
-  //   // TODO: setCronReminder() ?
-  //   // TODO DB: saveStudy();
-  //   // TODO: guardar y luego crear uno nuevo y router o listo.
-  // }
-
   return (
     <Layout>
       <Container>

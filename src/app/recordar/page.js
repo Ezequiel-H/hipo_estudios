@@ -20,6 +20,7 @@ function Recordar() {
   }, []);
 
   const verifyPassword = async () => {
+    // Se me ocurre:
     // TODO: DB guardar en la db un token que tenga fecha y el email,
     // para poder enviarselo por email y que la persona entre a esta pantalla con un parametro get
     // de ese token y se decodifica para restablecer la contrasena.

@@ -4,7 +4,7 @@ export const getListOfPatients = async (professionalId) => {
   let response;
 
   try {
-    response = await axiosInstance.get(`/professional/${professionalId}/patients`);
+    response = await axiosInstance.get(`/professional/${professionalId}/patientsInfo`);
   } catch (error) {
     // Handle error
     console.log(error);
@@ -14,7 +14,8 @@ export const getListOfPatients = async (professionalId) => {
 };
 
 // export const postNewPatient = async (newPatient) => {
-//   // TODO - DB: poner en la base de datos y deberia asociarse directo al profesional que lo crea.
+// TODO - DB: poner nuevo paciente en
+//  la base de datos y deberia asociarse directo al profesional que lo crea.
 // }
 
 export const a = 2;

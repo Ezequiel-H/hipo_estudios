@@ -61,7 +61,6 @@ function SpSSQ12Form() {
     },
   });
 
-  // TODO: Terminar esto, ver la vuelta al RANGE.
   setAnswers(...answers);
   return (
     <Form>

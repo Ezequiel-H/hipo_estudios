@@ -48,8 +48,6 @@ function Navigation({ userType }) {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
             <Nav className="ml-auto">
-              <LinkNavigation href="/">Inicio</LinkNavigation>
-
               {userType !== USER_TYPES.PROFESSIONAL && (
               <LinkNavigation href="#" onClick={() => comingSoon()}>Buscar profesional</LinkNavigation>
               )}

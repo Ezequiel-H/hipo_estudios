@@ -55,22 +55,23 @@ function PatientActions({ patientID }) {
             title="Estudios"
             className="dropdown-item"
           >
-            <NavDropdown.Item href={`/${patientID}/estudios/audiometria/nueva`}>
+            <NavDropdown.Item href={`/profesional/pacientes/${patientID}/nuevo/audiometria`}>
+
               Audiometria
             </NavDropdown.Item>
-            <NavDropdown.Item href={`/${patientID}/estudios/logoaudiometria/nueva`}>
+            <NavDropdown.Item href={`profesional/pacientes/${patientID}/nuevo/logoaudiometria`}>
               Logoaudiometria
             </NavDropdown.Item>
-            <NavDropdown.Item href={`/${patientID}/estudios/timpanometria/nueva`}>
+            <NavDropdown.Item href={`profesional/pacientes/${patientID}/nuevo/timpanometria`}>
               Timpanometría
             </NavDropdown.Item>
-            <NavDropdown.Item href={`/${patientID}/estudios/impedanciometria/nueva`}>
+            <NavDropdown.Item href={`profesional/pacientes/${patientID}/nuevo/impedanciometria`}>
               Impedanciometria
             </NavDropdown.Item>
-            <NavDropdown.Item href={`/${patientID}/estudios/potenciales-evocados/nueva`}>
+            <NavDropdown.Item href={`profesional/pacientes/${patientID}/nuevo/potenciales-evocados`}>
               Potenciales Evocados
             </NavDropdown.Item>
-            <NavDropdown.Item href={`/${patientID}/estudios/otoemision/nueva`}>
+            <NavDropdown.Item href={`profesional/pacientes/${patientID}/nuevo/otoemision`}>
               Otoemisión
             </NavDropdown.Item>
           </TheNavDropdown2>
@@ -78,13 +79,13 @@ function PatientActions({ patientID }) {
             title="Formularios"
             className="dropdown-item"
           >
-            <NavDropdown.Item href={`/${patientID}/cuestionario/peach/nuevo`}>
+            <NavDropdown.Item href={`profesional/pacientes/${patientID}/peach/nuevo`}>
               PEACH
             </NavDropdown.Item>
-            <NavDropdown.Item href={`/${patientID}/cuestionario/sp-ssq12/nuevo`}>
+            <NavDropdown.Item href={`profesional/pacientes/${patientID}/sp-ssq12/nuevo`}>
               SP-SSQ12
             </NavDropdown.Item>
-            <NavDropdown.Item href={`/${patientID}/cuestionario/vanderbilt/nuevo`}>
+            <NavDropdown.Item href={`profesional/pacientes/${patientID}/vanderbilt/nuevo`}>
               VANDERBILT
             </NavDropdown.Item>
           </TheNavDropdown2>

@@ -5,6 +5,7 @@ import axiosInstance from './config';
 
 const getUserById = (type) => async (userId) => {
   let response;
+  console.log(type);
   try {
     response = await axiosInstance.get(`/${type}/${userId}`);
   } catch (error) {

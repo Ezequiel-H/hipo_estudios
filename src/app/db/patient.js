@@ -16,7 +16,28 @@ export const professionalConenct = async (patientId, professionalEmail) => {
   console.log(response);
 };
 
-// TODO - DB: get de los estudios + datos del paciente
-// - Estudio: Fecha, Tipo de estudio, Profesional que lo hizo (extra), idEstudio
+export const getAllStudiesForPatient = async (patientId) => {
+  let response;
+  try {
+    response = await axiosInstance.get(`/patient/${patientId}/studies`);
+  } catch (error) {
+    // Handle error
+    console.error(`Error fetching studies for user: ${patientId}`, error);
+    throw error;
+  }
 
-export const a = 2;
+  return response?.data;
+};
+
+export const getPatientByIdWithStudies = async (patientId) => {
+  let response;
+  try {
+    response = await axiosInstance.get(`/patient/${patientId}/infoWithStudies`);
+  } catch (error) {
+    // Handle error
+    console.error(`Error fetching user info: ${patientId}`, error);
+    throw error;
+  }
+
+  return response?.data;
+};

@@ -11,21 +11,6 @@ function MyVerticallyCenteredModal(props) {
   const [emailsToShare, setEmailsToShare] = useState('');
   const [reminderTime, setReminderTime] = useState('');
 
-  function finishAndShareStudy(e) {
-    e.preventDefault();
-    // TODO DB: post guardar estudio
-    // compartirPorEmailAlPaciente();
-    // setCronJobEnXTiempoConRecordatorioDeVolverAlControl();
-
-    // Aca dejo un ejemplo de funcion para el back para enviar el email:
-    // https://github.com/lucasadlerstein/Latam-Hospitals-Platform-Back/blob/main/helpers/funciones.js
-
-    // Si te parece mas comodo, podes dejar puesto en el back
-    // enviarEmail() ponele y yo hago la plantilla, lo redacto y eso.
-  }
-
-  // TODO LUCAS: Una vez que este listo para ver estudio desde DB, ir a esa vista y exportar
-
   return (
     <Modal
       {...props}
@@ -66,7 +51,7 @@ function MyVerticallyCenteredModal(props) {
             />
           </Col>
           <Col>
-            <Button variant="primary" type="submit" onClick={(e) => finishAndShareStudy(e)}>
+            <Button variant="primary" type="submit">
               Compartir y copiar enlace
             </Button>
           </Col>

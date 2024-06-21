@@ -10,8 +10,6 @@ const axiosInstance = axios.create({
   },
 });
 
-// TODO: agregar validaciones
-
 // axiosInstance.interceptors.request.use(
 //   (config) => {
 //     const token = localStorage.getItem('token');

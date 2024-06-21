@@ -1,6 +1,3 @@
-// TODO: una pagina que agarra el study id, lo obtiene y
-//  dependiendo del type, muestra el componente correcto
-
 'use client';
 
 import React, { useEffect, useState } from 'react';

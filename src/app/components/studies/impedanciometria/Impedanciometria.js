@@ -8,7 +8,7 @@ import {
 } from 'react-bootstrap';
 
 function Impedanciometria() {
-  // TODO: Faltaria hacer que la columna I s/u reste las anteriores y actualice el resultado. Ahora como se genera afuera, no va actualizando.
+  // Faltaria hacer que la columna I s/u reste las anteriores y actualice el resultado. Ahora como se genera afuera, no va actualizando.
 
   const [contralateral, setContralateral] = useState(Array(12));
   const [ipsilateral, setIpsilateral] = useState(Array(12));

@@ -108,7 +108,6 @@ body {
   max-width: unset;
   overflow-x: visible;
   background-color: white !important;
-  /* TODO: Revisar si no afecta esto: */
   /* min-width: fit-content; */
 }
 
@@ -149,6 +148,10 @@ a {
 }
 .aud-2 {
   flex: 0 0 calc(2 / 14 * 100%);
+}
+
+.aud-3 {
+  flex: 0 0 calc(1 / 20 * 100%);
 }
 
 .l-aud {

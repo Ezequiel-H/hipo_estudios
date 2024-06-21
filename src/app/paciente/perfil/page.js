@@ -6,8 +6,8 @@ import {
 } from 'react-bootstrap';
 import styled from '@emotion/styled';
 import Layout from '@/app/components/general/Layout';
-import { getPatientById, getProfessionalById } from '../../db/user';
-import { getStudyById } from '@/app/db/studies';
+import { getAllStudiesForPatient } from '@/app/db/patient';
+import { getPatientById } from '@/app/db/user';
 
 const Area = styled.div`
   border: 7px solid var(--quartyColor);
@@ -29,56 +29,42 @@ const Area2 = styled(Area)`
     margin-top: 30px; 
 `;
 
-function UserProfile() {
+function PatientProfile() {
   // eslint-disable-next-line no-unused-vars
-  const [user, setUser] = useState({});
-  // const [studies, setStudies] = useState({});
-  // const [professionals, setProfessionals] = useState({});
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const response = await getPatientById(localStorage.getItem('userId'));
-      setUser(response);
-      console.log(response);
-
-      // FIXME: Se rompe el back en estas funciones de la DB: http://localhost:3000/paciente/perfil
-
-      if (response.studies.length > 0) {
-        const studiesArray = [];
-        response.studies.forEach(async (oneStudy) => {
-          const thisStudy = await getStudyById(oneStudy);
-          studiesArray.push(thisStudy);
-        });
-        // setStudies(studiesArray);
-        console.log(studiesArray);
-      }
-      if (response.professionals.length > 0) {
-        const professionalsArray = [];
-        response.professionals.forEach(async (oneProfessional) => {
-          const thisStudy = await getProfessionalById(oneProfessional);
-          professionalsArray.push(thisStudy);
-        });
-        // setProfessionals(professionalsArray);
-        console.log(professionalsArray);
-      }
-    };
-
-    fetchUser();
-  }, []);
-
-  // TODO LUCAS: hacer update de la info si quiere actualizar
-
+  const [patient, setPatient] = useState('');
+  const [studies, setStudies] = useState([]);
   const [filterType, setFilterType] = useState('');
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');
+  // const [professionals, setProfessionals] = useState({});
 
-  const filteredStudies = [];
-  // const filteredStudies = studies.filter((study) => {
-  //   if (filterType && study.type !== filterType) return false;
-  //   if (fromDate && study.date < fromDate) return false;
-  //   if (toDate && study.date > toDate) return false;
-  //   return true;
-  // });
+  useEffect(() => {
+    const fetchData = async () => {
+      const fetchedPatient = await getPatientById(localStorage.getItem('userId'));
+      setPatient(fetchedPatient);
+      const fetchedStudies = await getAllStudiesForPatient(localStorage.getItem('userId'));
+      setStudies(fetchedStudies);
+
+      // if (response.professionals.length > 0) {
+      //   const professionalsArray = [];
+      //   response.professionals.forEach(async (oneProfessional) => {
+      //     const thisStudy = await getProfessionalById(oneProfessional);
+      //     professionalsArray.push(thisStudy);
+      //   });
+      //   // setProfessionals(professionalsArray);
+      //   console.log(professionalsArray);
+      // }
+    };
+
+    fetchData();
+  }, []);
+
+  const filteredStudies = studies.filter((study) => {
+    if (filterType && study.type !== filterType) return false;
+    if (fromDate && study.date < fromDate) return false;
+    if (toDate && study.date > toDate) return false;
+    return true;
+  });
 
   return (
     <Layout>
@@ -137,7 +123,7 @@ function UserProfile() {
                       <td>{study.title}</td>
                       <td>{study.type}</td>
                       <td>{study.date}</td>
-                      <td><a href={`http://localhost:3000/${user.id}/estudios/${study.id}`} target="_blank" rel="noopener noreferrer">Link</a></td>
+                      <td><a href={`http://localhost:3000/${patient.id}/estudios/${study.id}`} target="_blank" rel="noopener noreferrer">Link</a></td>
                     </tr>
                   ))}
 
@@ -151,13 +137,13 @@ function UserProfile() {
             <Form>
               <Row>
                 <Col xs={12} sm={12} md={4} lg={4}>
-                  <Form.Control placeholder="Nombre" type="text" className="input" value={user.name} />
+                  <Form.Control placeholder="Nombre" type="text" className="input" value={patient.name} />
                 </Col>
                 <Col xs={12} sm={12} md={4} lg={4}>
-                  <Form.Control placeholder="Apellido" className="input" value={user.surname} />
+                  <Form.Control placeholder="Apellido" className="input" value={patient.surname} />
                 </Col>
                 <Col xs={12} sm={12} md={4} lg={4}>
-                  <Form.Control placeholder="Fecha de nacimiento" className="input" value={user.birthdate} />
+                  <Form.Control placeholder="Fecha de nacimiento" className="input" value={patient.birthdate} />
                 </Col>
                 <Col xs={12} sm={12} md={4} lg={4}>
                   <Form.Control placeholder="Email" type="email" className="input" />
@@ -178,4 +164,4 @@ function UserProfile() {
   );
 }
 
-export default UserProfile;
+export default PatientProfile;

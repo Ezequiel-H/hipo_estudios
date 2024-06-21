@@ -8,7 +8,7 @@ import { useSearchParams } from 'next/navigation';
 import styled from '@emotion/styled';
 import Layout from '@/app/components/general/Layout';
 import DatosDelPaciente from '@/app/components/patient/DatosDelPaciente';
-import { getPatientById } from '@/app/db/user';
+import { getPatientByIdWithStudies } from '@/app/db/patient';
 
 const Area = styled.div`
   border: 7px solid var(--quartyColor);
@@ -37,19 +37,32 @@ function Perfil({ params }) {
 
   const { patientId } = params;
   const [user, setUser] = useState('');
-  useEffect(() => {
-    const fetchData = async () => {
-      const newUser = await getPatientById(patientId);
-      setUser(newUser);
-      console.log(newUser);
-    };
+  const [visits, setVisits] = useState([]);
 
-    fetchData();
+  function createVisits(studies) {
+    return studies.reduce((acc, study) => {
+      const dateOnly = study.date.split('T')[0];
+      let group = acc.find((g) => g.date === dateOnly);
+      if (!group) {
+        group = { date: dateOnly, studies: [] };
+        acc.push(group);
+      }
+      group.studies.push(study);
+      return acc;
+    }, []);
+  }
+
+  useEffect(() => {
+    const fetchData = async (id) => {
+      const newUser = await getPatientByIdWithStudies(id);
+      setUser(newUser);
+      setVisits(createVisits(newUser.studies));
+    };
+    fetchData(patientId);
   }, [patientId]);
 
   function updatePatient(e) {
     e.preventDefault();
-    // TODO DB: updatePatient();
   }
 
   function handleChange(e) {
@@ -72,21 +85,29 @@ function Perfil({ params }) {
                 <th>#</th>
                 <th>Fecha</th>
                 <th>Estudios</th>
+                <th>Hecho por mi</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>15/04/2022</td>
-                <td>
-                  <a className="visita-item" href="#logoaudiometria">
-                    Audiometria
-                  </a>
-                  <a className="visita-item" href="#logoaudiometria">
-                    Logoaudiometria
-                  </a>
-                </td>
-              </tr>
+              {
+                visits.map((visit, index) => (
+                  <tr key={visit._id}>
+                    <td>{index + 1 }</td>
+                    <td>{visit.date}</td>
+                    <td>
+                      {
+                        visit.studies.map((oneStudy) => (
+                          <a className="visita-item" target="_blank" href={`/paciente/estudios/${oneStudy._id}`} rel="noreferrer">
+                            {oneStudy.type}
+                          </a>
+                        ))
+                      }
+                    </td>
+                    <td>{visit.date}</td>
+
+                  </tr>
+                ))
+              }
 
               <tr>
                 <td>2</td>
