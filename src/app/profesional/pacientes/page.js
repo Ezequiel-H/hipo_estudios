@@ -116,6 +116,7 @@ function Pacientes() {
                       </tr>
                     );
                   }
+                  return null;
                 })
               }
             </tbody>
