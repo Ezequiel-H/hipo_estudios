@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import {
-  Container, Table, Button, Col, Row, Form
+  Container, Table, Button, Col, Row, Form,
 } from 'react-bootstrap';
 import { useSearchParams } from 'next/navigation';
 import styled from '@emotion/styled';
@@ -16,8 +16,6 @@ const Area = styled.div`
   border-radius: 30px;
   margin-top: 35px;
 `;
-
-
 
 const Area2 = styled(Area)`
   border: 7px solid var(--tertiaryColor);
@@ -39,7 +37,7 @@ function Perfil({ params }) {
   const { patientId } = params;
   const [user, setUser] = useState('');
   const [visits, setVisits] = useState([]);
-  const [mode, setMode] = useState(searchParams.get('mode'))
+  const [mode, setMode] = useState(searchParams.get('mode'));
 
   function createVisits(studies) {
     return studies.reduce((acc, study) => {
@@ -77,8 +75,8 @@ function Perfil({ params }) {
   return (
     <Layout>
       <Container>
-        { user && <DatosDelPaciente create={true} patientId={patientId} user={user} alignLeft /> }
-        
+        { user && <DatosDelPaciente create patientId={patientId} user={user} alignLeft /> }
+
         <Area>
           <h3 className="text-center color-black">Visitas</h3>
           <Table bordered hover>
@@ -195,25 +193,25 @@ function Perfil({ params }) {
                 />
               </Col>
               <Col xs={12} sm={12} md={4} lg={4}>
-              {
+                {
               mode === 'edit' ? (
-                    <Button
-                      type="submit"
-                      className="btn btn-primary input"
-                      style={{ backgroundColor: 'var(--primaryColor)' }}
-                    >
-                      Actualizar
-                    </Button>
-                  ) : (
-                      <Button
-                        type="submit"
-                        onClick={() => setMode('edit')}
-                      className="btn btn-primary input"
-                      style={{ backgroundColor: 'var(--primaryColor)' }}
-                    >
-                      Editar
-                    </Button>
-                )
+                <Button
+                  type="submit"
+                  className="btn btn-primary input"
+                  style={{ backgroundColor: 'var(--primaryColor)' }}
+                >
+                  Actualizar
+                </Button>
+              ) : (
+                <Button
+                  type="submit"
+                  onClick={() => setMode('edit')}
+                  className="btn btn-primary input"
+                  style={{ backgroundColor: 'var(--primaryColor)' }}
+                >
+                  Editar
+                </Button>
+              )
               }
               </Col>
             </Row>

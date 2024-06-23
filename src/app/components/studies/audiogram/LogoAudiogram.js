@@ -152,16 +152,16 @@ const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, observa
     </Row>
 
     <div className="mt-4">
-        <p className="m-0 mb-2" style={{ fontSize: '22px' }}>Observaciones</p>
-        <Form.Control
-          type="textarea"
-          placeholder="Escribir acá observaciones"
-          value={observations}
-          onChange={(e) => setObservations(e.target.value)}
-        />
-      </div>
+      <p className="m-0 mb-2" style={{ fontSize: '22px' }}>Observaciones</p>
+      <Form.Control
+        type="textarea"
+        placeholder="Escribir acá observaciones"
+        value={observations}
+        onChange={(e) => setObservations(e.target.value)}
+      />
+    </div>
     <div className="mt-4">
-      <FinishStudyBtn observations={observations} results={STUDIES} patientId={"patientId"} type={"STUDY_TYPES.LOGOAUDIOGRAM"} />
+      <FinishStudyBtn observations={observations} results={STUDIES} patientId="patientId" type="STUDY_TYPES.LOGOAUDIOGRAM" />
     </div>
   </Col>
 );

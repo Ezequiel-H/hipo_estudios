@@ -2,19 +2,19 @@
 
 import React from 'react';
 import {
-  Container, Button, NavDropdown
+  Container, NavDropdown,
 } from 'react-bootstrap';
 import styled from '@emotion/styled';
 import { formatDate } from '@/utils/date';
 
-const Boton = styled(Button)`
-    padding: 5px;
-    margin-right: 10px;
-    background-color: transparent;
-    &:hover {
-        transform: scale(1.3);
-    }
-`;
+// const Boton = styled(Button)`
+//     padding: 5px;
+//     margin-right: 10px;
+//     background-color: transparent;
+//     &:hover {
+//         transform: scale(1.3);
+//     }
+// `;
 
 const TheNavDropdown = styled(NavDropdown)`
     .dropdown-menu {
@@ -50,7 +50,9 @@ const TheNavDropdown2 = styled(TheNavDropdown)`
     }
 `;
 
-function DatosDelPaciente({ user, alignLeft, create, patientId }) {
+function DatosDelPaciente({
+  user, alignLeft, create, patientId,
+}) {
   const {
     name,
     surname,
@@ -63,7 +65,7 @@ function DatosDelPaciente({ user, alignLeft, create, patientId }) {
     <Container>
       <div className="pt-4" style={{ backgroundColor: 'white', textAlign: 'center' }}>
         {/* <p className="mb-0" style={{ fontSize: '22px' }}>Paciente</p> */}
-        
+
         <p className="mb-0">
           {alignLeft ? <strong style={{ fontSize: '30px' }}>{`${name} ${surname}`}</strong> : <strong>{`${name}, ${surname}`}</strong>}
           <br />
@@ -76,8 +78,8 @@ function DatosDelPaciente({ user, alignLeft, create, patientId }) {
           Afiliado:
           <strong>{` ${parseNumeroAfiliado(numeroAfiliado)}`}</strong>
         </p>
-          {create ? (
-          <div style={{ display: 'flex', justifyContent: "center"}} className='mt-4'>
+        {create ? (
+          <div style={{ display: 'flex', justifyContent: 'center' }} className="mt-4">
             <TheNavDropdown
               title="Nuevo estudio"
               className="dropdown-item"

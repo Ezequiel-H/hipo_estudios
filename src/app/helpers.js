@@ -6,7 +6,7 @@ const swalAlert = ({
   title, text, icon, timer, showDenyButton,
   showCancelButton,
   confirmButtonText,
-  denyButtonText
+  denyButtonText,
 }) => {
   Swal.fire({
     title,
