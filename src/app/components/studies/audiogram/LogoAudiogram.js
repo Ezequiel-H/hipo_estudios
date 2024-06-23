@@ -9,10 +9,10 @@
 import React, { useReducer, useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import {
-  Col, Row, Container, Form, Button,
+  Col, Row, Container, Form,
 } from 'react-bootstrap';
 import Image from 'next/image';
-import localStorageNames from '@/app/constants/localStorage';
+import FinishStudyBtn from '../FinishStudyBtn';
 
 const Template = styled.div`
   background-color: white;
@@ -124,7 +124,7 @@ const STUDIES_SIDE = {
   [STUDIES_NAMES.I_OSEA]: 'izquierda',
 };
 
-const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile) => (
+const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, observations, setObservations) => (
   <Col md={12} lg={4} xl={4} key={4} className="col-estudio-info" style={{ width: 'fit-content' }}>
     <Row className={isMobile ? 'select-tools-audiogram-mobile' : 'select-tools-audiogram'}>
       {Object.values(STUDIES_NAMES).map((name, index) => (
@@ -152,19 +152,16 @@ const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile) => (
     </Row>
 
     <div className="mt-4">
-      <p className="m-0 mb-2" style={{ fontSize: '22px' }}>Observaciones</p>
-      <Form.Control type="textarea" placeholder="Escribir acá..." />
-    </div>
+        <p className="m-0 mb-2" style={{ fontSize: '22px' }}>Observaciones</p>
+        <Form.Control
+          type="textarea"
+          placeholder="Escribir acá observaciones"
+          value={observations}
+          onChange={(e) => setObservations(e.target.value)}
+        />
+      </div>
     <div className="mt-4">
-      <Button
-        onClick={() => {
-          const datosJSON = JSON.stringify(STUDIES);
-          localStorage.setItem(localStorageNames.LOGOAUDIOGRAM, datosJSON);
-        }}
-        className="btn btn-secondary"
-      >
-        Guardar estudio
-      </Button>
+      <FinishStudyBtn observations={observations} results={STUDIES} patientId={"patientId"} type={"STUDY_TYPES.LOGOAUDIOGRAM"} />
     </div>
   </Col>
 );
@@ -177,6 +174,7 @@ function LogoAudiogram() {
     [STUDIES_NAMES.I_AEREA]: ['', '', '', '', '', '', '', '', '', '', ''],
   });
   const [isMobile, setIsMobile] = useState(false);
+  const [observations, setObservations] = useState('');
 
   const [lineasElementos, setLineas] = useState([]);
 
@@ -362,7 +360,7 @@ function LogoAudiogram() {
               </Form>
             </Row>
             {
-              !isMobile && tools(evaluando, setEvaluando, agregarCurva, STUDIES, isMobile)
+              !isMobile && tools(evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, observations, setObservations)
             }
           </Container>
 
@@ -370,7 +368,7 @@ function LogoAudiogram() {
       </Container>
       <Container>
         {
-          isMobile && tools(evaluando, setEvaluando, agregarCurva, STUDIES, isMobile)
+          isMobile && tools(evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, observations, setObservations)
         }
       </Container>
 

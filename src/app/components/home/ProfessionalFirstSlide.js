@@ -67,7 +67,6 @@ function ProfessionalFirstSlide() {
         </TertiaryBox>
         <QuartyBox xs={12} sm={12} md={4} lg={4}>
           <h5>Estudios</h5>
-
           {
             mode === 'newStudy' ? (
               <>

@@ -26,8 +26,7 @@
     "react-dom": "^18",
     "react-to-pdf": "^1.0.1",
     "reactstrap": "^9.2.1",
-    "sweetalert2": "^11.11.1",
-    "sweetalert2-react-content": "^5.0.7"
+    "sweetalert2": "^11.11.1"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.2.3",

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import {
-  Container, Table, Button, Col, Row, Form,
+  Container, Table, Button, Col, Row, Form
 } from 'react-bootstrap';
 import { useSearchParams } from 'next/navigation';
 import styled from '@emotion/styled';
@@ -16,6 +16,8 @@ const Area = styled.div`
   border-radius: 30px;
   margin-top: 35px;
 `;
+
+
 
 const Area2 = styled(Area)`
   border: 7px solid var(--tertiaryColor);
@@ -33,11 +35,11 @@ const Area2 = styled(Area)`
 
 function Perfil({ params }) {
   const searchParams = useSearchParams();
-  const mode = searchParams.get('mode');
 
   const { patientId } = params;
   const [user, setUser] = useState('');
   const [visits, setVisits] = useState([]);
+  const [mode, setMode] = useState(searchParams.get('mode'))
 
   function createVisits(studies) {
     return studies.reduce((acc, study) => {
@@ -75,10 +77,10 @@ function Perfil({ params }) {
   return (
     <Layout>
       <Container>
-        {user && <DatosDelPaciente user={user} alignLeft />}
+        { user && <DatosDelPaciente create={true} patientId={patientId} user={user} alignLeft /> }
+        
         <Area>
           <h3 className="text-center color-black">Visitas</h3>
-
           <Table bordered hover>
             <thead>
               <tr>
@@ -96,58 +98,17 @@ function Perfil({ params }) {
                     <td>{visit.date}</td>
                     <td>
                       {
-                        visit.studies.map((oneStudy) => (
-                          <a className="visita-item" target="_blank" href={`/paciente/estudios/${oneStudy._id}`} rel="noreferrer">
+                        visit.studies.map((oneStudy, index2) => (
+                          <a key={index2} className="visita-item" target="_blank" href={`/paciente/estudios/${oneStudy._id}`} rel="noreferrer">
                             {oneStudy.type}
                           </a>
                         ))
                       }
                     </td>
-                    <td>{visit.date}</td>
-
+                    <td>{visit.studies[0].professional === localStorage.getItem('userId') ? '✅' : 'no'}</td>
                   </tr>
                 ))
               }
-
-              <tr>
-                <td>2</td>
-                <td>15/04/2019</td>
-                <td>
-                  <a className="visita-item" href="/test">
-                    Audiometria
-                  </a>
-                  <a className="visita-item" href="/test">
-                    Selección de audífonos
-                  </a>
-                  <a className="visita-item" href="/test">
-                    PEACH
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>15/04/2018</td>
-                <td>
-                  <a className="visita-item" href="/test">
-                    Audiometria
-                  </a>
-                  <a className="visita-item" href="/test">
-                    Logoaudiometria
-                  </a>
-                  <a className="visita-item" href="/test">
-                    Timpanometría
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>15/04/2001</td>
-                <td>
-                  <a className="visita-item" href="/test">
-                    Selección de audífonos
-                  </a>
-                </td>
-              </tr>
             </tbody>
           </Table>
         </Area>
@@ -205,7 +166,7 @@ function Perfil({ params }) {
                   disabled={mode !== 'edit'}
                   type="number"
                   name="osNumber"
-                  value={user.osNumber}
+                  value={user.numeroAfiliado}
                   onChange={(e) => handleChange(e)}
                   placeholder="Numero de afiliado"
                   className="input"
@@ -233,9 +194,9 @@ function Perfil({ params }) {
                   className="input"
                 />
               </Col>
+              <Col xs={12} sm={12} md={4} lg={4}>
               {
-                mode === 'edit' ? (
-                  <Col xs={12} sm={12} md={4} lg={4}>
+              mode === 'edit' ? (
                     <Button
                       type="submit"
                       className="btn btn-primary input"
@@ -243,9 +204,18 @@ function Perfil({ params }) {
                     >
                       Actualizar
                     </Button>
-                  </Col>
-                ) : null
+                  ) : (
+                      <Button
+                        type="submit"
+                        onClick={() => setMode('edit')}
+                      className="btn btn-primary input"
+                      style={{ backgroundColor: 'var(--primaryColor)' }}
+                    >
+                      Editar
+                    </Button>
+                )
               }
+              </Col>
             </Row>
           </Form>
         </Area2>

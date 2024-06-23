@@ -9,13 +9,11 @@
 import React, { useReducer, useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import {
-  Col, Row, Container, Form, Button,
+  Col, Row, Container, Form,
 } from 'react-bootstrap';
 import Image from 'next/image';
-import localStorageNames from '@/app/constants/localStorage';
-import Finished from '../Finished';
-import { addStudyForUser } from '@/app/db/studies';
 import { STUDY_TYPES } from '@/app/constants/study';
+import FinishStudyBtn from '../FinishStudyBtn';
 
 const Template = styled.div`
   background-color: white;
@@ -145,11 +143,6 @@ const tools = (
     STUDIES,
     isMobile,
     patientId,
-    proceso,
-    setProceso,
-    proximoEstudio,
-    setProximoEstudio,
-    realizarProximoEstudio,
   },
 ) => {
   const [observations, setObservations] = useState('');
@@ -199,83 +192,7 @@ const tools = (
           onChange={(e) => setObservations(e.target.value)}
         />
       </div>
-      <div className="mt-4">
-        {
-        proceso === 1 ? (
-          <Button
-            onClick={async () => {
-              const datosJSON = JSON.stringify(STUDIES);
-              localStorage.setItem(localStorageNames.AUDIOGRAM, datosJSON);
-              const professionalId = localStorage.getItem('userId');
-              await addStudyForUser(patientId, {
-                type: STUDY_TYPES.AUDIOGRAM,
-                result: STUDIES,
-                date: new Date(),
-                observation: observations,
-                professional: professionalId,
-              });
-              setProceso(2);
-            }}
-            className="btn btn-secondary"
-          >
-            Guardar estudio
-          </Button>
-        ) : (proceso === 2) ? (
-          <>
-            <p>¿Terminaste con este paciente?</p>
-            <Button
-              onClick={() => {
-                const datosJSON = JSON.stringify(STUDIES);
-                localStorage.setItem(localStorageNames.AUDIOGRAM, datosJSON);
-                setProceso(3);
-              }}
-              className="btn btn-secondary"
-              style={{ marginRight: '10px' }}
-            >
-              Si
-            </Button>
-            <Button
-              onClick={() => {
-                const datosJSON = JSON.stringify(STUDIES);
-                localStorage.setItem(localStorageNames.AUDIOGRAM, datosJSON);
-                setProceso(4);
-              }}
-              className="btn btn-primary"
-              style={{ marginLeft: '10px!important' }}
-            >
-              Realizar otro estudio
-            </Button>
-          </>
-        ) : proceso === 3 ? (
-          <Finished modal />
-        ) : proceso === 4 ? (
-          <>
-            <p className="color-black mt-4">Realizar otro estudio</p>
-            <div style={{ display: 'flex' }}>
-              <Form.Select
-                aria-label="Seleccionar estudio a realizar"
-                style={{ marginRight: '10px' }}
-                value={proximoEstudio}
-                onChange={(e) => setProximoEstudio(e.target.value)}
-              >
-                <option>Seleccionar próximo estudio</option>
-                <option value="logoaudiometria">Logoaudiometría</option>
-                <option value="impedanciometria">Impedanciometría</option>
-                <option value="timpanometria">Timpanometría</option>
-                <option value="potenciales-evocados">Potenciales evocados</option>
-                <option value="otoemision">Otoemisión</option>
-              </Form.Select>
-              <Button
-                className="btn btn-primary"
-                onClick={() => realizarProximoEstudio()}
-              >
-                Realizar
-              </Button>
-            </div>
-          </>
-        ) : null
-      }
-      </div>
+      <FinishStudyBtn observations={observations} results={STUDIES} patientId={patientId} type={STUDY_TYPES.AUDIOGRAM} />
     </Col>
   );
 };
@@ -283,8 +200,6 @@ const tools = (
 function Audiogram({ patientId }) {
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
   const [evaluando, setEvaluando] = useState('dAerea');
-  const [proximoEstudio, setProximoEstudio] = useState('');
-  const [proceso, setProceso] = useState(1);
   const [STUDIES, setStudies] = useState({
     [STUDIES_NAMES.D_AEREA]: ['', '', '', '', '', '', '', '', '', '', ''],
     [STUDIES_NAMES.I_AEREA]: ['', '', '', '', '', '', '', '', '', '', ''],
@@ -306,12 +221,6 @@ function Audiogram({ patientId }) {
       return str.substring(1);
     }
     return str;
-  }
-
-  function realizarProximoEstudio() {
-    const datosJSON = JSON.stringify(STUDIES);
-    localStorage.setItem(localStorageNames.AUDIOGRAM, datosJSON);
-    window.location.href = `/profesional/pacientes/${patientId}/nuevo/${proximoEstudio}`;
   }
 
   const agregarCurva = (estudioActual = evaluando) => {
@@ -499,11 +408,6 @@ function Audiogram({ patientId }) {
                   STUDIES,
                   isMobile,
                   patientId,
-                  proceso,
-                  setProceso,
-                  proximoEstudio,
-                  setProximoEstudio,
-                  realizarProximoEstudio,
                 },
               )
             }
@@ -520,11 +424,6 @@ function Audiogram({ patientId }) {
             STUDIES,
             isMobile,
             patientId,
-            proceso,
-            setProceso,
-            proximoEstudio,
-            setProximoEstudio,
-            realizarProximoEstudio,
           })
         }
       </Container>

@@ -1,15 +1,14 @@
 'use client';
 
 import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
 
 const swalAlert = ({
   title, text, icon, timer, showDenyButton,
   showCancelButton,
   confirmButtonText,
-  denyButtonText,
+  denyButtonText
 }) => {
-  withReactContent(Swal).fire({
+  Swal.fire({
     title,
     text,
     icon,
