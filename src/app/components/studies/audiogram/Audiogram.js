@@ -121,6 +121,13 @@ const PARALLEL_STUDIES_IMAGES = {
   [STUDIES_NAMES.I_OSEA]: '/img/estudios/markers/sr_osea_izquierda.png',
 };
 
+const STUDIES_IMAGES_MASKING = {
+  [STUDIES_NAMES.D_AEREA]: '/img/estudios/markers/aerea_derecha_masking.png',
+  [STUDIES_NAMES.I_AEREA]: '/img/estudios/markers/aerea_derecha_masking.png',
+  [STUDIES_NAMES.D_OSEA]: '/img/estudios/markers/aerea_derecha_masking.png',
+  [STUDIES_NAMES.I_OSEA]: '/img/estudios/markers/aerea_derecha_masking.png',
+};
+
 const STUDIES_FULL_NAMES = {
   [STUDIES_NAMES.D_AEREA]: 'Aérea derecha',
   [STUDIES_NAMES.I_AEREA]: 'Aérea izquierda',
@@ -143,6 +150,7 @@ const tools = (
     STUDIES,
     isMobile,
     patientId,
+    addOrRemoveMaskingForStudy,
   },
 ) => {
   const [observations, setObservations] = useState('');
@@ -163,6 +171,9 @@ const tools = (
           <Col key={index}>
             <SeleccionEstudio
               onClick={() => {
+                if (evaluando === name) {
+                  addOrRemoveMaskingForStudy(name);
+                }
                 setEvaluando(name);
                 agregarCurva(name);
               }}
@@ -170,7 +181,9 @@ const tools = (
               className={evaluando === name ? 'opacity-100' : 'opacity-25'}
             >
               <Image
-                src={STUDIES_IMAGES[name]}
+                src={STUDIES[name][0] === 'm'
+                  ? STUDIES_IMAGES_MASKING[name]
+                  : STUDIES_IMAGES[name]}
                 alt={STUDIES_FULL_NAMES[name]}
                 width={55}
                 height={55}
@@ -229,7 +242,7 @@ function Audiogram({ patientId }) {
       const elemento = document.getElementById(`b-${removeFirstA(punto)}-${index}`);
       const lineas = document.getElementById('lineas');
       return (elemento && punto !== '')
-        ? { x: elemento.getBoundingClientRect().x - lineas.getBoundingClientRect().x + 12, y: elemento.offsetTop + 8 }
+        ? { x: elemento.getBoundingClientRect().x - lineas.getBoundingClientRect().x + 15, y: elemento.offsetTop + 10 }
         : { x: undefined, y: undefined };
     }).filter((value) => value.x !== undefined);
 
@@ -261,6 +274,11 @@ function Audiogram({ patientId }) {
     forceUpdate();
   };
 
+  const addOrRemoveMaskingForStudy = (studyName) => {
+    const valueToSet = STUDIES[studyName][0] === 'm' ? '' : 'm';
+    return addValueToResults(valueToSet, 0, studyName);
+  };
+
   function AudiometriaComp() {
     // TODO: Karina habia pedido poder ver lo compeltado anteriormente.
     // EJ: si hizo viaOseaDerecha y ahora esta en la izquierda, poder ver la derecha
@@ -286,7 +304,12 @@ function Audiogram({ patientId }) {
               : (
                 <button style={{ zIndex: 50 }} onClick={() => addValueToResults(row, col, evaluando)} id={`b-${row}-${col}`}>
                   <Image
-                    src={STUDIES[evaluando][col] === `a${row}` ? PARALLEL_STUDIES_IMAGES[evaluando] : STUDIES_IMAGES[evaluando]}
+                    src={STUDIES[evaluando][0] === 'm'
+                      ? STUDIES_IMAGES_MASKING[evaluando]
+                      : (STUDIES[evaluando][col] === `a${row}`
+                        ? PARALLEL_STUDIES_IMAGES[evaluando]
+                        : STUDIES_IMAGES[evaluando]
+                      )}
                     alt="Circulo rojo audiometria"
                     width={STUDIES[evaluando][col] === `a${row}` ? 22 : 22}
                     // antes decia 22 : 16
@@ -408,6 +431,7 @@ function Audiogram({ patientId }) {
                   STUDIES,
                   isMobile,
                   patientId,
+                  addOrRemoveMaskingForStudy,
                 },
               )
             }
