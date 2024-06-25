@@ -182,10 +182,7 @@ function Timpanometria() {
   }
 
   return (
-    <Container
-      style={{
-        margin: '0 auto'
-    }}>
+    <Container style={{ margin: '0 auto' }}>
       <Row className="mt-4" style={{ padding: '30px 0' }}>
         <Col style={{ maxWidth: 'fit-content' }}>
           <Form style={{ maxWidth: 'fit-content' }}>
