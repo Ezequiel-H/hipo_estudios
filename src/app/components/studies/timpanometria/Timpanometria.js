@@ -8,7 +8,7 @@ import {
 } from 'react-bootstrap';
 import styled from '@emotion/styled';
 
-const Audiograma = styled.div`
+const Timpanograma = styled.div`
   position: relative;
   width: 581px;
   height: 609px;
@@ -35,10 +35,11 @@ const Casillero = styled.div`
 `;
 
 const CeldaTextsInput = styled.div`
-  margin: 0 !important;
-  padding: 2px 12px;
+  margin: 0!important;
+  padding: 2px 5px;
   height: 40px;
-  width: 70px;
+  max-width: 70px;
+  width: 100%;
   background-color: transparent;
   color: black;
   display: flex;
@@ -120,10 +121,7 @@ function Timpanometria() {
     forceUpdate();
   };
 
-  function AudiometriaComp() {
-    // TODO: Karina habia pedido poder ver lo compeltado anteriormente.
-    // EJ: si hizo viaOseaDerecha y ahora esta en la izquierda, poder ver la derecha
-    // Podria estar bueno que se vea con menos opacidad o algo asi y no sea editable, claro.
+  function TimpanometriaComp() {
     const rows = [];
 
     for (let row = 0; row < 30; row++) {
@@ -154,7 +152,7 @@ function Timpanometria() {
                   fontSize: '12px',
                 }}
                 >
-                  {500 - (col * 50)}
+                  {Math.abs(500 - (col * 50))}
                 </p>
               ) : null) : (
                 <div id={`b-${row}-${col}`} />
@@ -184,19 +182,11 @@ function Timpanometria() {
   }
 
   return (
-    <Container>
-      <Audiograma>
-        {AudiometriaComp()}
-        <svg
-          style={{
-            position: 'absolute', width: '100%', height: '100%', top: 0, left: 0, zIndex: 10,
-          }}
-          id="lineas"
-        >
-          {lineasElementos}
-        </svg>
-      </Audiograma>
-      <Row className="mt-4" style={{ paddingTop: '30px' }}>
+    <Container
+      style={{
+        margin: '0 auto'
+    }}>
+      <Row className="mt-4" style={{ padding: '30px 0' }}>
         <Col style={{ maxWidth: 'fit-content' }}>
           <Form style={{ maxWidth: 'fit-content' }}>
             <div
@@ -260,6 +250,17 @@ function Timpanometria() {
           </Form>
         </Col>
       </Row>
+      <Timpanograma>
+        {TimpanometriaComp()}
+        <svg
+          style={{
+            position: 'absolute', width: '100%', height: '100%', top: 0, left: 0, zIndex: 10,
+          }}
+          id="lineas"
+        >
+          {lineasElementos}
+        </svg>
+      </Timpanograma>
     </Container>
   );
 }
