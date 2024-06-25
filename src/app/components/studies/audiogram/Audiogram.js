@@ -279,6 +279,14 @@ function Audiogram({ patientId }) {
     return addValueToResults(valueToSet, 0, studyName);
   };
 
+  const getImage = (row, col) => (
+    STUDIES[evaluando][0] === 'm'
+      ? STUDIES_IMAGES_MASKING[evaluando]
+      : (STUDIES[evaluando][col] === `a${row}`
+        ? PARALLEL_STUDIES_IMAGES[evaluando]
+        : STUDIES_IMAGES[evaluando]
+      ));
+
   function AudiometriaComp() {
     // TODO: Karina habia pedido poder ver lo compeltado anteriormente.
     // EJ: si hizo viaOseaDerecha y ahora esta en la izquierda, poder ver la derecha
@@ -304,12 +312,7 @@ function Audiogram({ patientId }) {
               : (
                 <button style={{ zIndex: 50 }} onClick={() => addValueToResults(row, col, evaluando)} id={`b-${row}-${col}`}>
                   <Image
-                    src={STUDIES[evaluando][0] === 'm'
-                      ? STUDIES_IMAGES_MASKING[evaluando]
-                      : (STUDIES[evaluando][col] === `a${row}`
-                        ? PARALLEL_STUDIES_IMAGES[evaluando]
-                        : STUDIES_IMAGES[evaluando]
-                      )}
+                    src={getImage(row, col)}
                     alt="Circulo rojo audiometria"
                     width={STUDIES[evaluando][col] === `a${row}` ? 22 : 22}
                     // antes decia 22 : 16
