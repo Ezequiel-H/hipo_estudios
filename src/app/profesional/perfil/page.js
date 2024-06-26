@@ -2,13 +2,14 @@
 
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container, Button, Row, Col, Form,
 } from 'react-bootstrap';
 // import Select from 'react-select';
 import styled from '@emotion/styled';
 import Layout from '@/app/components/general/Layout';
+import { getProfessionalInfo } from '@/app/db/professional';
 // import OneCenter from '@/app/components/professional/profile/OneCenter';
 
 const Area = styled.div`
@@ -39,7 +40,57 @@ const Area = styled.div`
 
 function Perfil() {
   // const [selectedOS, setSelectedOS] = useState([]);
+  const [professionalInfo, setProfessionalInfo] = useState({
+    name: '',
+    surname: '',
+    email: '',
+    phone: '',
+    matriculas: [
+      {
+        type: 'nacional',
+        matricula: '1111',
+      },
+      {
+        type: 'provincial',
+        matricula: '2222',
+      },
+    ],
+    country: '',
 
+  });
+  const [updatedProfessionalInfo, setUpdatedProfessionalInfo] = useState({});
+
+  async function loadProfessionalInfo() {
+    await getProfessionalInfo(localStorage.getItem('userId'))
+      .then((response) => {
+        setProfessionalInfo(response.data);
+        setUpdatedProfessionalInfo(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  useEffect(() => {
+    loadProfessionalInfo();
+  }, []);
+
+  function handleChange(e) {
+    setUpdatedProfessionalInfo({
+      ...updatedProfessionalInfo,
+      [e.target.name]: e.target.value,
+    });
+  }
+  async function updateProfessionalInfo(e) {
+    e.preventDefault();
+    await updateProfessionalInfo(updatedProfessionalInfo)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
   return (
     <Layout>
       <Container>
@@ -55,25 +106,48 @@ function Perfil() {
 
         <Area>
           <h3 className="text-center color-black mb-4">Datos personales</h3>
-          <Form>
+          <Form onSubmit={updateProfessionalInfo}>
             <Row>
               <Col xs={12} sm={12} md={4} lg={4}>
-                <Form.Control placeholder="Nombre" type="text" className="input" />
+                <Form.Control name="name" onChange={handleChange} placeholder="Nombre" type="text" className="input" value={updatedProfessionalInfo.name} />
               </Col>
               <Col xs={12} sm={12} md={4} lg={4}>
-                <Form.Control placeholder="Apellido" className="input" />
+                <Form.Control name="surname" onChange={handleChange} placeholder="Apellido" className="input" value={updatedProfessionalInfo.surname} />
               </Col>
               <Col xs={12} sm={12} md={4} lg={4}>
-                <Form.Control placeholder="Matricula" className="input" />
+                <Form.Control
+                  name="matriculaNacional"
+                  onChange={handleChange}
+                  placeholder="Matricula nacional"
+                  className="input"
+                />
               </Col>
               <Col xs={12} sm={12} md={4} lg={4}>
-                <Form.Control placeholder="Email" type="email" className="input" />
+                <Form.Control
+                  name="matriculaProvincial"
+                  onChange={handleChange}
+                  placeholder="Matricula provincial"
+                  className="input"
+                />
               </Col>
               <Col xs={12} sm={12} md={4} lg={4}>
-                <Form.Control type="number" placeholder="Celular" className="input" />
+                <Form.Control name="email" onChange={handleChange} placeholder="Email" type="email" className="input" value={updatedProfessionalInfo.email} />
               </Col>
               <Col xs={12} sm={12} md={4} lg={4}>
-                <Button className="btn btn-primary input" style={{ backgroundColor: 'var(--primaryColor)' }}>Guardar</Button>
+                <Form.Control name="phone" onChange={handleChange} type="number" placeholder="Celular" className="input" value={updatedProfessionalInfo.phone} />
+              </Col>
+              <Col xs={12} sm={12} md={4} lg={4}>
+                <Form.Control name="country" onChange={handleChange} type="text" placeholder="Pais" className="input" value={updatedProfessionalInfo.country} />
+              </Col>
+              <Col xs={12} sm={12} md={4} lg={4}>
+                <Button
+                  className="btn btn-primary input"
+                  style={{ backgroundColor: 'var(--primaryColor)' }}
+                  type="submit"
+                  disabled={updatedProfessionalInfo === professionalInfo}
+                >
+                  Actualizar
+                </Button>
               </Col>
             </Row>
           </Form>

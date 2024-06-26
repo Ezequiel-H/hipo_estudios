@@ -8,6 +8,7 @@ import styled from '@emotion/styled';
 import Layout from '@/app/components/general/Layout';
 import { getAllStudiesForPatient } from '@/app/db/patient';
 import { getPatientById } from '@/app/db/user';
+import { createVisits } from '@/app/helpers';
 
 const Area = styled.div`
   border: 7px solid var(--quartyColor);
@@ -32,39 +33,49 @@ const Area2 = styled(Area)`
 function PatientProfile() {
   // eslint-disable-next-line no-unused-vars
   const [patient, setPatient] = useState('');
-  const [studies, setStudies] = useState([]);
-  const [filterType, setFilterType] = useState('');
+  const [originalPatient, setOriginalPatient] = useState('');
+  const [visits, setVisits] = useState([]);
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');
+  // const [studies, setStudies] = useState([]);
+  // const [filterType, setFilterType] = useState('');
   // const [professionals, setProfessionals] = useState({});
 
+  const fetchData = async () => {
+    const fetchedPatient = await getPatientById(localStorage.getItem('userId'));
+    setPatient(fetchedPatient);
+    setOriginalPatient(fetchedPatient);
+    const fetchedStudies = await getAllStudiesForPatient(localStorage.getItem('userId'));
+    setVisits(createVisits(fetchedStudies));
+
+    // if (response.professionals.length > 0) {
+    //   const professionalsArray = [];
+    //   response.professionals.forEach(async (oneProfessional) => {
+    //     const thisStudy = await getProfessionalById(oneProfessional);
+    //     professionalsArray.push(thisStudy);
+    //   });
+    //   // setProfessionals(professionalsArray);
+    //   console.log(professionalsArray);
+    // }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const fetchedPatient = await getPatientById(localStorage.getItem('userId'));
-      setPatient(fetchedPatient);
-      const fetchedStudies = await getAllStudiesForPatient(localStorage.getItem('userId'));
-      setStudies(fetchedStudies);
-
-      // if (response.professionals.length > 0) {
-      //   const professionalsArray = [];
-      //   response.professionals.forEach(async (oneProfessional) => {
-      //     const thisStudy = await getProfessionalById(oneProfessional);
-      //     professionalsArray.push(thisStudy);
-      //   });
-      //   // setProfessionals(professionalsArray);
-      //   console.log(professionalsArray);
-      // }
-    };
-
     fetchData();
   }, []);
 
-  const filteredStudies = studies.filter((study) => {
-    if (filterType && study.type !== filterType) return false;
-    if (fromDate && study.date < fromDate) return false;
-    if (toDate && study.date > toDate) return false;
+  const filteredVisits = visits.filter((visit) => {
+    // if (filterType && visit.type !== filterType) return false;
+    if (fromDate && visit.date < fromDate) return false;
+    if (toDate && visit.date > toDate) return false;
     return true;
   });
+
+  function handleChange(e) {
+    setPatient({
+      ...patient,
+      [e.target.name]: e.target.value,
+    });
+  }
 
   return (
     <Layout>
@@ -84,16 +95,17 @@ function PatientProfile() {
           </div>
 
           <Area2>
-            <h3 className="text-center color-black" id="estudios">Mis estudios</h3>
+            <h3 className="text-center color-black" id="estudios">Mis visitas</h3>
 
             <div className="study-filter mx-auto text-center mt-4 mb-4">
-              <Form.Label>
-                <select className="input" value={filterType} onChange={(e) => setFilterType(e.target.value)}>
+              {/* <Form.Label>
+                <select className="input" value={filterType}
+                onChange={(e) => setFilterType(e.target.value)}>
                   <option value="">Todos</option>
                   <option value="estudios">Estudios</option>
                   <option value="formularios">Formularios</option>
                 </select>
-              </Form.Label>
+              </Form.Label> */}
               <Form.Label>
                 Desde
                 <input type="date" className="input" value={fromDate} onChange={(e) => setFromDate(e.target.value)} />
@@ -103,27 +115,32 @@ function PatientProfile() {
                 <input type="date" className="input" value={toDate} onChange={(e) => setToDate(e.target.value)} />
               </Form.Label>
             </div>
-            {filteredStudies.length === 0 ? (
-              <p>No hay estudios para el filtro aplicado.</p>
+            {filteredVisits.length === 0 ? (
+              <p>No hay visitas para el filtro aplicado.</p>
             ) : (
               <Table bordered hover>
                 <thead>
                   <tr>
                     <th>#</th>
                     <th>Fecha</th>
-                    <th>Titulo</th>
-                    <th>Estudio</th>
-                    <th>Link</th>
+                    <th>Estudios</th>
+                    <th>Profesional</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredStudies.map((study) => (
-                    <tr key={study.id}>
-                      <td>{study.id}</td>
-                      <td>{study.title}</td>
-                      <td>{study.type}</td>
-                      <td>{study.date}</td>
-                      <td><a href={`http://localhost:3000/${patient.id}/estudios/${study.id}`} target="_blank" rel="noopener noreferrer">Link</a></td>
+                  {filteredVisits.map((visit, index) => (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{visit.date}</td>
+                      <td>
+                        {
+                          visit.studies.map((oneStudy, index2) => (
+                            <a key={index2} className="visita-item" target="_blank" href={`/paciente/estudios/${oneStudy._id}`} rel="noreferrer">
+                              {oneStudy.type}
+                            </a>
+                          ))
+                        }
+                      </td>
                     </tr>
                   ))}
 
@@ -137,22 +154,34 @@ function PatientProfile() {
             <Form>
               <Row>
                 <Col xs={12} sm={12} md={4} lg={4}>
-                  <Form.Control placeholder="Nombre" type="text" className="input" value={patient.name} />
+                  <Form.Control name="name" onChange={handleChange} placeholder="Nombre" type="text" className="input" value={patient.name} />
                 </Col>
                 <Col xs={12} sm={12} md={4} lg={4}>
-                  <Form.Control placeholder="Apellido" className="input" value={patient.surname} />
+                  <Form.Control name="surname" onChange={handleChange} placeholder="Apellido" className="input" value={patient.surname} />
                 </Col>
                 <Col xs={12} sm={12} md={4} lg={4}>
-                  <Form.Control placeholder="Fecha de nacimiento" className="input" value={patient.birthdate} />
+                  <Form.Control name="os" onChange={handleChange} placeholder="Obra social" className="input" value={patient.os} />
                 </Col>
                 <Col xs={12} sm={12} md={4} lg={4}>
-                  <Form.Control placeholder="Email" type="email" className="input" />
+                  <Form.Control name="numeroAfiliado" onChange={handleChange} placeholder="Número de afiliado" className="input" value={patient.numeroAfiliado} />
                 </Col>
                 <Col xs={12} sm={12} md={4} lg={4}>
-                  <Form.Control type="number" placeholder="Celular" className="input" />
+                  <Form.Control name="birthdate" onChange={handleChange} placeholder="Fecha de nacimiento" className="input" value={patient.birthdate} />
                 </Col>
                 <Col xs={12} sm={12} md={4} lg={4}>
-                  <Button className="btn btn-primary input" style={{ backgroundColor: 'var(--primaryColor)' }}>Actualizar</Button>
+                  <Form.Control name="email" onChange={handleChange} placeholder="Email" type="email" className="input" value={patient.email} />
+                </Col>
+                <Col xs={12} sm={12} md={4} lg={4}>
+                  <Form.Control type="number" name="phone" onChange={handleChange} placeholder="Celular" className="input" value={patient.phone} />
+                </Col>
+                <Col xs={12} sm={12} md={4} lg={4}>
+                  <Button
+                    className="btn btn-primary input"
+                    style={{ backgroundColor: 'var(--primaryColor)' }}
+                    disabled={patient === originalPatient}
+                  >
+                    Actualizar datos
+                  </Button>
                 </Col>
               </Row>
             </Form>

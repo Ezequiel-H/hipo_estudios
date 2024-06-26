@@ -8,28 +8,27 @@ import DatosDelPaciente from '@/app/components/patient/DatosDelPaciente';
 import SelectPatient from '@/app/components/studies/SelectPatient';
 
 function LogoAudiometriaNueva({ params }) {
-  const { userId } = params;
+  const { patientId } = params;
   const [user, setUser] = useState('');
   const [selectPatient, setSelectPatient] = useState(false);
   useEffect(() => {
-    const fetchData = async () => {
-      const newUser = await getPatientById(userId);
-      setUser(newUser);
-    };
     if (window.location.href.includes('seleccionar')) {
       setSelectPatient(true);
+    } else {
+      const fetchData = async () => {
+        const newUser = await getPatientById(patientId);
+        setUser(newUser);
+      };
+      fetchData();
     }
-
-    fetchData();
-  }, [userId]);
+  }, [patientId]);
 
   return (
     <Layout>
       <h1 className="title text-center section1 pb-0">Nueva logoaudiometría</h1>
-      {user && <DatosDelPaciente user={user} />}
+      {user && <DatosDelPaciente user={user} /> }
       {selectPatient ? <SelectPatient /> : null}
-
-      <LogoAudiogram />
+      <LogoAudiogram patientId={patientId} />
     </Layout>
   );
 }

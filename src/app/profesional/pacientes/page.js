@@ -10,7 +10,7 @@ import {
 import styled from '@emotion/styled';
 import Layout from '@/app/components/general/Layout';
 import PatientActions from '@/app/components/professional/profile/PatientActions';
-import { getListOfPatients } from '@/app/db/professional';
+import { createPatientFromProfessional, getListOfPatients } from '@/app/db/professional';
 import swalAlert from '@/app/helpers';
 
 const Area = styled.div`
@@ -48,7 +48,7 @@ function Pacientes() {
     // eslint-disable-next-line
   }, [])
 
-  function newPatientFormSubmit(e) {
+  async function newPatientFormSubmit(e) {
     e.preventDefault();
     if (newPatient.name === '') {
       swalAlert('Importante', 'El nombre es obligatorio', 'warning', '2500', false);
@@ -61,9 +61,14 @@ function Pacientes() {
     } else if (newPatient.phone === '') {
       swalAlert('Importante', 'El teléfono es obligatorio', 'warning', '2500', false);
     } else {
-      // Revisar que no exista el paciente
-      // Si existe, agregarlo como paciente propio???
-      // TODO - DB: postNewPatient(newPatient) y asignarlo al profesional.
+      const professionalId = localStorage.getItem('userId');
+      await createPatientFromProfessional(professionalId, newPatient)
+        .then((resp) => {
+          console.log(resp);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }
 

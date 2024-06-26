@@ -8,28 +8,28 @@ import { getPatientById } from '@/app/db/user';
 import SelectPatient from '@/app/components/studies/SelectPatient';
 
 function PotencialesEvocados({ params }) {
-  const { userId } = params;
+  const { patientId } = params;
   const [user, setUser] = useState('');
   const [selectPatient, setSelectPatient] = useState(false);
+  const fetchData = async () => {
+    const newUser = await getPatientById(patientId);
+    setUser(newUser);
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      const newUser = await getPatientById(userId);
-      setUser(newUser);
-    };
     if (window.location.href.includes('seleccionar')) {
       setSelectPatient(true);
+    } else {
+      fetchData();
     }
-
-    fetchData();
-  }, [userId]);
+  }, [patientId]);
 
   return (
     <Layout>
       <h1 className="title text-center section1 pb-0">Nuevo Potencial Evocado</h1>
-      {user && <DatosDelPaciente user={user} />}
+      {user && <DatosDelPaciente user={user} /> }
       {selectPatient ? <SelectPatient /> : null}
 
-      <PotencialEvocado />
+      <PotencialEvocado patientId={patientId} />
     </Layout>
   );
 }

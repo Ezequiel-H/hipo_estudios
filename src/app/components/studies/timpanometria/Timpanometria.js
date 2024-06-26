@@ -7,6 +7,8 @@ import {
   Row, Col, Container, Form,
 } from 'react-bootstrap';
 import styled from '@emotion/styled';
+import FinishStudyBtn from '../FinishStudyBtn';
+import { STUDY_TYPES } from '@/app/constants/study';
 
 const Timpanograma = styled.div`
   position: relative;
@@ -63,10 +65,11 @@ const STUDIES_NAMES = {
   IZQUIERDA: 'izquierda',
 };
 
-function Timpanometria() {
+function Timpanometria({ patientId }) {
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
   // const [proceso, setProceso] = useState(1);
   // const [proximoEstudio, setProximoEstudio] = useState('');
+  const [observations, setObservations] = useState('');
   const [lineasElementos, setLineas] = useState([]);
   const [STUDIES, setStudies] = useState({
     [STUDIES_NAMES.DERECHA]: ['', '', '', '', '', '', '', '', '', '', ''],
@@ -245,6 +248,18 @@ function Timpanometria() {
               ))}
             </div>
           </Form>
+        </Col>
+        <Col xs={12} sm={12} lg={4} xl={4}>
+          <div className="select-tools-audiogram" style={{ marginLeft: '25px;' }}>
+            <p className="mb-2" style={{ fontSize: '22px' }}>Observaciones</p>
+            <Form.Control
+              type="textarea"
+              placeholder="Escribir acá observaciones"
+              value={observations}
+              onChange={(e) => setObservations(e.target.value)}
+            />
+            <FinishStudyBtn observations={observations} results={STUDIES} patientId={patientId} type={STUDY_TYPES.TIMPANOGRAM} />
+          </div>
         </Col>
       </Row>
       <Timpanograma>

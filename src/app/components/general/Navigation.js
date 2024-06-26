@@ -8,6 +8,7 @@ import styled from '@emotion/styled';
 import Link from 'next/link';
 import { logOut } from '@/app/db/user';
 import { USER_TYPES } from '@/app/constants/users';
+import { swalAlert } from '@/app/helpers';
 
 const Area = styled.div`
   background-image: url('/img/web/header-bg.png');
@@ -38,7 +39,8 @@ const DropdownNavigation = styled(NavDropdown)`
 function Navigation({ userType }) {
   function comingSoon() {
     // eslint-disable-next-line no-alert
-    alert('Función disponible próximamente.');
+    swalAlert('Ups,', 'Estamos trabajando en esta funcionalidad para que pronto puedas aprovecharla.', 'warning', 5000, false, false, 'Ok, esperaré');
+    // alert('Función disponible próximamente.');
   }
   return (
     <Area>

@@ -62,7 +62,6 @@ function registrarse() {
               <div className="login-form">
                 <Form>
                   <Row>
-                    {/* TODO LUCAS: Signup campos distintos segun usuario */}
                     <Col xs={12} sm={12} md={6} lg={6}>
                       <Form.Control
                         placeholder="Nombre"

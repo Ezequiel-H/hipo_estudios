@@ -4,14 +4,16 @@
 /* eslint-disable max-len */
 import React, { useState } from 'react';
 import {
-  Container, Table, Row, Col, Button, Form,
+  Container, Table, Row, Col, Form,
 } from 'react-bootstrap';
 
-function Impedanciometria() {
-  // Faltaria hacer que la columna I s/u reste las anteriores y actualice el resultado. Ahora como se genera afuera, no va actualizando.
+import FinishStudyBtn from '../FinishStudyBtn';
+import { STUDY_TYPES } from '@/app/constants/study';
 
+function Impedanciometria({ patientId }) {
   const [contralateral, setContralateral] = useState(Array(12));
   const [ipsilateral, setIpsilateral] = useState(Array(12));
+  const [observations, setObservations] = useState('');
 
   const numRows = 4;
   const numCols = 7;
@@ -28,6 +30,10 @@ function Impedanciometria() {
       setIpsilateral(newData);
     }
   }
+
+  // TODO EZE:¿como harias esto?
+
+  // La columna I s/u reste las anteriores y actualice el resultado. Ahora como se genera afuera, no va actualizando.
 
   // function getValue(index, table) {
   //   if (table === 'contralateral') {
@@ -127,16 +133,25 @@ function Impedanciometria() {
 
           <Col sm={12} md={12} lg={3} xl={3}>
 
-            <div className="mt-4" style={{ marginLeft: '30px!important' }}>
+            <div className="mt-4 select-tools-audiogram">
               <p className="m-0 mb-2" style={{ fontSize: '22px' }}>Observaciones</p>
-              <Form.Control type="textarea" placeholder="Escribir acá observaciones" />
+              <Form.Control
+                type="textarea"
+                placeholder="Escribir acá observaciones"
+                value={observations}
+                onChange={(e) => setObservations(e.target.value)}
+              />
+            </div>
+            <FinishStudyBtn
+              observations={observations}
+              results={{
+                contralateral, ipsilateral,
+              }}
+              patientId={patientId}
+              type={STUDY_TYPES.IMPEDANCIOMETER}
+            />
+            {/* TODO DB: en guardar da error: '`IMPEDANCIOMETER` is not a valid enum value for path `type`.', */}
 
-            </div>
-            <div className="mt-4" style={{ marginLeft: '30px!important' }}>
-              <Button className="btn btn-secondary">
-                Guardar estudio
-              </Button>
-            </div>
           </Col>
         </Row>
 

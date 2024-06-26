@@ -9,6 +9,7 @@ import styled from '@emotion/styled';
 import Layout from '@/app/components/general/Layout';
 import DatosDelPaciente from '@/app/components/patient/DatosDelPaciente';
 import { getPatientByIdWithStudies } from '@/app/db/patient';
+import { createVisits } from '@/app/helpers';
 
 const Area = styled.div`
   border: 7px solid var(--quartyColor);
@@ -38,19 +39,6 @@ function Perfil({ params }) {
   const [user, setUser] = useState('');
   const [visits, setVisits] = useState([]);
   const [mode, setMode] = useState(searchParams.get('mode'));
-
-  function createVisits(studies) {
-    return studies.reduce((acc, study) => {
-      const dateOnly = study.date.split('T')[0];
-      let group = acc.find((g) => g.date === dateOnly);
-      if (!group) {
-        group = { date: dateOnly, studies: [] };
-        acc.push(group);
-      }
-      group.studies.push(study);
-      return acc;
-    }, []);
-  }
 
   useEffect(() => {
     const fetchData = async (id) => {

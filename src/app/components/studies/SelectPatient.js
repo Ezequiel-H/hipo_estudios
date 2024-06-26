@@ -10,38 +10,39 @@ const ModalP = styled(Modal)`
 `;
 
 function SelectPatient() {
-  const [patientList, setPatientList] = useState([
-    {
-      name: 'Juan',
-      surname: 'Cruz',
-      id: '123',
-    },
-    {
-      name: 'Marta',
-      surname: 'Gomez',
-      id: '1223',
-    },
-    {
-      name: 'Juana',
-      surname: 'Gutierrez',
-      id: '1111',
-    },
-  ]);
-
+  const [patientList, setPatientList] = useState([]);
   const professionalId = localStorage.getItem('userId');
 
-  useEffect(async () => {
-    const getNewPatientList = async () => getListOfPatients(professionalId);
-    const newPatientList = await getNewPatientList();
+  async function getListOfPatientsFromProfessional(profId) {
+    await getListOfPatients(profId)
+      .then((resp) => {
+        setPatientList(resp.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
-    setPatientList(newPatientList);
+  useEffect(() => {
+    getListOfPatientsFromProfessional(professionalId);
   }, [professionalId]);
 
   const [patient, setPatient] = useState('');
+  const [newPatient, setNewPatient] = useState({});
   const [search, setSearch] = useState('');
   function createStudy(e) {
     e.preventDefault();
     window.location.href = window.location.href.replace('seleccionar', patient);
+  }
+  function handleChange(e) {
+    setNewPatient({
+      ...newPatient,
+      [e.target.name]: e.target.value,
+    });
+  }
+  function createNewPatient(e) {
+    e.preventDefault(e);
+    // TODO LUCAS: Como resolvemos?
   }
   return (
     <Container>
@@ -56,13 +57,14 @@ function SelectPatient() {
           <Form className="mt-3">
             <Form.Control onChange={(e) => setSearch(e.target.value)} className="mt-3" type="text" placeholder="Buscá por nombre, apellido o DNI." />
             <Form.Select onChange={(e) => setPatient(e.target.value)} className="mt-1" aria-label="Seleccionar paciente">
-              <option selected disabled>Seleccionar paciente</option>
+              <option defaultValue selected disabled>Seleccionar paciente</option>
               {
-                patientList.map((pat) => {
+                patientList.length > 0
+                && patientList.map((pat, index) => {
                   if (pat.name.toLowerCase().includes(search.toLowerCase())
                         || pat.surname.toLowerCase().includes(search.toLowerCase())) {
                     return (
-                      <option key={pat.id} value={pat.id}>
+                      <option key={index} value={pat._id}>
                         {pat.surname}
                         ,
                         {pat.name}
@@ -72,14 +74,26 @@ function SelectPatient() {
                 })
             }
             </Form.Select>
+          </Form>
+          <hr />
+          Dar de alta
+          {' '}
+          <strong>paciente nuevo</strong>
 
+          <Form onSubmit={createNewPatient}>
+            <Form.Control onChange={handleChange} className="mt-3" type="text" placeholder="Nombre" name="name" required value={newPatient.name} />
+            <Form.Control onChange={handleChange} className="mt-2" type="text" placeholder="Apellido" name="surname" required value={newPatient.surname} />
+            <Form.Control onChange={handleChange} className="mt-2" type="email" placeholder="Email" name="email" required value={newPatient.email} />
+            <Button type="submit" variant="primary" className="mt-2">
+              Dar de alta
+            </Button>
           </Form>
         </Modal.Body>
         <Modal.Footer>
           {
             patient !== '' ? (
               <Button variant="primary" onClick={(e) => createStudy(e)}>
-                Crear
+                Crear estudio
               </Button>
             ) : null
           }

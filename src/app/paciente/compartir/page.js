@@ -33,7 +33,7 @@ function Login() {
               <div className="login-form">
                 <Form>
                   <Form.Control
-                    placeholder="Email"
+                    placeholder="Email del profesional"
                     type="email"
                     className="text-input text-center"
                     value={email}

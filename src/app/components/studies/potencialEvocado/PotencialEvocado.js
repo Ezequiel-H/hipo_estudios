@@ -33,7 +33,7 @@ const MicrofonicasCocleares = styled.div`
     }
 `;
 
-function PotencialEvocado() {
+function PotencialEvocado({ patientId }) {
   const [potencial, setPotencial] = useState({
     clic: '',
     tono: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
@@ -79,6 +79,10 @@ function PotencialEvocado() {
     return cells;
   };
 
+  function handleChange(e) {
+
+  }
+
   return (
     <main style={{ backgroundColor: 'white', margin: '3rem 0' }}>
       <Container>
@@ -86,8 +90,14 @@ function PotencialEvocado() {
         <Row>
           <Col sm={12} md={12} lg={6} xl={6}>
             <p className="sub-title mb-0">Por clic</p>
+            <Form.Control
+              type="text"
+              value={potencial.clic}
+              name="clic"
+              onChange={handleChange}
+            />
+
             <div style={{ maxWidth: '500px' }}>
-              <Form.Range />
 
               <p className="sub-title mb-0 mt-5">Por tonos (Burst)</p>
               <Table className="text-center">

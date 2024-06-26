@@ -6,10 +6,12 @@
 
 'use client';
 
-import React, { useReducer, useState, useEffect } from 'react';
+import React, {
+  useReducer, useState, useEffect,
+} from 'react';
 import styled from '@emotion/styled';
 import {
-  Col, Row, Container, Form,
+  Col, Row, Container, Form, Alert,
 } from 'react-bootstrap';
 import Image from 'next/image';
 import { STUDY_TYPES } from '@/app/constants/study';
@@ -154,6 +156,8 @@ const tools = (
   },
 ) => {
   const [observations, setObservations] = useState('');
+  const [alertMasking, setAlertMasking] = useState(true);
+  const [alertNoResponse, setAlertNoResponse] = useState(true);
   return (
     <Col md={12} lg={4} xl={4} key={4} className="col-estudio-info" style={{ width: 'fit-content' }}>
       <Row className={isMobile ? 'select-tools-audiogram-mobile' : 'select-tools-audiogram'}>
@@ -196,7 +200,32 @@ const tools = (
         ))}
       </Row>
 
-      <div className="mt-4">
+      <div className={`mt-4 ${isMobile ? 'select-tools-audiogram-mobile' : 'select-tools-audiogram'}`}>
+        {
+          alertMasking
+          && (
+          <Alert variant="primary" onClose={() => setAlertMasking(false)} dismissible style={{}}>
+            <Alert.Heading style={{ color: 'var(--primaryColor);' }}>👆 Ensordecedor</Alert.Heading>
+            <p>
+              Para usarlo, simplemente hacé clic en el ícono de arriba.
+            </p>
+          </Alert>
+          )
+        }
+        {
+          alertNoResponse
+          && (
+          <Alert variant="primary" onClose={() => setAlertNoResponse(false)} dismissible style={{}}>
+            <Alert.Heading style={{ color: 'var(--primaryColor);' }}>👈 Sin respuesta</Alert.Heading>
+            <p>
+              Para indicar
+              {' '}
+              <strong>ausencia de respuesta</strong>
+              , volvé a hacer clic en el icono, sobre el audiograma.
+            </p>
+          </Alert>
+          )
+        }
         <p className="m-0 mb-2" style={{ fontSize: '22px' }}>Observaciones</p>
         <Form.Control
           type="textarea"

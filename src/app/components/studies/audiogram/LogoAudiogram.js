@@ -13,6 +13,7 @@ import {
 } from 'react-bootstrap';
 import Image from 'next/image';
 import FinishStudyBtn from '../FinishStudyBtn';
+import { STUDY_TYPES } from '@/app/constants/study';
 
 const Template = styled.div`
   background-color: white;
@@ -124,7 +125,7 @@ const STUDIES_SIDE = {
   [STUDIES_NAMES.I_OSEA]: 'izquierda',
 };
 
-const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, observations, setObservations) => (
+const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, observations, setObservations, patientId) => (
   <Col md={12} lg={4} xl={4} key={4} className="col-estudio-info" style={{ width: 'fit-content' }}>
     <Row className={isMobile ? 'select-tools-audiogram-mobile' : 'select-tools-audiogram'}>
       {Object.values(STUDIES_NAMES).map((name, index) => (
@@ -161,12 +162,12 @@ const tools = (evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, observa
       />
     </div>
     <div className="mt-4">
-      <FinishStudyBtn observations={observations} results={STUDIES} patientId="patientId" type="STUDY_TYPES.LOGOAUDIOGRAM" />
+      <FinishStudyBtn observations={observations} results={STUDIES} patientId={patientId} type={STUDY_TYPES.LOGOAUDIOGRAM} />
     </div>
   </Col>
 );
 
-function LogoAudiogram() {
+function LogoAudiogram({ patientId }) {
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
   const [evaluando, setEvaluando] = useState('dAerea');
   const [STUDIES, setStudies] = useState({
@@ -360,7 +361,7 @@ function LogoAudiogram() {
               </Form>
             </Row>
             {
-              !isMobile && tools(evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, observations, setObservations)
+              !isMobile && tools(evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, observations, setObservations, patientId)
             }
           </Container>
 
@@ -368,7 +369,7 @@ function LogoAudiogram() {
       </Container>
       <Container>
         {
-          isMobile && tools(evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, observations, setObservations)
+          isMobile && tools(evaluando, setEvaluando, agregarCurva, STUDIES, isMobile, observations, setObservations, patientId)
         }
       </Container>
 

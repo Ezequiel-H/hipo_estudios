@@ -1,7 +1,3 @@
-// TODO: agregar pantalla para usuario ver todos sus estudios y cuestionarios
-// (estos deberian ser un estudio mas, no deberian tener una carpeta separada,
-// solo ser otro componente)
-
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -13,6 +9,7 @@ function Estudios() {
 
   useEffect(() => {
     setUserType(localStorage.getItem('userType'));
+    window.location.href = '/paciente/perfil#estudios';
     // eslint-disable-next-line
   }, [])
 
